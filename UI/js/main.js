@@ -11,7 +11,16 @@ signup.onclick = e => {
   signupModal.style.display = "block";
 };
 
+login.onclick = e => {
+  loginModal.style.display = "block";
+};
+
 signupModal.onclick = function(e) {
   if (e.target != this) return;
   signupModal.style.display = "none";
+};
+
+loginModal.onclick = function(e) {
+  if (e.target != this) return;
+  loginModal.style.display = "none";
 };
