@@ -5,12 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="shortcut icon" type="image/png" href="img/banka-blue-logo.png" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <title>Banka</title>
   </head>
   <body>
-    <div class="top-banner"></div>
-    <div class="easy-banking-section"></div>
-    <div class="create-account-section"></div>
-    <div class="actions-section"></div>
+    <div class="wrapper">
+      <div class="top-banner">
+        <header>
+          <a href="index.html">
+            <img class="logo" src="./img/banka-light-logo.png"
+          /></a>
+          <nav>
+            <a class="signup-button" id="signup-button">Signup</a>
+            <a class="login-button" id="login-button">Login</a>
+          </nav>
+        </header>
+
+        <h1>Creating Financial Happiness for all.</h1>
+      </div>
+      <div class="easy-banking-section">
+        <div class="achievement-section" id="test">
+          <div class="achievement">
+            <img src="./img/branch_img.svg" alt="200 Branches" />
+            <div>
+              <h4>200</h4>
+              <p>Branches</p>
+            </div>
+          </div>
+
+          <div class="achievement">
+            <img src="./img/transactions-img.svg" alt="100K Transactions" />
+            <div>
+              <h4>100K</h4>
+              <p>Transactions</p>
+            </div>
+          </div>
+
+          <div class="achievement">
+            <img src="./img/happy-customer-img.svg" alt="3M Happy Customers" />
+            <div>
+              <h4>3M</h4>
+              <p>Happy Customers</p>
+            </div>
+          </div>
+        </div>
+        <h2>
+          Banking made easy
+        </h2>
+        <p>
+          Banka is a light-weight core banking application that powers banking
+          operations like account creation, customer deposit and withdrawals.
+          This app is meant to support a single bank, where users can signup and
+          create bank accounts online, but must visit the branch to withdraw or
+          deposit money.
+        </p>
+      </div>
+      <div class="create-account-section">
+        <h5>
+          Want to create an account?
+        </h5>
+        <button class="create-account-button">Click here</button>
+      </div>
+      <div class="actions-section">
+        <div class="action">
+          <img src="./img/open-account-img.svg" alt="Open an account" />
+          <div>
+            <h4>Open an account</h4>
+          </div>
+        </div>
+
+        <div class="action">
+          <img
+            src="./img/transaction-history-img.svg"
+            alt="100K Transactions"
+          />
+          <div>
+            <h4>View transaction history</h4>
+          </div>
+        </div>
+
+        <div class="action">
+          <img src="./img/internet-support-img.svg" alt="3M Happy Customers" />
+          <div>
+            <h4>Internet support</h4>
+          </div>
+        </div>
+      </div>
+
+      <div id="signupModal" class="modal">
+        <div class="add-new-today">
+          <span class="closeDialog">&times;</span>
+          <div class="add-today">
+            <img src="./img/banka-blue-logo.png" />
+    
+            <input type="text" id="fname" name="fname" placeholder="First Name">
+            <input type="text" id="lname" name="lname" placeholder="Last Name">
+            <input type="text" id="email" name="email" placeholder="Email Address">
+            <input type="password" id="password" name="password" placeholder="Password">
+    
+            <button class="signup">Signup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   </body>
+  <script src="./js/main.js"></script>
 </html>
