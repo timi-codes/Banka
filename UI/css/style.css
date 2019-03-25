@@ -5,7 +5,7 @@
   --accent-yellow: #fbb416;
   --danger-red: #ff3d3d;
   --success-green: #13ce03;
-  --light-grey: #828282;
+  --light-grey: #c0c0c0;
   --dark-grey: #282828;
 }
 
@@ -74,7 +74,7 @@ h1 {
   font-size: 52px;
   max-width: 50%;
   margin-top: 6rem;
-  margin-bottom: 9rem;
+  margin-bottom: 13rem;
 }
 
 header {
@@ -206,4 +206,42 @@ actions section
 .action h4 {
   font-size: 1.5rem;
   margin-top: 10px;
+}
+
+/**
+modals
+**/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000000;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid var(--light-grey);
+  outline: none;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.add-new-today {
+  background-color: white;
+  padding: 20px 40px 50px 40px;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  width: 320px;
+  text-align: center;
+  float: right;
+  margin-right: 3rem;
 }

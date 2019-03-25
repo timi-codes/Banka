@@ -16,8 +16,8 @@
             <img class="logo" src="./img/banka-light-logo.png"
           /></a>
           <nav>
-            <a class="signup-button">Signup</a>
-            <a class="login-button">Login</a>
+            <a class="signup-button" id="signup-button">Signup</a>
+            <a class="login-button" id="login-button">Login</a>
           </nav>
         </header>
 
@@ -91,6 +91,23 @@
           </div>
         </div>
       </div>
+
+      <div id="signupModal" class="modal">
+        <div class="add-new-today">
+          <span class="closeDialog">&times;</span>
+          <div class="add-today">
+            <img src="./img/banka-blue-logo.png" />
+    
+            <input type="text" id="fname" name="fname" placeholder="First Name">
+            <input type="text" id="lname" name="lname" placeholder="Last Name">
+            <input type="text" id="email" name="email" placeholder="Email Address">
+            <input type="password" id="password" name="password" placeholder="Password">
+    
+            <button class="signup">Signup</button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </body>
   <script src="./js/main.js"></script>
