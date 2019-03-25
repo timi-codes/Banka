@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="img/banka-blue-logo.png" />
+    <link rel="stylesheet" type="text/css" href="../css/dashboard.css" />
+    <title>Banka</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="top">
+          <a href="../index.html"><img src="../img/banka-blue-logo.svg"/></a>
+          <div class="current-user web-user">
+            <img class="avatar" src="../img/emeka copy@3x.png" />
+            <h4>White House</h4>
+            <img class="arrow-down" src="../img/arrow-drop-down.svg" />
+          </div>
+        </div>
+      </header>
+      <div class="banner">
+        <div class="balance">
+          <p>Account Balance</p>
+          <h3>₦ 1,000,000</h3>
+        </div>
+        <button id="account-button">Create a bank account</button>
+      </div>
+      <div class="content">
+        <table>
+          <tr>
+            <th class="table-title" colspan="6">My Accounts</th>
+          </tr>
+          <tr>
+            <th class="table-header"></th>
+            <th class="table-header">Type</th>
+            <th class="table-header">Account Number</th>
+            <th class="table-header">Status</th>
+            <th class="table-header">Created On</th>
+            <th class="table-header">Balance</th>
+          </tr>
+          <tr>
+            <td><img src="../img/current-account-logo.svg" /></td>
+            <td>Current</td>
+            <td>0070729295</td>
+            <td>Active</td>
+            <td>23rd, Feb 2019</td>
+            <td>₦ 1,000,000</td>
+          </tr>
+          <tr>
+            <td><img src="../img/savings-account-logo.svg" /></td>
+            <td>Savings</td>
+            <td>0222010772</td>
+            <td>Active</td>
+            <td>25th, Mar 2019</td>
+            <td>₦ 1,500,000</td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th class="table-title" colspan="6">Transaction History</th>
+            <th class="account-filter" colspan="1">
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>All</option>
+                  <option>Credit</option>
+                  <option>Savings</option>
+                </select>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="table-header">Type</th>
+            <th class="table-header">Account Number</th>
+            <th class="table-header">Cashier</th>
+            <th class="table-header">Created On</th>
+            <th class="table-header">Amount</th>
+            <th class="table-header">Old Balance</th>
+            <th class="table-header">New Balance</th>
+          </tr>
+          <tr>
+            <td>Savings</td>
+            <td>0070729295</td>
+            <td>Shola Fayiga</td>
+            <td>23rd, Feb 2019</td>
+            <td>₦ 5,000,000</td>
+            <td>₦ 1,000,000</td>
+            <td>₦ 5,000,000</td>
+          </tr>
+          <tr>
+            <td>Savings</td>
+            <td>0070729295</td>
+            <td>Bola Tinubu</td>
+            <td>23rd, Feb 2019</td>
+            <td>₦ 2,000,000</td>
+            <td>₦ 5,000,000</td>
+            <td>₦ 3,000,000</td>
+          </tr>
+        </table>
+      </div>
+      <div id="accountModal" class="modal">
+        <div class="onboarding-modal">
+          <h3>Create a bank account</h3>
+          <input type="text" id="fname" name="fname" placeholder="First Name" />
+          <input type="text" id="lname" name="lname" placeholder="Last Name" />
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+          />
+          <input
+            type="text"
+            id="balance"
+            name="balance"
+            placeholder="Opening Balance"
+          />
+
+          <div class="ct-select-group ct-js-select-group">
+            <select class="ct-select ct-js-select">
+              <option>All</option>
+              <option>Credit</option>
+              <option>Savings</option>
+            </select>
+          </div>
+
+          <button class="signup">Create</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="../js/dashboard.js"></script>
+</html>

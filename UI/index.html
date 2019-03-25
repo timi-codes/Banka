@@ -13,7 +13,7 @@
       <div class="top-banner">
         <header>
           <a href="index.html">
-            <img class="logo" src="./img/banka-light-logo.png"
+            <img class="logo" src="./img/banka-light-logo.svg"
           /></a>
           <nav>
             <a class="signup-button" id="signup-button">Signup</a>
@@ -21,7 +21,7 @@
           </nav>
         </header>
 
-        <h1>Creating Financial Happiness for all.</h1>
+        <h1>Creating<br/> Financial Happiness for all.</h1>
       </div>
       <div class="easy-banking-section">
         <div class="achievement-section" id="test">
@@ -50,7 +50,7 @@
           </div>
         </div>
         <h2>
-          Banking made easy
+          Banking Made Easy
         </h2>
         <p>
           Banka is a light-weight core banking application that powers banking
@@ -93,10 +93,8 @@
       </div>
 
       <div id="signupModal" class="modal">
-        <div class="add-new-today">
-          <span class="closeDialog">&times;</span>
-          <div class="add-today">
-            <img src="./img/banka-blue-logo.png" />
+        <div class="onboarding-modal">
+            <img src="./img/banka-blue-logo.svg" />
     
             <input type="text" id="fname" name="fname" placeholder="First Name">
             <input type="text" id="lname" name="lname" placeholder="Last Name">
@@ -105,23 +103,27 @@
     
             <button class="signup">Signup</button>
           </div>
-        </div>
       </div>
 
       <div id="loginModal" class="modal">
-        <div class="add-new-today">
-          <span class="closeDialog">&times;</span>
-          <div class="add-today">
-            <img src="./img/banka-blue-logo.png" />
+        <div class="onboarding-modal">
+            <img src="./img/banka-blue-logo.svg" />
 
+            <div class="ct-select-group ct-js-select-group">
+              <select class="ct-select ct-js-select">
+                <option>CUSTOMER</option>
+                <option>STAFF</option>
+                <option>ADMIN</option>
+                </select>
+          </div>
             <input type="text" id="email" name="email" placeholder="Email Address">
             <input type="password" id="password" name="password" placeholder="Password">
     
             <button class="signup">Login</button>
-          </div>
+
+            <p class="account"><a id="signup-button">Forgot password?</a></p>
         </div>
       </div>
-
     </div>
     </div>
   </body>
