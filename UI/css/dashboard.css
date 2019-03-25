@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
+
+:root {
+  --primary-blue: #0c4bef;
+  --accent-yellow: #fbb416;
+  --danger-red: #ff3d3d;
+  --success-green: #13ce03;
+  --light-grey: #a0a0a0;
+  --dark-grey: #333333;
+  --input-color: #dae5f7;
+  --cream-green: #e8fff9;
+}
+
+/*border box alows us to add padding and border to our elemets without increasing their size */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*We inherit box-sizing: border-box from <html> selector 
+  as this will give us more felexibility of using other box sizing value(box-padding,
+  content-box) with worry about universal selector overriding our CSS
+  *:after, *:before caters for pseodo element box-sizing*/
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: white;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.top {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+}
+
+.web-user {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  margin-right: 15px;
+}
+
+h4 {
+  font-size: 12px;
+}
+
+.top a img {
+  width: 75%;
+}
+
+.arrow-down {
+  width: 10px;
+  height: 10px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.wrapper {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 10rem 1fr;
+  grid-template-areas: "header header" "banner banner" "content content";
+}
+
+header {
+  justify-items: space-between;
+  background-color: white;
+  grid-area: header;
+}
+
+.banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--primary-blue) url("../img/dashboard-top-banner.svg")
+    no-repeat center center fixed;
+  grid-area: banner;
+}
+
+.balance {
+  color: white;
+  justify-self: start;
+  align-self: center;
+  margin-left: 4rem;
+}
+
+.balance h3 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  /* font-weight: 800; */
+}
+
+.banner button {
+  padding: 0.9rem 2.5rem;
+  border: 0;
+  color: #0036c2;
+  background: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+  margin-right: 4rem;
+  outline: none;
+  justify-self: end;
+  align-self: center;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  grid-area: content;
+  flex-flow: column wrap;
+  justify-items: center;
+  grid-gap: 0;
+  padding-bottom: 3rem;
+}
+
+/*tables*/
+table {
+  /* border-collapse: collapse; */
+  margin: auto;
+  text-align: center;
+  box-shadow: 4px 4px 22px 1px rgba(216, 216, 216, 0.2);
+  border-radius: 5px;
+  border: 1px solid #dae5f7;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+td {
+  border: 1px solid #dae5f7;
+  text-align: center;
+  padding: 8px 20px;
+  width: auto;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 400;
+}
+th {
+  /* background-color: var(--cream-green); */
+  padding: 13px;
+  color: var(--dark-grey);
+  border: 1px solid #dae5f7;
+  font-weight: 600;
+}
+
+.table-title {
+  text-align: left;
+  margin-left: 2rem;
+  color: var(--primary-blue);
+  font-weight: 800;
+  padding-left: 2rem;
+}
+
+.account-filter {
+  text-align: right;
+  margin-left: 2rem;
+  color: var(--primary-blue);
+}
+
+td img {
+  width: 30px;
+  height: 30px;
+}
+
+td button {
+  padding: 0.6rem 2rem;
+  width: 100px;
+  text-align: center;
+  margin: auto;
+  font-size: 13px;
+}
+
+td .delete {
+  background-color: #ff3a3a;
+  margin-top: 10px;
+}
+
+.ct-select-group {
+  height: 37px;
+  position: relative;
+}
+
+.ct-select-group .ct-select {
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4f4f4f;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: 1px solid #dae5f7;
+  border-radius: 3px;
+  outline: none;
+}
+.ct-select-group .ct-select option {
+  font-size: 18px;
+  background: #fff;
+}
+.ct-select-group:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  width: calc(100% - 64px);
+  background: transparent;
+  z-index: 0;
+}
+.ct-select-group:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background-image: url(../img/arrow-drop-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/**
+modals
+**/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000000;
+  padding-top: 90px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 11px 0;
+  border: 1px solid var(--input-color);
+  outline: none;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.onboarding-modal .ct-select-group {
+  margin: 11px 0;
+}
+
+.onboarding-modal {
+  background-color: white;
+  padding: 40px 40px 50px 40px;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  margin: auto;
+  text-align: center;
+  width: calc(100vw / 3.5);
+}
+
+.onboarding-modal h3 {
+  color: #0036c2;
+  margin-bottom: 1rem;
+}
+
+.onboarding-modal button {
+  padding: 0.9rem 2.5rem;
+  border: 0;
+  color: white;
+  background: var(--primary-blue);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  outline: none;
+  width: 100%;
+}
+
+.onboarding-modal img {
+  height: auto;
+  width: 80px;
+  margin-bottom: 1.3rem;
+}
+
+.onboarding-modal p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.onboarding-modal a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-grey);
+}
+
+/**stop scrolling
+**/
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}

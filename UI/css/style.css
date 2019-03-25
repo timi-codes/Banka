@@ -1,12 +1,14 @@
-/* use self hosted Circular STD font because it's not available on google fonts*/
-@import url(https://drive.google.com/drive/u/0/folders/1qO5KBgj7ynP1KCtMXJhgEf6Pb3iYQoAY);
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
+
 :root {
   --primary-blue: #0c4bef;
   --accent-yellow: #fbb416;
   --danger-red: #ff3d3d;
   --success-green: #13ce03;
-  --light-grey: #c0c0c0;
-  --dark-grey: #282828;
+  --light-grey: #a0a0a0;
+  --dark-grey: #333333;
+  --input-color: #dae5f7;
 }
 
 /*border box alows us to add padding and border to our elemets without increasing their size */
@@ -30,7 +32,7 @@ content-box) with worry about universal selector overriding our CSS
 body {
   padding: 0;
   margin: 0;
-  font-family: CircularStd, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: white;
 }
 
@@ -50,7 +52,7 @@ body {
     center center fixed; */
   background: var(--primary-blue) url("../img/top-banner-img.svg") no-repeat;
   background-size: cover;
-  padding: 0 2rem 0 4rem;
+  padding: 0 2rem 0 5rem;
   display: flex;
   flex-flow: column nowrap;
 }
@@ -69,12 +71,13 @@ button {
 }
 
 h1 {
-  font-weight: 600;
+  font-weight: 700;
   color: white;
-  font-size: 52px;
-  max-width: 50%;
-  margin-top: 6rem;
-  margin-bottom: 13rem;
+  font-size: 50px;
+  max-width: 45%;
+  margin-top: 5rem;
+  margin-bottom: 11rem;
+  line-height: 70px;
 }
 
 header {
@@ -84,7 +87,7 @@ header {
 }
 
 header .logo {
-  width: 100px;
+  width: 90px;
   height: auto;
 }
 
@@ -118,19 +121,22 @@ easy banking section
 }
 
 .achievement img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
+  margin-right: 1rem;
 }
 
 .achievement h4 {
   font-size: 2.7rem;
   color: var(--dark-grey);
+  text-align: left;
 }
 
 .achievement p {
   font-size: 1rem;
   color: var(--light-grey);
   text-align: start;
+  text-align: left;
 }
 
 .easy-banking-section {
@@ -140,7 +146,7 @@ easy banking section
 
 h2 {
   font-size: 2rem;
-  color: #4f4f4f;
+  color: var(--dark-grey);
   margin-bottom: 1rem;
 }
 
@@ -157,7 +163,7 @@ h2 {
 
 .create-account-section h5 {
   font-size: 1.1rem;
-  color: #4f4f4f;
+  color: var(--dark-grey);
   margin-right: 1.5rem;
   align-self: center;
 }
@@ -215,7 +221,7 @@ modals
   display: none;
   position: fixed;
   z-index: 1000000;
-  padding-top: 100px;
+  padding-top: 90px;
   left: 0;
   top: 0;
   width: 100%;
@@ -228,20 +234,112 @@ input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
-  border: 1px solid var(--light-grey);
+  margin: 11px 0;
+  border: 1px solid var(--input-color);
   outline: none;
   font-size: 14px;
   border-radius: 3px;
 }
 
-.add-new-today {
+.onboarding-modal {
   background-color: white;
-  padding: 20px 40px 50px 40px;
+  padding: 40px 40px 50px 40px;
   border: 1px solid var(--light-grey);
   border-radius: 5px;
   width: 320px;
   text-align: center;
   float: right;
   margin-right: 3rem;
+}
+
+.onboarding-modal button {
+  padding: 0.9rem 2.5rem;
+  border: 0;
+  color: white;
+  background: var(--primary-blue);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  outline: none;
+  width: 100%;
+}
+
+.onboarding-modal img {
+  height: auto;
+  width: 80px;
+  margin-bottom: 1.3rem;
+}
+
+.onboarding-modal p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.onboarding-modal a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-grey);
+}
+
+.ct-select-group {
+  height: 44px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.ct-select-group .ct-select {
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4f4f4f;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: 1px solid #dae5f7;
+  border-radius: 3px;
+  outline: none;
+}
+.ct-select-group .ct-select option {
+  font-size: 18px;
+  background: #fff;
+}
+.ct-select-group:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  width: calc(100% - 64px);
+  background: transparent;
+  z-index: 0;
+}
+.ct-select-group:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background-image: url(../img/arrow-drop-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/**stop scrolling
+**/
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
 }
