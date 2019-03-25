@@ -79,7 +79,7 @@ h4 {
 .wrapper {
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 10rem 1fr;
+  grid-template-rows: auto 9rem 1fr;
   grid-template-areas: "header header" "banner banner" "content content";
 }
 
@@ -122,6 +122,7 @@ header {
   outline: none;
   justify-self: end;
   align-self: center;
+  cursor: pointer;
 }
 .content {
   display: flex;
@@ -182,11 +183,22 @@ td img {
 }
 
 td button {
-  padding: 0.6rem 2rem;
-  width: 100px;
+  padding: 0.7rem 1.4rem;
+  width: 80px;
   text-align: center;
   margin: auto;
-  font-size: 13px;
+  font-size: 12px;
+  margin-right: 9px;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  font-weight: 500;
+  border: 0;
+  cursor: pointer;
+}
+
+.viewBtn {
+  background-color: var(--accent-yellow);
 }
 
 td .delete {
@@ -305,6 +317,7 @@ input[type="password"] {
   text-transform: uppercase;
   outline: none;
   width: 100%;
+  cursor: pointer;
 }
 
 .onboarding-modal img {

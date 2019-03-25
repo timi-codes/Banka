@@ -68,6 +68,7 @@ button {
   margin: 1rem 0;
   text-transform: uppercase;
   outline: none;
+  cursor: pointer;
 }
 
 h1 {
@@ -99,6 +100,7 @@ nav a {
   margin: 0 1.5rem;
   text-align: center;
   font-weight: 400;
+  cursor: pointer;
 }
 
 /**
@@ -264,6 +266,7 @@ input[type="password"] {
   text-transform: uppercase;
   outline: none;
   width: 100%;
+  cursor: pointer;
 }
 
 .onboarding-modal img {
