@@ -110,16 +110,16 @@
             <img src="./img/banka-blue-logo.svg" />
 
             <div class="ct-select-group ct-js-select-group">
-              <select class="ct-select ct-js-select">
-                <option>CUSTOMER</option>
-                <option>STAFF</option>
-                <option>ADMIN</option>
+              <select class="ct-select ct-js-select" id="user-role">
+                <option value="customer">CUSTOMER</option>
+                <option value="staff">STAFF</option>
+                <option value="admin">ADMIN</option>
                 </select>
           </div>
             <input type="text" id="email" name="email" placeholder="Email Address">
             <input type="password" id="password" name="password" placeholder="Password">
     
-            <button class="signup">Login</button>
+            <button class="signup" id="user-login-btn">Login</button>
 
             <p class="account"><a id="signup-button">Forgot password?</a></p>
         </div>
