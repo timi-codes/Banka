@@ -66,6 +66,10 @@ body {
   margin-right: 15px;
 }
 
+a {
+  text-decoration: none;
+}
+
 h4 {
   font-size: 12px;
 }
@@ -188,18 +192,21 @@ td img {
 }
 
 td button {
-  padding: 0.7rem 1.4rem;
   width: 80px;
   text-align: center;
   margin: auto;
   font-size: 12px;
-  margin-right: 9px;
   color: white;
   border-radius: 5px;
   outline: none;
   font-weight: 500;
   border: 0;
   cursor: pointer;
+  padding: 0.7rem 1.4rem;
+}
+
+td a {
+  margin-right: 9px;
 }
 
 .viewBtn {
@@ -340,6 +347,11 @@ input[type="password"] {
   font-size: 14px;
   font-weight: 500;
   color: var(--dark-grey);
+}
+
+.content {
+  background-image: url(../img/content-bg.svg);
+  background-repeat: no-repeat;
 }
 
 /**stop scrolling
