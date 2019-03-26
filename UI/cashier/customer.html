@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="shortcut icon" type="image/png" href="img/banka-blue-logo.png" />
-    <link rel="stylesheet" type="text/css" href="../css/dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="../css/customer.css" />
     <title>Banka</title>
   </head>
   <body>
@@ -15,22 +15,33 @@
           <a href="../index.html"><img src="../img/banka-blue-logo.svg"/></a>
           <div class="current-user web-user">
             <img class="avatar" src="../img/emeka copy@3x.png" />
-            <h4>Timi Tejumola</h4>
+            <h4>Tejumola Peter</h4>
+            <span>(admin)</span>
             <img class="arrow-down" src="../img/arrow-drop-down.svg" />
           </div>
         </div>
       </header>
       <div class="banner">
+        <div class="customer">
+          <a href="./dashboard.html">
+            <img class="back-arrow" src="../img/back-arrow.svg" />
+          </a>
+          <img class="customer-avatar" src="../img/emeka copy@3x.png" />
+          <h4>Timi Tejumola</h4>
+          <!-- <span>ACTIVE</span> -->
+        </div>
         <div class="balance">
-          <p>Account Balance</p>
+          <p>CURRENT BALANCE</p>
           <h3>₦ 1,000,000</h3>
         </div>
-        <button id="account-button">Create a bank account</button>
+        <button class="credit-button" id="credit-button">
+          Credit/Debit Account
+        </button>
       </div>
       <div class="content">
         <table>
           <tr>
-            <th class="table-title" colspan="6">My Accounts</th>
+            <th class="table-title" colspan="7">Accounts</th>
           </tr>
           <tr>
             <th class="table-header"></th>
@@ -39,6 +50,7 @@
             <th class="table-header">Status</th>
             <th class="table-header">Created On</th>
             <th class="table-header">Balance</th>
+            <th class="action-header">Actions</th>
           </tr>
           <tr>
             <td><img src="../img/current-account-logo.svg" /></td>
@@ -47,6 +59,15 @@
             <td>Active</td>
             <td>23rd, Feb 2019</td>
             <td>₦ 1,000,000</td>
+            <td>
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>Active</option>
+                  <option>Dormant</option>
+                  <option>Draft</option>
+                </select>
+              </div>
+            </td>
           </tr>
           <tr>
             <td><img src="../img/savings-account-logo.svg" /></td>
@@ -55,6 +76,15 @@
             <td>Active</td>
             <td>25th, Mar 2019</td>
             <td>₦ 1,500,000</td>
+            <td>
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>Active</option>
+                  <option>Dormant</option>
+                  <option>Draft</option>
+                </select>
+              </div>
+            </td>
           </tr>
         </table>
 
@@ -102,35 +132,28 @@
       </div>
       <div id="accountModal" class="modal">
         <div class="onboarding-modal">
-          <h3>Create a bank account</h3>
-          <input type="text" id="fname" name="fname" placeholder="First Name" />
-          <input type="text" id="lname" name="lname" placeholder="Last Name" />
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="Email Address"
-          />
-          <input
-            type="text"
-            id="balance"
-            name="balance"
-            placeholder="Opening Balance"
-          />
-
+          <h3>Credit/Debit Account</h3>
+          <input type="text" id="fname" name="fname" placeholder="Full Name" />
           <div class="ct-select-group ct-js-select-group">
             <select class="ct-select ct-js-select">
-              <option>All</option>
-              <option>Credit</option>
+              <option selected>Select</option>
+              <option>Current</option>
               <option>Savings</option>
             </select>
           </div>
+          <input type="text" id="amount" name="amount" placeholder="Amount" />
+          <input
+            type="text"
+            id="account-bal"
+            name="account-bal"
+            placeholder="Account Balance"
+          />
 
-          <button class="signup">Create</button>
+          <button class="submit">Submit</button>
         </div>
       </div>
     </div>
   </body>
 
-  <script src="../js/dashboard.js"></script>
+  <script src="../js/customer.js"></script>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="shortcut icon" type="image/png" href="img/banka-blue-logo.png" />
-    <link rel="stylesheet" type="text/css" href="../css/dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="../css/customer.css" />
     <title>Banka</title>
   </head>
   <body>
@@ -22,119 +22,109 @@
         </div>
       </header>
       <div class="banner">
-        <div class="balance">
-          <p>Created Accounts</p>
-          <h3>1,000</h3>
+        <div class="customer">
+          <a href="./dashboard.html">
+            <img class="back-arrow" src="../img/back-arrow.svg" />
+          </a>
+          <img class="customer-avatar" src="../img/emeka copy@3x.png" />
+          <h4>Timi Tejumola</h4>
+          <!-- <span>ACTIVE</span> -->
         </div>
-        <button id="account-button">Create Admin/Staff account</button>
+        <div class="balance">
+          <p>CURRENT BALANCE</p>
+          <h3>₦ 1,000,000</h3>
+        </div>
+        <button class="delete-button">Delete Account</button>
       </div>
       <div class="content">
         <table>
           <tr>
-            <th class="table-title" colspan="5">Bank Accounts</th>
-            <th class="account-filter" colspan="2">
-              <input
-                type="text"
-                id="search"
-                name="search"
-                placeholder="Search"
-              />
+            <th class="table-title" colspan="7">Accounts</th>
+          </tr>
+          <tr>
+            <th class="table-header"></th>
+            <th class="table-header">Type</th>
+            <th class="table-header">Account Number</th>
+            <th class="table-header">Status</th>
+            <th class="table-header">Created On</th>
+            <th class="table-header">Balance</th>
+            <th class="action-header">Actions</th>
+          </tr>
+          <tr>
+            <td><img src="../img/current-account-logo.svg" /></td>
+            <td>Current</td>
+            <td>0070729295</td>
+            <td>Active</td>
+            <td>23rd, Feb 2019</td>
+            <td>₦ 1,000,000</td>
+            <td>
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>Active</option>
+                  <option>Dormant</option>
+                  <option>Draft</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><img src="../img/savings-account-logo.svg" /></td>
+            <td>Savings</td>
+            <td>0222010772</td>
+            <td>Active</td>
+            <td>25th, Mar 2019</td>
+            <td>₦ 1,500,000</td>
+            <td>
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>Active</option>
+                  <option>Dormant</option>
+                  <option>Draft</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th class="table-title" colspan="6">Transaction History</th>
+            <th class="account-filter" colspan="1">
+              <div class="ct-select-group ct-js-select-group">
+                <select class="ct-select ct-js-select">
+                  <option>All</option>
+                  <option>Credit</option>
+                  <option>Savings</option>
+                </select>
+              </div>
             </th>
           </tr>
           <tr>
             <th class="table-header">Type</th>
             <th class="table-header">Account Number</th>
-            <th class="table-header">Owner</th>
+            <th class="table-header">Cashier</th>
             <th class="table-header">Created On</th>
-            <th class="table-header">Status</th>
-            <th class="table-header">Balance</th>
-            <th class="table-header">Actions</th>
+            <th class="table-header">Amount</th>
+            <th class="table-header">Old Balance</th>
+            <th class="table-header">New Balance</th>
           </tr>
           <tr>
             <td>Savings</td>
             <td>0070729295</td>
             <td>Shola Fayiga</td>
             <td>23rd, Feb 2019</td>
-            <td>Active</td>
+            <td>₦ 5,000,000</td>
             <td>₦ 1,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
+            <td>₦ 5,000,000</td>
           </tr>
           <tr>
             <td>Savings</td>
             <td>0070729295</td>
             <td>Bola Tinubu</td>
             <td>23rd, Feb 2019</td>
-            <td>Active</td>
+            <td>₦ 2,000,000</td>
             <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Bola Tinubu</td>
-            <td>23rd, Feb 2019</td>
-            <td>Active</td>
-            <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Bola Tinubu</td>
-            <td>23rd, Feb 2019</td>
-            <td>Active</td>
-            <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Bola Tinubu</td>
-            <td>23rd, Feb 2019</td>
-            <td>Active</td>
-            <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Savings</td>
-            <td>0070729295</td>
-            <td>Bola Tinubu</td>
-            <td>23rd, Feb 2019</td>
-            <td>Active</td>
-            <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
-            </td>
+            <td>₦ 3,000,000</td>
           </tr>
         </table>
       </div>

@@ -1,6 +1,4 @@
 var accountModal = document.getElementById("accountModal");
-var account = document.getElementById("account-button");
-
 var body = document.getElementsByTagName("body")[0];
 
 accountModal.onclick = function(e) {
@@ -9,7 +7,9 @@ accountModal.onclick = function(e) {
   body.classList.remove("stop-scrolling");
 };
 
-account.onclick = e => {
+var credit = document.getElementById("credit-button");
+
+credit.onclick = e => {
   accountModal.style.display = "block";
   body.classList.add("stop-scrolling");
 };

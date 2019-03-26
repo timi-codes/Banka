@@ -60,14 +60,38 @@ body {
   font-size: 14px;
 }
 
+.customer {
+  display: flex;
+  color: white;
+  align-items: center;
+}
+
+.customer span {
+  margin-left: 0.6rem;
+  font-size: 14px;
+}
+
 .avatar {
   width: 35px;
   height: 35px;
   margin-right: 15px;
 }
 
-a {
-  text-decoration: none;
+.customer-avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.back-arrow {
+  width: 25px;
+  height: 25px;
+  margin-left: 2rem;
+  margin-right: 1.7rem;
+}
+
+.customer h4 {
+  font-size: 18px;
 }
 
 h4 {
@@ -100,7 +124,7 @@ header {
 
 .banner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   background: var(--primary-blue) url("../img/dashboard-top-banner.svg")
     no-repeat center center fixed;
   grid-area: banner;
@@ -108,31 +132,55 @@ header {
 
 .balance {
   color: white;
-  justify-self: start;
+  justify-self: end;
   align-self: center;
   margin-left: 4rem;
+  border-right: 1px solid white;
+  padding-right: 2rem;
 }
 
 .balance h3 {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   line-height: 1.2;
   /* font-weight: 800; */
+}
+
+.balance p {
+  font-size: 12px;
 }
 
 .banner button {
   padding: 0.9rem 2.5rem;
   border: 0;
-  color: #0036c2;
-  background: white;
+  color: white;
+  background: var(--danger-red);
   font-size: 14px;
   font-weight: 600;
   border-radius: 2px;
-  margin-right: 4rem;
+  margin-right: 4.5rem;
+  margin-left: 2rem;
   outline: none;
   justify-self: end;
   align-self: center;
   cursor: pointer;
 }
+
+.banner .credit-button {
+  padding: 0.9rem 2rem;
+  border: 0;
+  color: white;
+  background: var(--accent-yellow);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+  margin-right: 4.5rem;
+  margin-left: 2rem;
+  outline: none;
+  justify-self: end;
+  align-self: center;
+  cursor: pointer;
+}
+
 .content {
   display: flex;
   justify-content: center;
@@ -164,12 +212,18 @@ td {
   font-size: 14px;
   font-weight: 400;
 }
+
 th {
   /* background-color: var(--cream-green); */
   padding: 13px;
   color: var(--dark-grey);
   border: 1px solid #dae5f7;
   font-weight: 600;
+  width: auto;
+}
+
+.action-header {
+  width: 150px;
 }
 
 .table-title {
@@ -192,21 +246,18 @@ td img {
 }
 
 td button {
+  padding: 0.7rem 1.4rem;
   width: 80px;
   text-align: center;
   margin: auto;
   font-size: 12px;
+  margin-right: 9px;
   color: white;
   border-radius: 5px;
   outline: none;
   font-weight: 500;
   border: 0;
   cursor: pointer;
-  padding: 0.7rem 1.4rem;
-}
-
-td a {
-  margin-right: 9px;
 }
 
 .viewBtn {
