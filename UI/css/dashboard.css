@@ -55,6 +55,11 @@ body {
   align-items: center;
 }
 
+.web-user span {
+  margin-left: 0.6rem;
+  font-size: 14px;
+}
+
 .avatar {
   width: 35px;
   height: 35px;
