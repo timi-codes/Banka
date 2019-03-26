@@ -30,3 +30,24 @@ loginModal.onclick = function(e) {
   loginModal.style.display = "none";
   body.classList.remove("stop-scrolling");
 };
+
+var userLogin = document.getElementById("user-login-btn");
+var userRole = document.getElementById("user-role");
+var role = "customer";
+userRole.onchange = function() {
+  role = document.getElementById("user-role").value;
+};
+
+userLogin.onclick = function(e) {
+  gotoNextPage();
+};
+
+function gotoNextPage() {
+  if (role == "customer") {
+    window.location.href = "./customer/dashboard.html";
+  } else if (role == "staff") {
+    window.location.href = "./cashier/dashboard.html";
+  } else if (role == "admin") {
+    window.location.href = "./admin/dashboard.html";
+  }
+}
