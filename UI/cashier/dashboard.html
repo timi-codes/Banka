@@ -17,14 +17,19 @@
       <header>
         <div class="top">
           <a href="../index.html"><img src="../img/banka-blue-logo.svg"/></a>
-          <div class="current-user web-user">
+          <div class="current-user web-user dropdown">
             <img class="avatar" src="../img/emeka copy@3x.png" />
             <h4>Tejumola Peter</h4>
-            <span>(staff)</span>
+            <span>(cashier)</span>
             <img class="arrow-down" src="../img/arrow-drop-down.svg" />
+            <div class="dropdown-content">
+              <a href="#" id="profile-button">Profile</a>
+              <a href="../index.html">Logout</a>
+            </div>
           </div>
         </div>
       </header>
+
       <div class="banner">
         <div class="balance">
           <p>Created Accounts</p>
@@ -145,6 +150,51 @@
             </td>
           </tr>
         </table>
+      </div>
+
+      <div id="profileModal" class="modal">
+        <div class="onboarding-modal">
+          <img class="avatar" src="../img/emeka copy@3x.png" />
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            value="Peter"
+            placeholder="First Name"
+            disabled
+          />
+          <input
+            type="text"
+            id="lname"
+            name="lname"
+            value="Tejumola"
+            placeholder="Last Name"
+            disabled
+          />
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value="petertejumola@gmail.com"
+            placeholder="Email Address"
+            disabled
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          />
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Confirm Password"
+          />
+
+          <button class="update">Update</button>
+        </div>
       </div>
     </div>
   </body>
