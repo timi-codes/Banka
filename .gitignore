@@ -63,3 +63,4 @@ typings/
 .DS_Store
 
 ./UI/.DS_Store
+./API/.DS_STORE
