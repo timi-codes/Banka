@@ -2,18 +2,21 @@
   "name": "banka",
   "version": "1.0.0",
   "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
-  "main": "index.js",
+  "main": "API/index.js",
   "dependencies": {
-    "circular-std": "^1.0.0"
+    "express": "^4.16.4",
+    "body-parser": "^1.18.3"
   },
   "devDependencies": {
     "browser-sync": "^2.26.3",
+    "nodemon": "^1.18.10",
     "run-script-os": "^1.0.5"
   },
   "scripts": {
-    "start": "run-script-os",
-    "start:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
-    "start:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'"
+    "ui": "run-script-os",
+    "ui:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
+    "ui:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'",
+    "start": "nodemon -exec API/index.js"
   },
   "repository": {
     "type": "git",
