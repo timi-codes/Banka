@@ -13,11 +13,15 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.3",
     "browser-sync": "^2.26.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
-    "run-script-os": "^1.0.5"
+    "run-script-os": "^1.0.5",
+    "should": "^13.2.3"
   },
   "scripts": {
     "ui": "run-script-os",
