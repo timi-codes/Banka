@@ -1,5 +1,6 @@
 import express from 'express';
 import { json } from 'body-parser';
+import debug from 'debug';
 
 const app = express();
 const port = process.env.PORT || 7888;
@@ -12,8 +13,7 @@ app.get('/', (req, res) => {
 
 if (!module.parent) {
   app.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`Server is running on port ${port}`);
+    debug('development')(`Server is running on port ${port}`);
   });
 }
 
