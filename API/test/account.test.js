@@ -6,7 +6,7 @@ import app from '../index';
 chai.use(chaiHttp);
 
 describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
-  let generatedToken = null;
+  let generatedToken = '1000';
 
   /**
    * Sign in user to generate user token before test
@@ -88,6 +88,30 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.data.should.be.a('array');
+          done();
+        });
+    });
+  });
+
+  /**
+   * Test the GET /accounts/:accountNumber route
+   */
+  describe('GET /accounts/:accountNumber', () => {
+    it('it should GET a bank account by the given account number', (done) => {
+      const accountNumber = 0o222010772; // octal number format
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', generatedToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('accountNumber').eql(accountNumber);
+          res.body.data.should.have.property('firstName');
+          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('type');
+          res.body.data.should.have.property('openingBalance');
           done();
         });
     });
