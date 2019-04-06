@@ -237,4 +237,55 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         });
     });
   });
+
+  /**
+   * Test  DELETE /accounts/:accountNumber route
+   */
+  describe('DELETE /accounts/:accountNumber', () => {
+    it('it should DELETE a bank record ', (done) => {
+      const accountNumber = 0o222300; // octal number format
+      chai
+        .request(app)
+        .delete(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', generatedToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have
+            .property('message')
+            .eql('Invalid account number. Account number must be a number');
+          done();
+        });
+    });
+
+    it('it should throw an error when account number is not found', (done) => {
+      const accountNumber = 0o222300; // octal number format
+      chai
+        .request(app)
+        .delete(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', generatedToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Account number cannot be found');
+          done();
+        });
+    });
+
+    it('it should throw an error when account number is invalid', (done) => {
+      const accountNumber = '0o222300ghdh'; // octal number format
+      chai
+        .request(app)
+        .delete(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', generatedToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have
+            .property('message')
+            .eql('Invalid account number. Account number must be a number');
+          done();
+        });
+    });
+  });
 });
