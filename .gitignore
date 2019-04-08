@@ -64,3 +64,6 @@ typings/
 
 ./UI/.DS_Store
 ./API/.DS_STORE
+
+#vscode 
+.vscode

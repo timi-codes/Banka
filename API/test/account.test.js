@@ -9,8 +9,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   let generatedToken = '1000';
 
   /**
-   * Sign in user to generate user token before test
-   */
+     * Sign in user to generate user token before test
+     */
   before('Sign in user to obtain auth token to be used in other account operations', (done) => {
     const userCredential = {
       email: 'timitejumola@gmail.com',
@@ -31,8 +31,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   });
 
   /**
-   * Test the POST /accounts/ endpoint
-   */
+     * Test the POST /accounts/ endpoint
+     */
   describe('POST /accounts', () => {
     it('it should create a bank account', (done) => {
       const details = {
@@ -77,8 +77,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   });
 
   /**
-   * Test the GET /accounts/ routes
-   */
+     * Test the GET /accounts/ routes
+     */
   describe('GET /accounts', () => {
     it('it should get all the bank accounts', (done) => {
       chai
@@ -94,8 +94,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   });
 
   /**
-   * Test the GET /accounts/:accountNumber route
-   */
+     * Test the GET /accounts/:accountNumber route
+     */
   describe('GET /accounts/:accountNumber', () => {
     it('it should GET a bank account by the given account number', (done) => {
       const accountNumber = 0o222010772; // octal number format
@@ -148,8 +148,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   });
 
   /**
-   * Test the PATCH /accounts/:accountNumber route
-   */
+     * Test the PATCH /accounts/:accountNumber route
+     */
   describe('PATCH /accounts/:accountNumber', () => {
     it('it should activate a user bank account', (done) => {
       const accountNumber = 0o222010772; // octal number format
@@ -239,8 +239,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   });
 
   /**
-   * Test  DELETE /accounts/:accountNumber route
-   */
+     * Test  DELETE /accounts/:accountNumber route
+     */
   describe('DELETE /accounts/:accountNumber', () => {
     it('it should DELETE a bank record ', (done) => {
       const accountNumber = 0o222300; // octal number format
