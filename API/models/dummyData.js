@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Utils from '../utils/common';
 
 export default {
   accounts: [
@@ -36,7 +37,7 @@ export default {
       email: 'tejumoladavid@gmail.com',
       firstName: 'David',
       lastName: 'Tejumola',
-      password: 'fjdfdjfdjfdjfj',
+      password: Utils.hashPassword('password'),
       type: 'staff',
       isAdmin: true,
     },
@@ -45,7 +46,7 @@ export default {
       email: 'johnoke@gmail.com',
       firstName: 'John',
       lastName: 'Oke',
-      password: 'fjdfdjfdjfdjfj',
+      password: Utils.hashPassword('password'),
       type: 'staff',
       isAdmin: false,
     },
@@ -54,7 +55,7 @@ export default {
       email: 'boladeojo@gmail.com',
       firstName: 'Bolade',
       lastName: 'Ojo',
-      password: 'fjdfdjfdjfdjfj',
+      password: Utils.hashPassword('password'),
       type: 'client',
       isAdmin: false,
     },

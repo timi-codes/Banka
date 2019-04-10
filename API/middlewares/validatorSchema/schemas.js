@@ -25,7 +25,13 @@ const createUserSchema = Joi.object({
   isAdmin: Joi.boolean().default(false),
 });
 
+const loginUserSchema = Joi.object({
+  email,
+  password,
+});
+
 
 module.exports = {
   '/signup': createUserSchema,
+  '/signin': loginUserSchema,
 };
