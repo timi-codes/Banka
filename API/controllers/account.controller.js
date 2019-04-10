@@ -28,6 +28,16 @@ class AccountController {
       return response.send(res);
     }
   }
+
+  static fetchAllAccounts(req, res) {
+    const accounts = AccountService.getAllAccounts();
+    if (accounts.length > 0) {
+      response.setSuccess(200, accounts);
+    } else {
+      response.setError(204, 'no account has been created');
+    }
+    return response.send(res);
+  }
 }
 
 
