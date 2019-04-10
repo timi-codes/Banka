@@ -21,15 +21,6 @@ export default {
       status: 'active',
       balance: 400000.95,
     },
-    {
-      id: 3,
-      accountNumber: 222010972,
-      createdOn: moment(),
-      owner: 3,
-      type: 'current',
-      status: 'dormant',
-      balance: 400000.95,
-    },
   ],
   users: [
     {

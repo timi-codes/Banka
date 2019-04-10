@@ -1,11 +1,17 @@
+import moment from 'moment';
 import dummyData from './dummyData';
 import Utils from '../utils/common';
 
 export default class Account {
   static create(account) {
     const newId = Utils.getNextId(dummyData.accounts);
+
     const newAccount = account;
     newAccount.id = newId;
+    newAccount.accountNumber = Utils.generateAccountNumber(dummyData.accounts);
+    newAccount.createdOn = moment();
+    newAccount.status = 'dormant';
+
     dummyData.accounts.push(newAccount);
     return newAccount;
   }
@@ -17,6 +23,11 @@ export default class Account {
   static findByAccountNumber(accountNumber) {
     const source = dummyData.accounts;
     const foundAccount = source.find(account => account.accountNumber === accountNumber);
+    return foundAccount;
+  }
+
+  static findAccountByOwner(id) {
+    const foundAccount = dummyData.accounts.find(account => account.owner === id);
     return foundAccount;
   }
 

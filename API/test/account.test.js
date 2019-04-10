@@ -6,14 +6,13 @@ import app from '../index';
 chai.use(chaiHttp);
 
 describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
-  let generatedToken = '1000';
-
+  let generatedToken;
   /**
      * Sign in user to generate user token before test
      */
   before('Sign in user to obtain auth token to be used in other account operations', (done) => {
     const userCredential = {
-      email: 'timitejumola@gmail.com',
+      email: 'boladeojo@gmail.com',
       password: 'password',
     };
 
@@ -34,10 +33,29 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      * Test the POST /accounts/ endpoint
      */
   describe('POST /accounts', () => {
+    it('it should check for token in the request header', (done) => {
+      const details = {
+        type: 'savings',
+        balance: 0.00,
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/accounts')
+        .send(details)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('please assign a access token as header');
+          done();
+        });
+    });
+
+
     it('it should create a bank account', (done) => {
       const details = {
         type: 'savings',
-        openingBalance: '0',
+        balance: 0.00,
       };
 
       chai
@@ -53,24 +71,43 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.body.data.should.have.property('lastName');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('type');
-          res.body.data.should.have.property('openingBalance');
+          res.body.data.should.have.property('balance');
           done();
         });
     });
 
-    it('it should throw error when there is a missing field in the request body', (done) => {
+    it('it should throw error when account type is not specified', (done) => {
       const details = {
-        type: 'savings',
+        balance: 0.00,
       };
 
       chai
         .request(app)
         .post('/api/v1/accounts')
         .send(details)
+        .set('x-access-token', generatedToken)
         .end((err, res) => {
           res.should.have.status(422);
           res.body.should.be.a('object');
-          res.body.data.should.have.property('error');
+          res.body.should.have.property('error').eql('type is required');
+          done();
+        });
+    });
+
+    it('it should throw error when account type is different from savings and account', (done) => {
+      const details = {
+        type: 'somethingdifferent',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/accounts')
+        .set('x-access-token', generatedToken)
+        .send(details)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('type must be one of [savings, current]');
           done();
         });
     });

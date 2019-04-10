@@ -14,4 +14,9 @@ export default class User {
     const foundUser = dummyData.users.find(user => user.email === email);
     return foundUser;
   }
+
+  static findUserById(id) {
+    const foundUser = dummyData.users.find(user => user.id === id);
+    return foundUser;
+  }
 }

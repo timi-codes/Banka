@@ -12,6 +12,15 @@ const Utils = {
     return lastId + 1;
   },
   /**
+   * @description - generates a new account number
+   * @param {object} data
+   * @returns {int} id
+   */
+  generateAccountNumber(data) {
+    const lastAcc = data[data.length - 1].accountNumber;
+    return lastAcc + 100;
+  },
+  /**
    * @description - validate password by comparing password with hash password
    * @param {string} password
    * @param {string} hashpassword
