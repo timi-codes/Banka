@@ -27,6 +27,26 @@ class UserController {
       return response.send(res);
     }
   }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof UserController
+   */
+  static loginUser(req, res) {
+    const login = req.body;
+    try {
+      const user = UserService.signUser(login);
+      if (user) {
+        response.setSuccess(200, user);
+      }
+      return response.send(res);
+    } catch (error) {
+      response.setError(401, error.message);
+      return response.send(res);
+    }
+  }
 }
 
 export default UserController;

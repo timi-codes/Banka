@@ -191,7 +191,7 @@ describe('Test user login and signup', () => {
    * Test the POST /auth/signin endpoint
    */
   describe('POST /auth/signin', () => {
-    it('it should log the user in to the app', (done) => {
+    it('it should sign in a user', (done) => {
       const loginCredential = {
         email: 'tejumoladavid@gmail.com',
         password: 'password',
@@ -211,7 +211,25 @@ describe('Test user login and signup', () => {
         });
     });
 
-    it('it should not log a user in with missing payload fields', (done) => {
+    it('it should throw an error if email is missing in the rquest body', (done) => {
+      const loginCredential = {
+        password: 'password',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(loginCredential)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('email is required');
+          done();
+        });
+    });
+
+
+    it('it should throw an error if password is missing in the rquest body', (done) => {
       const loginCredential = {
         email: 'tejumoladavid@gmail.com',
       };
@@ -223,15 +241,16 @@ describe('Test user login and signup', () => {
         .end((err, res) => {
           res.should.have.status(422);
           res.body.should.be.a('object');
-          res.body.data.should.have.property('error');
+          res.body.should.have.property('error').eql('password is required');
           done();
         });
     });
 
+
     it('it should throw an error if user supply a wrong email or password combination ', (done) => {
       const loginCredential = {
         email: 'tejumoladavid@gmail.com',
-        password: 'pass',
+        password: 'passwordd',
       };
 
       chai
@@ -241,7 +260,7 @@ describe('Test user login and signup', () => {
         .end((err, res) => {
           res.should.have.status(401);
           res.body.should.be.a('object');
-          res.body.data.should.have.property('error');
+          res.body.should.have.property('error').eql('invalid user credentials');
           done();
         });
     });
