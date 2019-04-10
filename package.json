@@ -4,9 +4,14 @@
   "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
   "main": "API/index.js",
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "debug": "^4.1.1",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0"
   },
   "devDependencies": {
@@ -32,7 +37,7 @@
     "ui:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
     "ui:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'",
     "start": "DEBUG=development nodemon --exec babel-node API/index.js",
-    "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 10000 --exit"
+    "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/user.test.js --timeout 20000 --watch --exit"
   },
   "repository": {
     "type": "git",
