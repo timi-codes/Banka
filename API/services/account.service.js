@@ -37,6 +37,25 @@ class AccountService {
     }
     throw new Error('user doesn\'t exist');
   }
+
+  /**
+   * @description fetches all accounts
+   * @param {object} a new user object
+   */
+  static getAllAccounts() {
+    return Account.findAll().map((account) => {
+      const { owner, ...data } = account;
+
+      const user = User.findUserById(owner);
+
+      return {
+        ...data,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      };
+    });
+  }
 }
 
 

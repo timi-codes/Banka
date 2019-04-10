@@ -7,5 +7,6 @@ const router = Router();
 const validateRequest = SchemaValidator(false);
 
 router.post('/accounts', authMiddleware, validateRequest, AccountContoller.createBankAccount);
+router.get('/accounts', authMiddleware, AccountContoller.fetchAllAccounts);
 
 export default router;
