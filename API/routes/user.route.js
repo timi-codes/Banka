@@ -8,5 +8,4 @@ const validateRequest = SchemaValidator(false);
 router.post('/signup', validateRequest, UserController.createUser);
 router.post('/signin', validateRequest, UserController.loginUser);
 
-
 export default router;
