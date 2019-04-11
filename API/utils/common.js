@@ -12,6 +12,15 @@ const Utils = {
     return lastId + 1;
   },
   /**
+   * @description - generates a new id
+   * @param {object} data
+   * @returns {int} id
+   */
+  getNextTransactionId(data) {
+    const lastId = data[data.length - 1].transactionId;
+    return lastId + 1;
+  },
+  /**
    * @description - generates a new account number
    * @param {object} data
    * @returns {int} id

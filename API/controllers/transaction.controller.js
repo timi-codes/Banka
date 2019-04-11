@@ -22,7 +22,7 @@ class TransactionController {
     try {
       const transaction = TransactionService.debitAccount(id, accountNumber, amount);
       if (transaction) {
-        response.setSuccess(201, transaction);
+        response.setSuccess(200, transaction);
       }
       return response.send(res);
     } catch (error) {

@@ -68,22 +68,18 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         });
     });
 
-    it('it should debit a bank account', (done) => {
+
+    it('it should throw an insufficient balance error', (done) => {
       const accountNumber = 222010872;
-      const body = { amount: 50000 };
+      const body = { amount: 5000000 };
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/debit`)
         .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.data.should.have.property('accountNumber').eql(accountNumber);
-          res.body.data.should.have.property('transactionId');
-          res.body.data.should.have.property('amount');
-          res.body.data.should.have.property('cashier');
-          res.body.data.should.have.property('transactionType');
-          res.body.data.should.have.property('accountBalance');
+          res.body.should.have.property('error').eql('account balance is not sufficient');
           done();
         });
     });
@@ -134,6 +130,26 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
           res.body.should.have
             .property('error')
             .eql('amount must be a number');
+          done();
+        });
+    });
+
+    it('it should debit a bank account', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: 50000 };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/debit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('accountNumber').eql(accountNumber);
+          res.body.data.should.have.property('transactionId');
+          res.body.data.should.have.property('amount');
+          res.body.data.should.have.property('cashier');
+          res.body.data.should.have.property('transactionType');
+          res.body.data.should.have.property('accountBalance');
           done();
         });
     });
