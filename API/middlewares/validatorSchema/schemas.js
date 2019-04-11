@@ -37,9 +37,14 @@ const createAccountSchema = Joi.object({
     .default(0.00),
 });
 
+const updateStatusSchema = Joi.object({
+  status: Joi.string().lowercase().valid('dormant', 'active').required(),
+});
+
 
 module.exports = {
   '/signup': createUserSchema,
   '/signin': loginUserSchema,
   '/accounts': createAccountSchema,
+  '/accounts/:accountNumber': updateStatusSchema,
 };

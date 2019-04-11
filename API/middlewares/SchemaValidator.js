@@ -9,7 +9,7 @@ module.exports = (useJoiError = false) => {
   const useJoiErr = _.isBoolean(useJoiError) && useJoiError;
 
   // enabled HTTP methods for request data validation
-  const supportedMethods = ['post', 'put'];
+  const supportedMethods = ['post', 'put', 'patch'];
 
   // Joi validation options
   const validationOptions = {
@@ -23,9 +23,11 @@ module.exports = (useJoiError = false) => {
     const route = req.route.path;
     const method = req.method.toLowerCase();
 
+
     if (_.includes(supportedMethods, method) && _.has(Schemas, route)) {
       // get schema for the current route
       const schema = _.get(Schemas, route);
+
 
       if (schema) {
         // Validate req.body using the schema and validation options

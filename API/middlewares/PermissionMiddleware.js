@@ -23,7 +23,12 @@ const permissionMiddleWare = (req, res, next) => {
   const method = req.method.toLowerCase();
 
   if (route === '/accounts' && method === 'get' && type !== 'staff') {
-    response.setError(403, 'you do not have the permission to perform this operation');
+    response.setError(403, 'only a staff has the permission to get all bank accounts');
+    return response.send(res);
+  }
+
+  if (route === '/accounts/:accountNumber' && method === 'patch' && type !== 'staff') {
+    response.setError(403, 'only a staff has the permission to change account status');
     return response.send(res);
   }
   next();

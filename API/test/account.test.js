@@ -127,7 +127,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .set('x-access-token', clientToken)
         .end((err, res) => {
           res.should.have.status(403);
-          res.body.should.have.property('error').eql('you do not have the permission to perform this operation');
+          res.body.should.have.property('error').eql('only a staff has the permission to get all bank accounts');
           done();
         });
     });
@@ -223,13 +223,30 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      * Test the PATCH /accounts/:accountNumber route
      */
   describe('PATCH /accounts/:accountNumber', () => {
-    it('it should activate a user bank account', (done) => {
-      const accountNumber = 0o222010772; // octal number format
+    it('it should throw permission error if user is not an admin', (done) => {
+      const accountNumber = 222010872;
       const body = { status: 'active' };
       chai
         .request(app)
         .patch(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', clientToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a staff has the permission to change account status');
+          done();
+        });
+    });
+
+
+    it('it should activate a user bank account', (done) => {
+      const accountNumber = 222010872; // octal number format
+      const body = { status: 'active' };
+      chai
+        .request(app)
+        .patch(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', adminToken)
         .send(body)
         .end((err, res) => {
           res.should.have.status(200);
@@ -241,12 +258,12 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should set a bank account as dormant', (done) => {
-      const accountNumber = 0o222010772; // octal number format
+      const accountNumber = 222010872;
       const body = { status: 'dormant' };
       chai
         .request(app)
         .patch(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .send(body)
         .end((err, res) => {
           res.should.have.status(200);
@@ -258,53 +275,33 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 0o222010772; // octal number format
+      const accountNumber = 2220108723333;
       const body = { status: 'dormant' };
       chai
         .request(app)
         .patch(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
-        .send(body)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Account number cannot be found');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is invalid', (done) => {
-      const accountNumber = 0o222010772; // octal number format
-      const body = { status: 'dormant' };
-      chai
-        .request(app)
-        .patch(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .send(body)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Invalid account number. Account number must be a number');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
           done();
         });
     });
 
-    it('it should throw an error when "status" in request body is invalid ', (done) => {
-      const accountNumber = 0o222010772; // octal number format
-      const body = { status: '' };
+    it('it should throw error when request body status is different from dormant or active', (done) => {
+      const accountNumber = 222010872; // octal number format
+      const body = { status: 'validate' };
       chai
         .request(app)
         .patch(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Require request body "status" to be active or dormant');
+          res.body.should.have.property('error').eql('status must be one of [dormant, active]');
           done();
         });
     });
