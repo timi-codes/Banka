@@ -40,7 +40,7 @@ class AccountService {
 
   /**
    * @description fetches all accounts
-   * @param {object} a new user object
+   * @param {array} of user objects
    */
   static getAllAccounts() {
     return Account.findAll().map((account) => {
@@ -55,6 +55,25 @@ class AccountService {
         email: user.email,
       };
     });
+  }
+
+  /**
+   * @description fetches all accounts
+   * @param {object} response
+   */
+  static changeAccountStatus(accountNumber, status) {
+    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
+
+    if (foundAccount) {
+      const account = Account.update(foundAccount, status);
+      return {
+        accountNumber: account.accountNumber,
+        status,
+      };
+    }
+
+
+    throw new Error('account number doesn\'t exist');
   }
 }
 

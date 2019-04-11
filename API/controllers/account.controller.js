@@ -24,11 +24,17 @@ class AccountController {
       }
       return response.send(res);
     } catch (error) {
-      response.setError(403, error.message);
+      response.setError(400, error.message);
       return response.send(res);
     }
   }
 
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof AccountController
+   */
   static fetchAllAccounts(req, res) {
     const accounts = AccountService.getAllAccounts();
     if (accounts.length > 0) {
@@ -37,6 +43,27 @@ class AccountController {
       response.setError(204, 'no account has been created');
     }
     return response.send(res);
+  }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof AccountController
+   */
+  static changeStatus(req, res) {
+    const { status } = req.body;
+    const { accountNumber } = req.params;
+    try {
+      const data = AccountService.changeAccountStatus(accountNumber, status);
+      if (data) {
+        response.setSuccess(200, data);
+      }
+      return response.send(res);
+    } catch (error) {
+      response.setError(400, error.message);
+      return response.send(res);
+    }
   }
 }
 

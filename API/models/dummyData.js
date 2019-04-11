@@ -18,7 +18,7 @@ export default {
       createdOn: moment(),
       owner: 2,
       type: 'current',
-      status: 'active',
+      status: 'dormant',
       balance: 400000.95,
     },
   ],
