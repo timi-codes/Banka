@@ -31,6 +31,11 @@ const permissionMiddleWare = (req, res, next) => {
     response.setError(403, 'only a staff has the permission to change account status');
     return response.send(res);
   }
+
+  if (route === '/accounts/:accountNumber' && method === 'delete' && type !== 'staff') {
+    response.setError(403, 'only a staff has the permission to delete an account');
+    return response.send(res);
+  }
   next();
 };
 

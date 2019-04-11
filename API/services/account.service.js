@@ -39,7 +39,7 @@ class AccountService {
   }
 
   /**
-   * @description fetches all accounts
+   * @description it fetches all accounts
    * @param {array} of user objects
    */
   static getAllAccounts() {
@@ -58,7 +58,7 @@ class AccountService {
   }
 
   /**
-   * @description fetches all accounts
+   * @description this function change account status
    * @param {object} response
    */
   static changeAccountStatus(accountNumber, status) {
@@ -71,8 +71,23 @@ class AccountService {
         status,
       };
     }
+    throw new Error('account number doesn\'t exist');
+  }
 
+  /**
+   * @description fetches all accounts
+   * @param {object} response
+   */
+  static deleteAccount(accountNumber) {
+    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
 
+    if (foundAccount) {
+      const isDeleted = Account.delete(foundAccount);
+
+      if (isDeleted) {
+        return 'Account successfully deleted';
+      }
+    }
     throw new Error('account number doesn\'t exist');
   }
 }

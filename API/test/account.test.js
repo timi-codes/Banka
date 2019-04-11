@@ -241,7 +241,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
 
 
     it('it should activate a user bank account', (done) => {
-      const accountNumber = 222010872; // octal number format
+      const accountNumber = 222010872;
       const body = { status: 'active' };
       chai
         .request(app)
@@ -291,7 +291,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should throw error when request body status is different from dormant or active', (done) => {
-      const accountNumber = 222010872; // octal number format
+      const accountNumber = 222010872;
       const body = { status: 'validate' };
       chai
         .request(app)
@@ -311,48 +311,45 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      * Test  DELETE /accounts/:accountNumber route
      */
   describe('DELETE /accounts/:accountNumber', () => {
-    it('it should DELETE a bank record ', (done) => {
-      const accountNumber = 0o222300; // octal number format
+    it('it should throw permission error if user is not an admin', (done) => {
+      const accountNumber = 222010872;
       chai
         .request(app)
         .delete(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('error').eql('only a staff has the permission to delete an account');
+          done();
+        });
+    });
+
+    it('it should DELETE a bank record ', (done) => {
+      const accountNumber = 222010872;
+      chai
+        .request(app)
+        .delete(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', adminToken)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have
             .property('message')
-            .eql('Invalid account number. Account number must be a number');
+            .eql('Account successfully deleted');
           done();
         });
     });
 
     it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 0o222300; // octal number format
+      const accountNumber = 222010872;
       chai
         .request(app)
         .delete(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Account number cannot be found');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is invalid', (done) => {
-      const accountNumber = '0o222300ghdh'; // octal number format
-      chai
-        .request(app)
-        .delete(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('message')
-            .eql('Invalid account number. Account number must be a number');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
           done();
         });
     });
