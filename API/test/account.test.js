@@ -6,7 +6,9 @@ import app from '../index';
 chai.use(chaiHttp);
 
 describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
-  let generatedToken;
+  let clientToken;
+  let adminToken;
+
   /**
      * Sign in user to generate user token before test
      */
@@ -23,7 +25,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       .end((err, res) => {
         res.should.have.status(200);
         if (!err) {
-          generatedToken = res.body.data.token;
+          clientToken = res.body.data.token;
         }
         done();
       });
@@ -44,7 +46,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .post('/api/v1/accounts')
         .send(details)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(401);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('please assign a access token as header');
           done();
@@ -62,7 +64,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .request(app)
         .post('/api/v1/accounts')
         .send(details)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', clientToken)
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
@@ -85,7 +87,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .request(app)
         .post('/api/v1/accounts')
         .send(details)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', clientToken)
         .end((err, res) => {
           res.should.have.status(422);
           res.body.should.be.a('object');
@@ -102,7 +104,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       chai
         .request(app)
         .post('/api/v1/accounts')
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', clientToken)
         .send(details)
         .end((err, res) => {
           res.should.have.status(422);
@@ -113,22 +115,55 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
   });
 
+
   /**
      * Test the GET /accounts/ routes
      */
   describe('GET /accounts', () => {
+    it('it should throw permission error if user is not an admin', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/accounts')
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('error').eql('you do not have the permission to perform this operation');
+          done();
+        });
+    });
+
+    before('Sign in as an admin/staff because only admin/staff can get list of bank accounts', (done) => {
+      const userCredential = {
+        email: 'tejumoladavid@gmail.com',
+        password: 'password',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(userCredential)
+        .end((err, res) => {
+          res.should.have.status(200);
+          if (!err) {
+            adminToken = res.body.data.token;
+          }
+          done();
+        });
+    });
+
     it('it should get all the bank accounts', (done) => {
       chai
         .request(app)
         .get('/api/v1/accounts')
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.data.should.be.a('array');
+          res.body.data.should.have.property('accounts').be.a('array');
           done();
         });
     });
   });
+
 
   /**
      * Test the GET /accounts/:accountNumber route
@@ -139,7 +174,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       chai
         .request(app)
         .get(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
