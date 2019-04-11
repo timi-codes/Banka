@@ -60,7 +60,7 @@ const authMiddleware = (req, res, next) => {
     return decodeToken(req, res, next, token);
   }
 
-  response.setError(400, 'please assign a access token as header');
+  response.setError(401, 'please assign a access token as header');
   return response.send(res);
 };
 

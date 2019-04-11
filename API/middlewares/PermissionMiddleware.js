@@ -17,9 +17,13 @@ const permissionMiddleWare = (req, res, next) => {
     return response.send(res);
   }
 
-  const { roleId } = req.token;
-  if (roleId && roleId === 1) {
-    response.setError(403, 'You do not have the permission to perform this operation');
+  const { type, isAdmin } = req.token;
+
+  const route = req.route.path;
+  const method = req.method.toLowerCase();
+
+  if (route === '/accounts' && method === 'get' && type !== 'staff') {
+    response.setError(403, 'you do not have the permission to perform this operation');
     return response.send(res);
   }
   next();
