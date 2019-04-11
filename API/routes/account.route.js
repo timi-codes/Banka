@@ -11,5 +11,6 @@ const validateRequest = SchemaValidator(false);
 router.post('/accounts', authMiddleware, validateRequest, AccountContoller.createBankAccount);
 router.get('/accounts', authMiddleware, permissionMiddleware, AccountContoller.fetchAllAccounts);
 router.patch('/accounts/:accountNumber', authMiddleware, validateRequest, permissionMiddleware, AccountContoller.changeStatus);
+router.delete('/accounts/:accountNumber', authMiddleware, permissionMiddleware, AccountContoller.deleteAccount);
 
 export default router;
