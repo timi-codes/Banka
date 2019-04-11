@@ -41,10 +41,15 @@ const updateStatusSchema = Joi.object({
   status: Joi.string().lowercase().valid('dormant', 'active').required(),
 });
 
+const transactionSchema = Joi.object({
+  amount: Joi.number().positive().precision(2).required(),
+});
+
 
 module.exports = {
   '/signup': createUserSchema,
   '/signin': loginUserSchema,
   '/accounts': createAccountSchema,
   '/accounts/:accountNumber': updateStatusSchema,
+  '/transactions/:accountNumber/debit': transactionSchema,
 };

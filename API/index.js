@@ -4,6 +4,8 @@ import { json } from 'body-parser';
 import debug from 'debug';
 import userRoutes from './routes/user.route';
 import accountRoutes from './routes/account.route';
+import transactionRoutes from './routes/transaction.route';
+
 
 config.config();
 const app = express();
@@ -14,6 +16,7 @@ const API_VERSION = '/api/v1';
 app.use(json());
 app.use(`${API_VERSION}/auth`, userRoutes);
 app.use(`${API_VERSION}`, accountRoutes);
+app.use(`${API_VERSION}`, transactionRoutes);
 
 
 app.get('/', (req, res) => {

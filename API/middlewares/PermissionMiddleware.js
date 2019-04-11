@@ -36,6 +36,12 @@ const permissionMiddleWare = (req, res, next) => {
     response.setError(403, 'only a staff has the permission to delete an account');
     return response.send(res);
   }
+
+  if (route === '/transactions/:accountNumber/debit' && method === 'post' && (type !== 'staff' || isAdmin)) {
+    response.setError(403, 'only a cashier has the permission to debit an account');
+    return response.send(res);
+  }
+
   next();
 };
 

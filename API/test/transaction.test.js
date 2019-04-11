@@ -5,15 +5,16 @@ import app from '../index';
 
 chai.use(chaiHttp);
 
-describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
-  let generatedToken = null;
+describe('Test transaction related endpoints - Debit and Credit an account', () => {
+  let cashierToken = null;
+  let userToken = null;
 
   /**
-     * Sign in user to generate user token before test
+     * Sign in as a cashier to generate user token before test
      */
-  before('Sign in user to obtain auth token to be used in other account operations', (done) => {
+  before('Sign in cashier to obtain auth token to be used in other account operations', (done) => {
     const userCredential = {
-      email: 'bolutejumola@gmail.com',
+      email: 'johnoke@gmail.com',
       password: 'password',
     };
 
@@ -23,7 +24,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       .end((err, res) => {
         res.should.have.status(200);
         if (!err) {
-          generatedToken = res.body.data.token;
+          cashierToken = res.body.data.token;
         }
         done();
       });
@@ -33,19 +34,53 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      * Test the POST /transactions/:accountNumber/debit route
      */
   describe('POST /transactions/:accountNumber/debit', () => {
-    it('it should debit a bank account', (done) => {
-      const accountNumber = 0o222010772; // octal number format
-      const body = { amount: '50000' };
+    before('Sign in as a user', (done) => {
+      const userCredential = {
+        email: 'boladeojo@gmail.com',
+        password: 'password',
+      };
+
       chai.request(app)
-        .post(`/api/v1/transactions/${accountNumber}/debit`)
-        .set('x-access-token', generatedToken)
-        .send(body)
+        .post('/api/v1/auth/signin')
+        .send(userCredential)
         .end((err, res) => {
           res.should.have.status(200);
+          if (!err) {
+            userToken = res.body.data.token;
+          }
+          done();
+        });
+    });
+
+    it('it should throw permission error if user is not a cashier', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: 50000 };
+      chai
+        .request(app)
+        .post(`/api/v1/transactions/${accountNumber}/debit`)
+        .set('x-access-token', userToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a cashier has the permission to debit an account');
+          done();
+        });
+    });
+
+    it('it should debit a bank account', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: 50000 };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/debit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.data.should.have.property('accountNumber').eql(accountNumber);
           res.body.data.should.have.property('transactionId');
-          res.body.data.should.have.property('amount').eql(body.amount);
+          res.body.data.should.have.property('amount');
           res.body.data.should.have.property('cashier');
           res.body.data.should.have.property('transactionType');
           res.body.data.should.have.property('accountBalance');
@@ -54,52 +89,51 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 0o002020; // octal number format
-      const body = { amount: '50000' };
+      const accountNumber = 22201084472;
+      const body = { amount: 50000 };
 
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/debit`)
-        .set('x-access-token', generatedToken)
-        .send(body)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Account number cannot be found');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is invalid', (done) => {
-      const accountNumber = '0o002020fc'; // octal number format
-      const body = { amount: '50000' };
-
-      chai.request(app)
-        .post(`/api/v1/transactions/${accountNumber}/debit`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Invalid account number. Account number must be a number');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
           done();
         });
     });
 
-    it('it should throw an error when "amount" in request body is invalid ', (done) => {
-      const accountNumber = 0o222010772; // octal number format
+    it('it should throw an error when "amount" in request body is not provided ', (done) => {
+      const accountNumber = 222010872;
       const body = {};
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/debit`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have
             .property('error')
-            .eql('Require request body field "amount"');
+            .eql('amount is required');
+          done();
+        });
+    });
+
+    it('it should throw an error when "amount" is not a number', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: '50000hrh' };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/debit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have
+            .property('error')
+            .eql('amount must be a number');
           done();
         });
     });
