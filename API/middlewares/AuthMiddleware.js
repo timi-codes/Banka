@@ -43,18 +43,6 @@ const authMiddleware = (req, res, next) => {
   if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
   }
-  if (process.env.NODE_ENV === 'test') {
-    if (!token) {
-      token = 1;
-    }
-    if (typeof token === 'number') {
-      req.token = { userId: token };
-      return next();
-    }
-    if (typeof token === 'string') {
-      return decodeToken(req, res, next, token);
-    }
-  }
 
   if (token) {
     return decodeToken(req, res, next, token);
