@@ -51,5 +51,4 @@ const authMiddleware = (req, res, next) => {
   response.setError(401, 'please assign a access token as header');
   return response.send(res);
 };
-
 export default authMiddleware;
