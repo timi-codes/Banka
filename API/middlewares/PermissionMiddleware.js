@@ -1,4 +1,5 @@
 import ResponseGenerator from '../utils/ResponseGenerator';
+import AccountService from '../services/account.service';
 
 const response = new ResponseGenerator();
 
@@ -17,10 +18,11 @@ const permissionMiddleWare = (req, res, next) => {
     return response.send(res);
   }
 
-  const { type, isAdmin } = req.token;
+  const { id, type, isAdmin } = req.token;
 
   const route = req.route.path;
   const method = req.method.toLowerCase();
+  const { accountNumber } = req.params;
 
   if (route === '/accounts' && method === 'get' && type !== 'staff') {
     response.setError(403, 'only a staff has the permission to get all bank accounts');
@@ -45,6 +47,13 @@ const permissionMiddleWare = (req, res, next) => {
   if (route === '/transactions/:accountNumber/credit' && method === 'post' && (type !== 'staff' || isAdmin)) {
     response.setError(403, 'only a cashier has the permission to credit an account');
     return response.send(res);
+  }
+
+  if (route === '/accounts/:accountNumber' && method === 'get' && type !== 'staff') {
+    if (!AccountService.isMyAccount(id, accountNumber)) {
+      response.setError(403, 'only a staff has the permission to get other user\'s account');
+      return response.send(res);
+    }
   }
 
   next();

@@ -8,13 +8,14 @@ chai.use(chaiHttp);
 describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
   let clientToken;
   let adminToken;
+  let sholaAccountNumber;
 
   /**
      * Sign in user to generate user token before test
      */
   before('Sign in user to obtain auth token to be used in other account operations', (done) => {
     const userCredential = {
-      email: 'boladeojo@gmail.com',
+      email: 'sholaadeola@gmail.com',
       password: 'password',
     };
 
@@ -74,6 +75,9 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('type');
           res.body.data.should.have.property('balance');
+          if (!err) {
+            sholaAccountNumber = Number(res.body.data.accountNumber);
+          }
           done();
         });
     });
@@ -169,8 +173,41 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      * Test the GET /accounts/:accountNumber route
      */
   describe('GET /accounts/:accountNumber', () => {
-    it('it should GET a bank account by the given account number', (done) => {
-      const accountNumber = 0o222010772; // octal number format
+    it('it should throw an error if a client wants to get other user\'s account', (done) => {
+      const accountNumber = 222010772;
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a staff has the permission to get other user\'s account');
+          done();
+        });
+    });
+
+    it('it should GET a bank account details as a client if i own the account', (done) => {
+      const accountNumber = sholaAccountNumber;
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('accountNumber').eql(accountNumber);
+          res.body.data.should.have.property('firstName');
+          res.body.data.should.have.property('lastName');
+          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('type');
+          res.body.data.should.have.property('balance');
+          done();
+        });
+    });
+
+    it('it should GET a bank account details as a staff', (done) => {
+      const accountNumber = 222010772;
       chai
         .request(app)
         .get(`/api/v1/accounts/${accountNumber}`)
@@ -183,37 +220,21 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.body.data.should.have.property('lastName');
           res.body.data.should.have.property('email');
           res.body.data.should.have.property('type');
-          res.body.data.should.have.property('openingBalance');
+          res.body.data.should.have.property('balance');
           done();
         });
     });
 
     it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 0o002020; // octal number format
+      const accountNumber = 2220107724455; // octal number format
       chai
         .request(app)
         .get(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Account number cannot be found');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is invalid', (done) => {
-      const accountNumber = '0o002020fc'; // octal number format
-      chai
-        .request(app)
-        .get(`/api/v1/accounts/${accountNumber}`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', adminToken)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Invalid account number. Account number must be a number');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
           done();
         });
     });

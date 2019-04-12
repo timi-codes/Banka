@@ -72,6 +72,26 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
+  static getAccount(req, res) {
+    const { accountNumber } = req.params;
+    try {
+      const data = AccountService.getAccount(accountNumber);
+      if (data) {
+        response.setSuccess(200, data);
+      }
+      return response.send(res);
+    } catch (error) {
+      response.setError(400, error.message);
+      return response.send(res);
+    }
+  }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof AccountController
+   */
   static deleteAccount(req, res) {
     const { accountNumber } = req.params;
     try {
