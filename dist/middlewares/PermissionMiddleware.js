@@ -1,8 +1,17 @@
-import ResponseGenerator from '../utils/ResponseGenerator';
-import AccountService from '../services/account.service';
+"use strict";
 
-const response = new ResponseGenerator();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
+var _ResponseGenerator = _interopRequireDefault(require("../utils/ResponseGenerator"));
+
+var _account = _interopRequireDefault(require("../services/account.service"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var response = new _ResponseGenerator["default"]();
 /**
  * @description - User's Permission Middleware
  *
@@ -12,17 +21,20 @@ const response = new ResponseGenerator();
  *
  * @returns {Object} Object
  */
-const permissionMiddleWare = (req, res, next) => {
+
+var permissionMiddleWare = function permissionMiddleWare(req, res, next) {
   if (!req.token) {
-    response.setError(419, 'How did you get pass the authentication middleware 😩😢😫');
+    response.setError(400, 'How did you get pass the authentication middleware 😩😢😫');
     return response.send(res);
   }
 
-  const { id, type, isAdmin } = req.token;
-
-  const route = req.route.path;
-  const method = req.method.toLowerCase();
-  const { accountNumber } = req.params;
+  var _req$token = req.token,
+      id = _req$token.id,
+      type = _req$token.type,
+      isAdmin = _req$token.isAdmin;
+  var route = req.route.path;
+  var method = req.method.toLowerCase();
+  var accountNumber = req.params.accountNumber;
 
   if (route === '/accounts' && method === 'get' && type !== 'staff') {
     response.setError(403, 'only a staff has the permission to get all bank accounts');
@@ -50,7 +62,7 @@ const permissionMiddleWare = (req, res, next) => {
   }
 
   if (route === '/accounts/:accountNumber' && method === 'get' && type !== 'staff') {
-    if (!AccountService.isMyAccount(id, accountNumber)) {
+    if (!_account["default"].isMyAccount(id, accountNumber)) {
       response.setError(403, 'only a staff has the permission to get other user\'s account');
       return response.send(res);
     }
@@ -59,4 +71,5 @@ const permissionMiddleWare = (req, res, next) => {
   next();
 };
 
-export default permissionMiddleWare;
+var _default = permissionMiddleWare;
+exports["default"] = _default;
