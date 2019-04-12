@@ -37,7 +37,11 @@
     "ui": "run-script-os",
     "ui:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
     "ui:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'",
-    "start": "DEBUG=development nodemon --exec babel-node API/index.js",
+    "start-dev": "DEBUG=development nodemon --exec babel-node API/index.js",
+    "start": "node dist/index.js",
+    "build-babel": "babel ./API --out-dir dist/ --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc.js,./UI,./README.md",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && npm run build-babel",
     "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --watch --exit"
   },
   "repository": {
