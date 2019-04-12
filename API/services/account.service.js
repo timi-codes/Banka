@@ -58,6 +58,28 @@ class AccountService {
   }
 
   /**
+   * @description this function fetches a single user account
+   * @param {object} response
+   */
+  static getAccount(accountNumber) {
+    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
+
+    if (foundAccount) {
+      const { owner, ...data } = foundAccount;
+
+      const user = User.findUserById(owner);
+
+      return {
+        ...data,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      };
+    }
+    throw new Error('account number doesn\'t exist');
+  }
+
+  /**
    * @description this function change account status
    * @param {object} response
    */
@@ -89,6 +111,21 @@ class AccountService {
       }
     }
     throw new Error('account number doesn\'t exist');
+  }
+
+  /**
+   * @description this function checks if an account belongs to a user
+   * @param {object} response
+   */
+
+  static isMyAccount(id, accountNumber) {
+    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
+    if (foundAccount) {
+      if (foundAccount.owner !== Number(id)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
