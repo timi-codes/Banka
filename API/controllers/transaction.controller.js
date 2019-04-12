@@ -30,6 +30,30 @@ class TransactionController {
       return response.send(res);
     }
   }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof TransactionController
+   */
+
+  static creditUserAccount(req, res) {
+    const { amount } = req.body;
+    const { id } = req.token;
+    const { accountNumber } = req.params;
+
+    try {
+      const transaction = TransactionService.creditAccount(id, accountNumber, amount);
+      if (transaction) {
+        response.setSuccess(200, transaction);
+      }
+      return response.send(res);
+    } catch (error) {
+      response.setError(400, error.message);
+      return response.send(res);
+    }
+  }
 }
 
 export default TransactionController;

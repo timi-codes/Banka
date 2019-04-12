@@ -21,6 +21,21 @@ class TransactionService {
     }
     throw new Error('account number doesn\'t exist');
   }
+
+  /**
+   * @description credit user account
+   * @param {object} a new transaction object
+   */
+
+  static creditAccount(cashierId, accountNumber, amount) {
+    const account = Account.findByAccountNumber(Number(accountNumber));
+
+    if (account) {
+      const transaction = Transaction.credit(account, amount, cashierId);
+      return transaction;
+    }
+    throw new Error('account number doesn\'t exist');
+  }
 }
 
 

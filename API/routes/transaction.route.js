@@ -9,4 +9,5 @@ const router = Router();
 const validateRequest = SchemaValidator(false);
 
 router.post('/transactions/:accountNumber/debit', authMiddleware, permissionMiddleware, validateRequest, TransactionContoller.debitUserAccount);
+router.post('/transactions/:accountNumber/credit', authMiddleware, permissionMiddleware, validateRequest, TransactionContoller.creditUserAccount);
 export default router;
