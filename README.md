@@ -1,11 +1,11 @@
-# Banka
+# Banka  &middot; [![Build Status](https://travis-ci.org/timi-codes/Banka.svg?branch=develop)](https://travis-ci.org/timi-codes/Banka)  [![Coverage Status](https://coveralls.io/repos/github/timi-codes/Banka/badge.svg?branch=develop)](https://coveralls.io/github/timi-codes/Banka?branch=develop)
 
 > Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.
 
 ## Getting Started
 
 > [UI Templates](#ui-templates) &middot; [Pivotal Tracker](#pivotal-tracker)
-
+ 
 ## UI Templates
 
 UI Template for the application can be found here [Github pages](https://timi-codes.github.io/Banka/UI/index.html).
