@@ -69,4 +69,4 @@ typings/
 .vscode
 
 #build
-./dist
+dist
