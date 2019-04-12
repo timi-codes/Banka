@@ -159,73 +159,89 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
      * Test the POST /transactions/:accountNumber/credit route
      */
   describe('POST /transactions/:accountNumber/credit', () => {
-    it('it should credit a bank account', (done) => {
-      const accountNumber = 0o222010772; // octal number format
-      const body = { amount: '50000' };
+    it('it should throw permission error if user is not a cashier', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: 50000 };
+      chai
+        .request(app)
+        .post(`/api/v1/transactions/${accountNumber}/credit`)
+        .set('x-access-token', userToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a cashier has the permission to credit an account');
+          done();
+        });
+    });
+
+
+    it('it should throw an error when account number is not found', (done) => {
+      const accountNumber = 22201084472;
+      const body = { amount: 50000 };
+
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/credit`)
-        .set('x-access-token', generatedToken)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
+          done();
+        });
+    });
+
+    it('it should throw an error when "amount" in request body is not provided ', (done) => {
+      const accountNumber = 222010872;
+      const body = {};
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/credit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have
+            .property('error')
+            .eql('amount is required');
+          done();
+        });
+    });
+
+    it('it should throw an error when "amount" is not a number', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: '50000hrh' };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/credit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have
+            .property('error')
+            .eql('amount must be a number');
+          done();
+        });
+    });
+
+    it('it should credit a bank account', (done) => {
+      const accountNumber = 222010872;
+      const body = { amount: 50000 };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/credit`)
+        .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.have.property('accountNumber').eql(accountNumber);
           res.body.data.should.have.property('transactionId');
-          res.body.data.should.have.property('amount').eql(body.amount);
+          res.body.data.should.have.property('amount');
           res.body.data.should.have.property('cashier');
           res.body.data.should.have.property('transactionType');
           res.body.data.should.have.property('accountBalance');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 0o002020; // octal number format
-      const body = { amount: '50000' };
-
-      chai.request(app)
-        .post(`/api/v1/transactions/${accountNumber}/credit`)
-        .set('x-access-token', generatedToken)
-        .send(body)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Account number cannot be found');
-          done();
-        });
-    });
-
-    it('it should throw an error when account number is invalid', (done) => {
-      const accountNumber = '0o002020fc'; // octal number format
-      const body = { amount: '50000' };
-
-      chai.request(app)
-        .post(`/api/v1/transactions/${accountNumber}/credit`)
-        .set('x-access-token', generatedToken)
-        .send(body)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Invalid account number. Account number must be a number');
-          done();
-        });
-    });
-
-    it('it should throw an error when "amount" in request body is invalid ', (done) => {
-      const accountNumber = 0o222010772; // octal number format
-      const body = {};
-      chai.request(app)
-        .post(`/api/v1/transactions/${accountNumber}/credit`)
-        .set('x-access-token', generatedToken)
-        .send(body)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have
-            .property('error')
-            .eql('Require request body field "amount"');
           done();
         });
     });

@@ -8,12 +8,12 @@ export default class Transaction {
     userAccount.balance = newBalance;
 
     const newTransaction = {
-      transactionId: Utils.getNextId(dummyData.transactions),
+      transactionId: Utils.getNextTransactionId(dummyData.transactions),
       accountNumber: account.accountNumber,
       amount,
       cashier: cashierId,
       transactionType: 'credit',
-      accountBalance: newBalance,
+      accountBalance: newBalance.toFixed(2),
     };
 
     dummyData.transactions.push(newTransaction);

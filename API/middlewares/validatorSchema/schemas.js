@@ -52,4 +52,6 @@ module.exports = {
   '/accounts': createAccountSchema,
   '/accounts/:accountNumber': updateStatusSchema,
   '/transactions/:accountNumber/debit': transactionSchema,
+  '/transactions/:accountNumber/credit': transactionSchema,
+
 };
