@@ -9,7 +9,7 @@ install:
 env:
   global:
     - NODE_ENV=test
-    - JWT_SECRET=pr
+    - JWT_SECRET=prhhh
 before_script:
   - npm run build
 script:
