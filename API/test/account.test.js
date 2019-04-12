@@ -48,9 +48,26 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .post('/api/v1/accounts')
         .send(details)
         .end((err, res) => {
-         // (res.headers['x-access-token'] === undefined).should.be.true();
           should(res.headers['x-access-token']).be.type('undefined');
+          done();
+        });
+    });
 
+    it('it should check if token is invalid', (done) => {
+      const details = {
+        type: 'savings',
+        balance: 0.00,
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/accounts')
+        .set('x-access-token', 10000)
+        .send(details)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('invalid request token');
           done();
         });
     });
