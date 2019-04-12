@@ -30,7 +30,8 @@
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
-    "run-script-os": "^1.0.5"
+    "run-script-os": "^1.0.5",
+    "should": "^13.2.3"
   },
   "scripts": {
     "ui": "run-script-os",
