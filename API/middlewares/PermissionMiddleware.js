@@ -14,7 +14,7 @@ const response = new ResponseGenerator();
  */
 const permissionMiddleWare = (req, res, next) => {
   if (!req.token) {
-    response.setError(400, 'How did you get pass the authentication middleware 😩😢😫');
+    response.setError(419, 'How did you get pass the authentication middleware 😩😢😫');
     return response.send(res);
   }
 
