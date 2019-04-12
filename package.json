@@ -42,7 +42,8 @@
     "build-babel": "babel ./API --out-dir dist/ --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc.js,./UI,./README.md",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run build-babel",
-    "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --watch --exit"
+    "test-dev": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --watch --exit",
+    "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --exit"
   },
   "repository": {
     "type": "git",
