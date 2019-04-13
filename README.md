@@ -1,6 +1,6 @@
 ![Banka Logo](https://raw.githubusercontent.com/timi-codes/Banka/develop/UI/img/banka-blue-logo.png)
 
-# Banka  &middot; [![Build Status](https://travis-ci.org/timi-codes/Banka.svg?branch=develop)](https://travis-ci.org/timi-codes/Banka)  [![Coverage Status](https://coveralls.io/repos/github/timi-codes/Banka/badge.svg?branch=develop)](https://coveralls.io/github/timi-codes/Banka?branch=develop)
+# Banka  &middot; [![Build Status](https://travis-ci.org/timi-codes/Banka.svg?branch=develop)](https://travis-ci.org/timi-codes/Banka)  [![Coverage Status](https://coveralls.io/repos/github/timi-codes/Banka/badge.svg?branch=develop)](https://coveralls.io/github/timi-codes/Banka?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/61903ede845dba17166a/maintainability)](https://codeclimate.com/github/timi-codes/Banka/maintainability)
 
 > Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.
 
