@@ -2,6 +2,8 @@ import config from 'dotenv';
 import express from 'express';
 import { json } from 'body-parser';
 import debug from 'debug';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocument from './swagger.json';
 import userRoutes from './routes/user.route';
 import accountRoutes from './routes/account.route';
 import transactionRoutes from './routes/transaction.route';
@@ -12,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 7888;
 const API_VERSION = '/api/v1';
 
-
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(json());
 app.use(`${API_VERSION}/auth`, userRoutes);
 app.use(`${API_VERSION}`, accountRoutes);
