@@ -15,7 +15,7 @@
 
 [Installations](#installations)
 
-[Ackwnoledgment](#acknowledgments)
+[Acknowledgment](#acknowledgments)
 
 [Author](#author)
 
