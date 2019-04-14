@@ -31,3 +31,4 @@ exclude_patterns:
 - API/test
 - UI/
 - dist/
+- API/models/dummyData.js
