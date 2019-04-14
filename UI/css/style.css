@@ -353,3 +353,81 @@ input[type="password"] {
   height: 100%;
   overflow: hidden;
 }
+
+@media only screen and (max-width: 600px) {
+
+  header .logo{
+    width:70px
+  }
+  h1{
+    font-size:2.1rem;
+    line-height: 55px;
+    max-width: 100%;
+    margin-top:3rem;
+    margin-bottom: 3rem;
+  }
+  .top-banner{
+    padding: 0 2rem 0 3rem;
+  }
+
+  nav a{
+    margin: 0 0.9rem;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .achievement-section{
+    flex-flow: column nowrap;
+    margin-top: 0;
+  }
+  .achievement {
+    margin-top:0.5rem;
+  }
+
+  .easy-banking-section{
+    padding: 2rem 3rem ;
+  }
+
+  .easy-banking-section p{
+    font-size: 0.8rem;
+  }
+
+  h2{
+    font-size: 1.5rem;
+  }
+
+  .create-account-section{
+    flex-flow: row wrap;
+    text-align: center;
+    align-items: center;
+  }
+
+  .create-account-section h5{
+    margin-right: 0;
+  }
+
+  button{
+   display: inline-block;
+   width:11rem;
+   text-align: center;
+  }
+
+  .actions-section{
+    flex-flow: row wrap;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+
+  .action{
+    margin-top:1rem;
+    margin-right:0;
+    height: 12rem;
+    text-align: start
+  }
+
+  .services h2 {
+    padding-top: 2.5rem;
+    padding-bottom: 1rem;
+  }
+}
