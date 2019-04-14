@@ -18,13 +18,9 @@ class UserController {
     const user = req.body;
     try {
       const createdUser = UserService.createUser(user);
-      if (createdUser) {
-        response.setSuccess(201, createdUser);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 201, createdUser);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 
@@ -38,13 +34,9 @@ class UserController {
     const login = req.body;
     try {
       const user = UserService.signUser(login);
-      if (user) {
-        response.setSuccess(200, user);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, user);
     } catch (error) {
-      response.setError(401, error.message);
-      return response.send(res);
+      return response.sendError(res, 401, error.message);
     }
   }
 }

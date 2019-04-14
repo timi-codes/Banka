@@ -11,7 +11,6 @@
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "swagger-ui-express": "^4.0.2",
     "uuid": "^3.3.2"
@@ -33,7 +32,8 @@
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "run-script-os": "^1.0.5",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "eslint-plugin-jsdoc": "^4.8.3"
   },
   "scripts": {
     "ui": "run-script-os",

@@ -1,7 +1,7 @@
 import Utils from './common';
 
 /**
- * a class for api response
+ * A class for generating API responses
  */
 class ResponseGenerator {
   constructor() {
@@ -12,36 +12,39 @@ class ResponseGenerator {
   }
 
   /**
-   * @description set Api response for 200 & 201
-   *  @param{int} statusCode
+   * @description API response for 200 & 201
+   * @param{int} statusCode
    * @param {object} data
+   * @param{string} message
    */
-
-  setSuccess(statusCode, data, message) {
+  sendSuccess(res, statusCode, data, message) {
     this.status = statusCode;
     this.data = data;
     this.message = message;
-
     this.type = 'success';
+
+    return this.send(res);
   }
 
   /**
-   * @description set Api response for 400, 401, 403, 404, 503
-   *  @param{int} statusCode
+   * @description API response for 400, 401, 403, 404, 503
+   * @param{int} statusCode
+   * @param{string} message
    * @param {object} data
    */
-
-  setError(statusCode, message) {
+  sendError(res, statusCode, message) {
     this.status = statusCode;
     this.message = message;
     this.type = 'error';
+
+    return this.send(res);
   }
 
   /**
-     * Sends response
-     * @param {object} res
-     * @returns {object} responseObject
-     */
+   * Sends response
+   * @param {object} res
+   * @returns {object} response
+  */
   send(res) {
     const filteredResponse = Utils.stripNull({
       status: this.status,

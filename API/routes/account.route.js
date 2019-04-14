@@ -6,7 +6,7 @@ import permissionMiddleware from '../middlewares/PermissionMiddleware';
 
 
 const router = Router();
-const validateRequest = SchemaValidator(false);
+const validateRequest = SchemaValidator();
 
 router.post('/accounts', authMiddleware, validateRequest, AccountContoller.createBankAccount);
 router.get('/accounts', authMiddleware, permissionMiddleware, AccountContoller.fetchAllAccounts);
