@@ -388,3 +388,38 @@ input[type="password"] {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+@media only screen and (max-width: 600px){
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  h4 {
+    font-size: 11px;
+  }
+
+  .banner{
+    padding: 0 1rem;
+  }
+
+  .balance {
+    justify-self: start;
+    margin: 0;
+ }
+  .banner button{
+    margin-right: 0;
+    padding: 0.6rem 2rem;
+  }
+
+  .balance p{
+    font-size: 12px;
+  }
+
+  .balance h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+}
