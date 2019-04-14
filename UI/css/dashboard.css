@@ -422,4 +422,9 @@ input[type="password"] {
     font-size: 1.5rem;
     font-weight: 800;
   }
+
+  .onboarding-modal{
+    width: auto;
+    margin:0 1rem;
+  }
 }
