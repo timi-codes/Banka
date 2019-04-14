@@ -427,4 +427,8 @@ input[type="password"] {
     width: auto;
     margin:0 1rem;
   }
+
+  table{
+    width: 100%;
+  }
 }
