@@ -6,7 +6,7 @@ import permissionMiddleware from '../middlewares/PermissionMiddleware';
 
 
 const router = Router();
-const validateRequest = SchemaValidator(false);
+const validateRequest = SchemaValidator();
 
 router.post('/transactions/:accountNumber/debit', authMiddleware, permissionMiddleware, validateRequest, TransactionContoller.debitUserAccount);
 router.post('/transactions/:accountNumber/credit', authMiddleware, permissionMiddleware, validateRequest, TransactionContoller.creditUserAccount);

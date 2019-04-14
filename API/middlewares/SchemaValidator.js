@@ -1,51 +1,26 @@
+import Joi from 'joi';
+import Schemas from './validatorSchema/schemas';
 
-const _ = require('lodash');
-const Joi = require('joi');
-const Schemas = require('./validatorSchema/schemas');
-
-module.exports = (useJoiError = false) => {
-  // useJoiError determines if we should respond with the base Joi error
-  // boolean: defaults to false
-  const useJoiErr = _.isBoolean(useJoiError) && useJoiError;
-
+module.exports = () => {
   // enabled HTTP methods for request data validation
   const supportedMethods = ['post', 'put', 'patch'];
 
   // Joi validation options
-  const validationOptions = {
-    abortEarly: false, // abort after the last validation error
-    allowUnknown: true, // allow unknown keys that will be ignored
-    stripUnknown: true, // remove unknown keys from the validated data
-  };
+  const validationOptions = { abortEarly: false, allowUnknown: true, stripUnknown: true };
 
   // return the validation middleware
   return (req, res, next) => {
     const route = req.route.path;
     const method = req.method.toLowerCase();
 
-
-    if (_.includes(supportedMethods, method) && _.has(Schemas, route)) {
+    if (supportedMethods.includes(method) && route in Schemas) {
       // get schema for the current route
-      const schema = _.get(Schemas, route);
-
+      const schema = Schemas[route];
 
       if (schema) {
         // Validate req.body using the schema and validation options
         return Joi.validate(req.body, schema, validationOptions, (err, data) => {
           if (err) {
-            // Joi Error
-            const JoiError = {
-              status: 422,
-              error: {
-                original: err._object,
-                // fetch only message and type from each error
-                details: _.map(err.details, ({ message, type }) => ({
-                  message: message.replace(/['"]/g, ''),
-                  type,
-                })),
-              },
-            };
-
             // Custom Error
             const SimplifiedError = {
               status: 422,
@@ -53,7 +28,7 @@ module.exports = (useJoiError = false) => {
             };
 
             // Send back the JSON error response
-            res.status(422).json(useJoiErr ? JoiError : SimplifiedError);
+            res.status(422).json(SimplifiedError);
           } else {
             // Replace req.body with the data after Joi validation
             req.body = data;

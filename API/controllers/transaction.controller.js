@@ -13,7 +13,6 @@ class TransactionController {
    * @returns {json} json
    * @memberof TransactionController
    */
-
   static debitUserAccount(req, res) {
     const { amount } = req.body;
     const { id } = req.token;
@@ -21,13 +20,9 @@ class TransactionController {
 
     try {
       const transaction = TransactionService.debitAccount(id, accountNumber, amount);
-      if (transaction) {
-        response.setSuccess(200, transaction);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, transaction);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 
@@ -37,7 +32,6 @@ class TransactionController {
    * @returns {json} json
    * @memberof TransactionController
    */
-
   static creditUserAccount(req, res) {
     const { amount } = req.body;
     const { id } = req.token;
@@ -45,13 +39,9 @@ class TransactionController {
 
     try {
       const transaction = TransactionService.creditAccount(id, accountNumber, amount);
-      if (transaction) {
-        response.setSuccess(200, transaction);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, transaction);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 }

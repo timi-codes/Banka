@@ -19,8 +19,7 @@ const decodeToken = (req, res, next, token) => {
       req.token = decode;
       return next();
     }
-    response.setError(401, 'invalid request token');
-    return response.send(res);
+    return response.sendError(res, 401, 'invalid request token');
   });
 };
 
@@ -48,7 +47,6 @@ const authMiddleware = (req, res, next) => {
     return decodeToken(req, res, next, token);
   }
 
-  response.setError(401, 'please assign a access token as header');
-  return response.send(res);
+  return response.sendError(res, 401, 'please assign a access token as header');
 };
 export default authMiddleware;

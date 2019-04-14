@@ -11,7 +11,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
 
   /**
      * Sign in as a cashier to generate user token before test
-     */
+  */
   before('Sign in cashier to obtain auth token to be used in other account operations', (done) => {
     const userCredential = {
       email: 'johnoke@gmail.com',

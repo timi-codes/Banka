@@ -3,7 +3,7 @@ import UserController from '../controllers/user.controller';
 import SchemaValidator from '../middlewares/SchemaValidator';
 
 const router = Router();
-const validateRequest = SchemaValidator(false);
+const validateRequest = SchemaValidator();
 
 router.post('/signup', validateRequest, UserController.createUser);
 router.post('/signin', validateRequest, UserController.loginUser);

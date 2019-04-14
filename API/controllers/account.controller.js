@@ -19,13 +19,9 @@ class AccountController {
 
     try {
       const account = AccountService.createAccount(id, type, balance);
-      if (account) {
-        response.setSuccess(201, account);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 201, account);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 
@@ -38,11 +34,9 @@ class AccountController {
   static fetchAllAccounts(req, res) {
     const accounts = AccountService.getAllAccounts();
     if (accounts.length > 0) {
-      response.setSuccess(200, { accounts });
-    } else {
-      response.setError(204, 'no account has been created');
+      return response.sendSuccess(res, 200, { accounts });
     }
-    return response.send(res);
+    return response.sendError(res, 204, 'no account has been created');
   }
 
   /**
@@ -56,13 +50,9 @@ class AccountController {
     const { accountNumber } = req.params;
     try {
       const data = AccountService.changeAccountStatus(accountNumber, status);
-      if (data) {
-        response.setSuccess(200, data);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, data);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 
@@ -76,13 +66,9 @@ class AccountController {
     const { accountNumber } = req.params;
     try {
       const data = AccountService.getAccount(accountNumber);
-      if (data) {
-        response.setSuccess(200, data);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, data);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 
@@ -96,13 +82,9 @@ class AccountController {
     const { accountNumber } = req.params;
     try {
       const message = AccountService.deleteAccount(accountNumber);
-      if (message) {
-        response.setSuccess(200, null, message);
-      }
-      return response.send(res);
+      return response.sendSuccess(res, 200, null, message);
     } catch (error) {
-      response.setError(400, error.message);
-      return response.send(res);
+      return response.sendError(res, 400, error.message);
     }
   }
 }
