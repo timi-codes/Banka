@@ -3,6 +3,19 @@ import AccountService from '../services/account.service';
 
 const response = new ResponseGenerator();
 
+
+const messages = [
+  'only a staff has the permission to change account status',
+  'only a staff has the permission to delete an account',
+  'only a staff has the permission to get other user\'s account',
+];
+
+const paths = [
+  'patch',
+  'delete',
+  'get',
+];
+
 const getNestedObject = (nestedObj, pathArr) => pathArr.reduce((obj, key) => ((obj && obj[key] !== 'undefined') ? obj[key] : undefined), nestedObj);
 
 /**
@@ -15,9 +28,7 @@ const getNestedObject = (nestedObj, pathArr) => pathArr.reduce((obj, key) => ((o
  * @returns {Object} Object
  */
 const permissionMiddleWare = (req, res, next) => {
-  if (!req.token) {
-    return response.sendError(res, 419, 'How did you get pass the authentication middleware 😩😢😫');
-  }
+  if (!req.token) { return response.sendError(res, 419, 'How did you get pass the authentication middleware 😩😢😫'); }
 
   const { id, type, isAdmin } = req.token;
 
@@ -41,21 +52,16 @@ const permissionMiddleWare = (req, res, next) => {
     },
   };
 
+
   if (route in routes && getNestedObject(routes, [route, 'valid'])) { return response.sendError(res, 403, getNestedObject(routes, [route, 'message'])); }
 
+  const indexOfMethod = paths.indexOf(method);
+  const isValid = (route === '/accounts/:accountNumber' && method === paths[indexOfMethod] && type !== 'staff');
 
-  if (route === '/accounts/:accountNumber' && method === 'patch' && type !== 'staff') {
-    return response.sendError(res, 403, 'only a staff has the permission to change account status');
-  }
-
-  if (route === '/accounts/:accountNumber' && method === 'delete' && type !== 'staff') {
-    return response.sendError(res, 403, 'only a staff has the permission to delete an account');
-  }
-
-  if (route === '/accounts/:accountNumber' && method === 'get' && type !== 'staff') {
-    if (!AccountService.isMyAccount(id, accountNumber)) {
-      return response.sendError(res, 403, 'only a staff has the permission to get other user\'s account');
-    }
+  if (isValid && indexOfMethod < 2) {
+    return response.sendError(res, 403, messages[indexOfMethod]);
+  } if (isValid && !AccountService.isMyAccount(id, accountNumber)) {
+    return response.sendError(res, 403, messages[indexOfMethod]);
   }
 
   next();
