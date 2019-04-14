@@ -431,4 +431,11 @@ input[type="password"] {
     padding-top: 2.5rem;
     padding-bottom: 1rem;
   }
+
+  .onboarding-modal{
+    margin-right:0px;
+    float: none;
+    text-align: center;
+    margin : 0 auto;
+  }
 }
