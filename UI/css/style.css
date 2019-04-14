@@ -364,10 +364,10 @@ input[type="password"] {
     line-height: 55px;
     max-width: 100%;
     margin-top:3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
   }
   .top-banner{
-    padding: 0 2rem 0 3rem;
+    padding: 0 1rem 0 1.8rem;
   }
 
   nav a{
@@ -416,7 +416,7 @@ input[type="password"] {
     flex-flow: row wrap;
     text-align: center;
     align-items: center;
-    padding-bottom: 2rem;
+    padding-bottom: rem;
   }
 
   .action{
