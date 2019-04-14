@@ -4,15 +4,20 @@ document.getElementById("test").style.marginTop = -height / 2 + "px";
 var signupModal = document.getElementById("signupModal");
 var loginModal = document.getElementById("loginModal");
 
-var signup = document.getElementById("signup-button");
+var signup = document.querySelectorAll(".signup-button");
 var login = document.getElementById("login-button");
 
 var body = document.getElementsByTagName("body")[0];
 
-signup.onclick = e => {
-  signupModal.style.display = "block";
-  body.classList.add("stop-scrolling");
-};
+console.log(signup)
+
+for (button = 0; button < signup.length; button++) {
+  signup[button].onclick = e => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    signupModal.style.display = "block";
+    body.classList.add("stop-scrolling");
+  };
+}
 
 login.onclick = e => {
   loginModal.style.display = "block";

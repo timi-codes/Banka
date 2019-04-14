@@ -150,6 +150,7 @@ h2 {
   font-size: 2rem;
   color: var(--dark-grey);
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .easy-banking-section {
@@ -171,13 +172,19 @@ h2 {
 }
 
 /**
-actions section
+services section
 **/
+
+.services h2{
+  padding-top: 3rem;
+  padding-bottom: 2rem
+}
 
 .actions-section {
   display: flex;
   justify-content: center;
-  padding: 5rem 0;
+  padding-bottom: 5rem;
+
 }
 
 .actions-section > :first-child {
