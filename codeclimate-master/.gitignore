@@ -1,0 +1,4 @@
+*.gem
+coverage
+spec/reports
+base_rubocop.yml
