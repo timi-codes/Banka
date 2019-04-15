@@ -22,7 +22,7 @@ app.use(`${API_VERSION}`, transactionRoutes);
 
 
 app.get('/', (req, res) => {
-  res.send('This app server is running on it own 😀😎😋');
+  res.send('App server is running');
 });
 
 if (!module.parent) {
