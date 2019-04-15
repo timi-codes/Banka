@@ -53,7 +53,7 @@ const Utils = {
    * @param {object} payload
    */
   jwtSigner(payload) {
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
+    return jwt.sign(payload, "fjdfjdjfjd", { expiresIn: '24h' });
   },
   /**
    * @description - remove null key from ab object
