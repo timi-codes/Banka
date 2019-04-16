@@ -368,7 +368,6 @@ input[type="password"] {
   min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  margin-top: 130px;
 }
 
 .dropdown-content a {
@@ -388,4 +387,48 @@ input[type="password"] {
 
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+@media only screen and (max-width: 600px){
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  h4 {
+    font-size: 11px;
+  }
+
+  .banner{
+    padding: 0 1rem;
+  }
+
+  .balance {
+    justify-self: start;
+    margin: 0;
+ }
+  .banner button{
+    margin-right: 0;
+    padding: 0.6rem 2rem;
+  }
+
+  .balance p{
+    font-size: 12px;
+  }
+
+  .balance h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .onboarding-modal{
+    width: auto;
+    margin:0 1rem;
+  }
+
+  table{
+    width: 100%;
+  }
 }
