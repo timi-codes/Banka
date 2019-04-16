@@ -49,7 +49,12 @@
     "test-dev": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --watch --exit",
     "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migration": "DEBUG=pg/connection babel-node ./API/models/db/index.db",
+    "seeder":"babel-node ./API/models/db/seeders.db"
+  },
+  "env": {
+    "NODE_ENV": "development"
   },
   "repository": {
     "type": "git",
