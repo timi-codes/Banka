@@ -88,7 +88,7 @@ h4 {
 .wrapper {
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 9rem 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas: "header header" "banner banner" "content content";
 }
 
@@ -104,6 +104,7 @@ header {
   background: var(--primary-blue) url("../img/dashboard-top-banner.svg")
     no-repeat center center fixed;
   grid-area: banner;
+  padding: 1.5rem 0.7rem;
 }
 
 .balance {
@@ -134,25 +135,24 @@ header {
   cursor: pointer;
 }
 .content {
-  display: flex;
   justify-content: center;
   grid-area: content;
   flex-flow: column wrap;
   justify-items: center;
   grid-gap: 0;
   padding-bottom: 3rem;
+  overflow-x: hidden;
 }
 
 /*tables*/
 table {
-  /* border-collapse: collapse; */
   margin: auto;
   text-align: center;
   box-shadow: 4px 4px 22px 1px rgba(216, 216, 216, 0.2);
   border-radius: 5px;
   border: 1px solid #dae5f7;
   margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 td {
@@ -165,7 +165,6 @@ td {
   font-weight: 400;
 }
 th {
-  /* background-color: var(--cream-green); */
   padding: 13px;
   color: var(--dark-grey);
   border: 1px solid #dae5f7;
@@ -202,7 +201,11 @@ td button {
   font-weight: 500;
   border: 0;
   cursor: pointer;
-  padding: 0.7rem 1.4rem;
+  padding: 0.3rem 1.4rem;
+}
+
+button img{
+  width: 20px;
 }
 
 td a {
@@ -278,7 +281,7 @@ modals
   display: none;
   position: fixed;
   z-index: 1000000;
-  padding-top: 90px;
+  padding: 10px;
   left: 0;
   top: 0;
   width: 100%;
@@ -298,6 +301,13 @@ input[type="password"] {
   border-radius: 3px;
 }
 
+label{
+  font-size: 12px;
+  text-align: start !important;
+  align-items:start;
+  color: #575757;
+}
+
 .onboarding-modal .ct-select-group {
   margin: 11px 0;
 }
@@ -307,14 +317,23 @@ input[type="password"] {
   padding: 40px 40px 50px 40px;
   border: 1px solid var(--light-grey);
   border-radius: 5px;
-  margin: auto;
   text-align: center;
-  width: calc(100vw / 3.5);
+  width: 370px;
+  margin: auto auto;
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+
 }
 
 .onboarding-modal h3 {
   color: #0036c2;
   margin-bottom: 1rem;
+}
+
+button:hover {
+  opacity: 0.8;
 }
 
 .onboarding-modal button {
@@ -325,7 +344,7 @@ input[type="password"] {
   font-size: 14px;
   font-weight: 600;
   border-radius: 5px;
-  margin: 1rem 0;
+  margin-top: 1rem;
   text-transform: uppercase;
   outline: none;
   width: 100%;
@@ -334,8 +353,9 @@ input[type="password"] {
 
 .onboarding-modal img {
   height: auto;
-  width: 80px;
-  margin-bottom: 1.3rem;
+  width: 70px;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
 }
 
 .onboarding-modal p {
@@ -368,6 +388,7 @@ input[type="password"] {
   min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  margin-top: 65px;
 }
 
 .dropdown-content a {
@@ -387,4 +408,58 @@ input[type="password"] {
 
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+@media only screen and (max-width: 600px){
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  h4 {
+    font-size: 11px;
+  }
+
+  .banner{
+    padding: 1.5rem 0.7rem;
+  }
+
+  .balance {
+    justify-self: start;
+    margin: 0;
+ }
+
+ .balance:nth-child(even){
+    justify-self: end;
+  }
+
+  .banner button{
+    margin-right: 0;
+    padding: 0.6rem 2rem;
+  }
+
+  .balance p{
+    font-size: 12px;
+  }
+
+  .balance h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+
+  .tableDiv {
+    overflow-x:auto;
+  }
+
+  .arrow-down {
+    margin-left: 5px;
+    margin-right: 0px;
+  }
+
+  .onboarding-modal {
+    width: 300px;
+  }
 }

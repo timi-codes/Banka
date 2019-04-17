@@ -42,6 +42,7 @@
         </div>
       </div>
       <div class="content">
+        <div class="tableDiv">
         <table>
           <tr>
             <th class="table-title" colspan="6">Bank Accounts</th>
@@ -72,9 +73,9 @@
             <td>₦ 1,000,000</td>
             <td>
               <a href="customer.html">
-                <button class="viewBtn">View</button>
+                <button class="viewBtn"><img src="../img/view.svg"></button>
               </a>
-              <button class="delete">Delete</button>
+              <button class="delete"><img src="../img/delete.svg"></button>
             </td>
           </tr>
           <tr>
@@ -86,9 +87,9 @@
             <td>₦ 5,000,000</td>
             <td>
               <a href="customer.html">
-                <button class="viewBtn">View</button>
+                <button class="viewBtn"><img src="../img/view.svg"></button>
               </a>
-              <button class="delete">Delete</button>
+              <button class="delete"><img src="../img/delete.svg"></button>
             </td>
           </tr>
           <tr>
@@ -100,9 +101,24 @@
             <td>₦ 5,000,000</td>
             <td>
               <a href="customer.html">
-                <button class="viewBtn">View</button>
+                <button class="viewBtn"><img src="../img/view.svg"></button>
               </a>
-              <button class="delete">Delete</button>
+              <button class="delete"><img src="../img/delete.svg"></button>
+              </td>
+          </tr>
+
+          <tr>
+            <td>Current</td>
+            <td>0070729295</td>
+            <td>Bola Tinubu</td>
+            <td>23rd, Feb 2019</td>
+            <td>Active</td>
+            <td>₦ 5,000,000</td>
+            <td>
+              <a href="customer.html">
+                <button class="viewBtn"><img src="../img/view.svg"></button>
+              </a>
+              <button class="delete"><img src="../img/delete.svg"></button>
             </td>
           </tr>
 
@@ -115,24 +131,9 @@
             <td>₦ 5,000,000</td>
             <td>
               <a href="customer.html">
-                <button class="viewBtn">View</button>
+                <button class="viewBtn"><img src="../img/view.svg"></button>
               </a>
-              <button class="delete">Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Bola Tinubu</td>
-            <td>23rd, Feb 2019</td>
-            <td>Active</td>
-            <td>₦ 5,000,000</td>
-            <td>
-              <a href="customer.html">
-                <button class="viewBtn">View</button>
-              </a>
-              <button class="delete">Delete</button>
+              <button class="delete"><img src="../img/delete.svg"></button>
             </td>
           </tr>
           <tr>
@@ -144,58 +145,65 @@
             <td>₦ 5,000,000</td>
             <td>
               <a href="customer.html">
-                <button class="viewBtn">View</button>
+                <button class="viewBtn"><img src="../img/view.svg"></button>
               </a>
-              <button class="delete">Delete</button>
+              <button class="delete"><img src="../img/delete.svg"></button>
             </td>
           </tr>
         </table>
+        </div>
       </div>
 
       <div id="profileModal" class="modal">
-        <div class="onboarding-modal">
-          <img class="avatar" src="../img/emeka copy@3x.png" />
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value="Peter"
-            placeholder="First Name"
-            disabled
-          />
-          <input
-            type="text"
-            id="lname"
-            name="lname"
-            value="Tejumola"
-            placeholder="Last Name"
-            disabled
-          />
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value="petertejumola@gmail.com"
-            placeholder="Email Address"
-            disabled
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-          />
-
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Confirm Password"
-          />
-
-          <button class="update">Update</button>
+          <div class="onboarding-modal">
+            <img class="avatar" src="../img/emeka copy@3x.png" />
+  
+            <label for="fname">First Name</label>
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              value="Timi"
+              placeholder="First Name"
+              disabled
+            />
+            <label for="lname">Last Name</label>
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              value="Tejumola"
+              placeholder="Last Name"
+              disabled
+            />
+  
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value="tejumolatimi@gmail.com"
+              placeholder="Email Address"
+              disabled
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Confirm Password"
+            />
+  
+            <button class="update">Update</button>
+          </div>
         </div>
-      </div>
     </div>
   </body>
 
