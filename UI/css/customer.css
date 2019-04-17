@@ -356,6 +356,13 @@ input[type="password"] {
   margin: 11px 0;
 }
 
+label{
+  font-size: 12px;
+  text-align: start !important;
+  align-items:start;
+  color: #494949;
+}
+
 .onboarding-modal {
   background-color: white;
   padding: 40px 40px 50px 40px;
@@ -364,11 +371,15 @@ input[type="password"] {
   margin: auto;
   text-align: center;
   width: calc(100vw / 3.5);
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
 .onboarding-modal h3 {
   color: #0036c2;
-  margin-bottom: 1rem;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
 }
 
 .onboarding-modal button {

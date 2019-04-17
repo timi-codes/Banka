@@ -171,6 +171,13 @@ h2 {
   align-self: center;
 }
 
+label{
+  font-size: 12px;
+  text-align: start !important;
+  align-items:start;
+  color: #494949;
+}
+
 /**
 services section
 **/
@@ -243,7 +250,7 @@ input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 12px 20px;
-  margin: 11px 0;
+  margin: 10px 0;
   border: 1px solid var(--input-color);
   outline: none;
   font-size: 14px;
@@ -259,6 +266,9 @@ input[type="password"] {
   text-align: center;
   float: right;
   margin-right: 3rem;
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
 .onboarding-modal button {
@@ -279,7 +289,9 @@ input[type="password"] {
 .onboarding-modal img {
   height: auto;
   width: 80px;
-  margin-bottom: 1.3rem;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+
 }
 
 .onboarding-modal p {
@@ -295,7 +307,7 @@ input[type="password"] {
 
 .ct-select-group {
   height: 44px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   position: relative;
 }
 

@@ -114,14 +114,23 @@
       <div id="accountModal" class="modal">
         <div class="onboarding-modal">
           <h3>Create a bank account</h3>
-          <input type="text" id="fname" name="fname" placeholder="First Name" />
-          <input type="text" id="lname" name="lname" placeholder="Last Name" />
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname" placeholder="First Name" value="Timi" disabled/>
+
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname" placeholder="Last Name" value="Tejumola" disabled/>
+
+          <label for="email">Email Address</label>
           <input
             type="text"
             id="email"
             name="email"
             placeholder="Email Address"
+            value="timitejumola@gmail.com"
+            disabled
           />
+
+          <label for="balance">Opening Balance</label>
           <input
             type="text"
             id="balance"
@@ -144,6 +153,8 @@
       <div id="profileModal" class="modal">
         <div class="onboarding-modal">
           <img class="avatar" src="../img/emeka copy@3x.png" />
+
+          <label for="fname">First Name</label>
           <input
             type="text"
             id="fname"
@@ -152,6 +163,7 @@
             placeholder="First Name"
             disabled
           />
+          <label for="lname">Last Name</label>
           <input
             type="text"
             id="lname"
@@ -160,6 +172,8 @@
             placeholder="Last Name"
             disabled
           />
+
+          <label for="email">Email Address</label>
           <input
             type="text"
             id="email"
@@ -168,13 +182,14 @@
             placeholder="Email Address"
             disabled
           />
+          <label for="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
             placeholder="Password"
           />
-
+          <label for="password">Password</label>
           <input
             type="password"
             id="password"
