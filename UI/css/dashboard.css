@@ -88,7 +88,7 @@ h4 {
 .wrapper {
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 9rem 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas: "header header" "banner banner" "content content";
 }
 
@@ -104,6 +104,7 @@ header {
   background: var(--primary-blue) url("../img/dashboard-top-banner.svg")
     no-repeat center center fixed;
   grid-area: banner;
+  padding: 1.5rem 0.7rem;
 }
 
 .balance {
@@ -134,25 +135,24 @@ header {
   cursor: pointer;
 }
 .content {
-  display: flex;
   justify-content: center;
   grid-area: content;
   flex-flow: column wrap;
   justify-items: center;
   grid-gap: 0;
   padding-bottom: 3rem;
+  overflow-x: hidden;
 }
 
 /*tables*/
 table {
-  /* border-collapse: collapse; */
   margin: auto;
   text-align: center;
   box-shadow: 4px 4px 22px 1px rgba(216, 216, 216, 0.2);
   border-radius: 5px;
   border: 1px solid #dae5f7;
   margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 td {
@@ -165,7 +165,6 @@ td {
   font-weight: 400;
 }
 th {
-  /* background-color: var(--cream-green); */
   padding: 13px;
   color: var(--dark-grey);
   border: 1px solid #dae5f7;
@@ -402,13 +401,18 @@ input[type="password"] {
   }
 
   .banner{
-    padding: 0 1rem;
+    padding: 1.5rem 0.7rem;
   }
 
   .balance {
     justify-self: start;
     margin: 0;
  }
+
+ .balance:nth-child(even){
+    justify-self: end;
+  }
+
   .banner button{
     margin-right: 0;
     padding: 0.6rem 2rem;
@@ -423,12 +427,17 @@ input[type="password"] {
     font-weight: 800;
   }
 
-  .onboarding-modal{
+  .onboarding-modal { 
     width: auto;
     margin:0 1rem;
   }
 
-  table{
-    width: 100%;
+  .tableDiv {
+    overflow-x:auto;
   }
+
+  .arrow-down {
+    margin-left: 5px;
+    margin-right: 0px;
+}
 }

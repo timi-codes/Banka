@@ -42,60 +42,62 @@
           <p>CURRENT BALANCE</p>
           <h3>₦ 1,000,000</h3>
         </div>
-        <button class="credit-button" id="credit-button">
-          Credit/Debit Account
-        </button>
       </div>
       <div class="content">
-        <table>
-          <tr>
-            <th class="table-title" colspan="7">Accounts</th>
-          </tr>
-          <tr>
-            <th class="table-header"></th>
-            <th class="table-header">Type</th>
-            <th class="table-header">Account Number</th>
-            <th class="table-header">Status</th>
-            <th class="table-header">Created On</th>
-            <th class="table-header">Balance</th>
-            <th class="action-header">Actions</th>
-          </tr>
-          <tr>
-            <td><img src="../img/current-account-logo.svg" /></td>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Active</td>
-            <td>23rd, Feb 2019</td>
-            <td>₦ 1,000,000</td>
-            <td>
-              <div class="ct-select-group ct-js-select-group">
-                <select class="ct-select ct-js-select">
-                  <option>Active</option>
-                  <option>Dormant</option>
-                  <option>Draft</option>
-                </select>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><img src="../img/savings-account-logo.svg" /></td>
-            <td>Savings</td>
-            <td>0222010772</td>
-            <td>Active</td>
-            <td>25th, Mar 2019</td>
-            <td>₦ 1,500,000</td>
-            <td>
-              <div class="ct-select-group ct-js-select-group">
-                <select class="ct-select ct-js-select">
-                  <option>Active</option>
-                  <option>Dormant</option>
-                  <option>Draft</option>
-                </select>
-              </div>
-            </td>
-          </tr>
-        </table>
-
+          <button class="credit-button" id="credit-button">
+          Perform Transaction
+        </button>
+          <div class="tableDiv">
+          <table>
+            <tr>
+              <th class="table-title" colspan="7">Accounts</th>
+            </tr>
+            <tr>
+              <th class="table-header"></th>
+              <th class="table-header">Type</th>
+              <th class="table-header">Account Number</th>
+              <th class="table-header">Status</th>
+              <th class="table-header">Created On</th>
+              <th class="table-header">Balance</th>
+              <th class="action-header">Actions</th>
+            </tr>
+            <tr>
+              <td><img src="../img/current-account-logo.svg" /></td>
+              <td>Current</td>
+              <td>0070729295</td>
+              <td>Active</td>
+              <td>23rd, Feb 2019</td>
+              <td>₦ 1,000,000</td>
+              <td>
+                <div class="ct-select-group ct-js-select-group">
+                  <select class="ct-select ct-js-select">
+                    <option>Active</option>
+                    <option>Dormant</option>
+                    <option>Draft</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><img src="../img/savings-account-logo.svg" /></td>
+              <td>Savings</td>
+              <td>0222010772</td>
+              <td>Active</td>
+              <td>25th, Mar 2019</td>
+              <td>₦ 1,500,000</td>
+              <td>
+                <div class="ct-select-group ct-js-select-group">
+                  <select class="ct-select ct-js-select">
+                    <option>Active</option>
+                    <option>Dormant</option>
+                    <option>Draft</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="tableDiv">
         <table>
           <tr>
             <th class="table-title" colspan="6">Transaction History</th>
@@ -140,13 +142,13 @@
       </div>
       <div id="accountModal" class="modal">
         <div class="onboarding-modal">
-          <h3>Credit/Debit Account</h3>
+          <h3>Credit or Debit Account</h3>
           <input type="text" id="fname" name="fname" placeholder="Full Name" />
           <div class="ct-select-group ct-js-select-group">
             <select class="ct-select ct-js-select">
               <option selected>Select</option>
-              <option>Current</option>
-              <option>Savings</option>
+              <option>Credit</option>
+              <option>Debit</option>
             </select>
           </div>
           <input type="text" id="amount" name="amount" placeholder="Amount" />
@@ -155,6 +157,8 @@
             id="account-bal"
             name="account-bal"
             placeholder="Account Balance"
+            value="100,0000"
+            disabled
           />
 
           <button class="submit">Submit</button>
