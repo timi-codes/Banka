@@ -281,7 +281,7 @@ modals
   display: none;
   position: fixed;
   z-index: 1000000;
-  padding-top: 90px;
+  padding: 10px;
   left: 0;
   top: 0;
   width: 100%;
@@ -318,10 +318,13 @@ label{
   border: 1px solid var(--light-grey);
   border-radius: 5px;
   text-align: center;
-  width: calc(100vw / 3.5);
+  width: 370px;
+  margin: auto auto;
   display:flex;
   flex-flow: column nowrap;
   justify-content: center;
+  align-content: center;
+
 }
 
 .onboarding-modal h3 {
@@ -385,6 +388,7 @@ button:hover {
   min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  margin-top: 65px;
 }
 
 .dropdown-content a {
@@ -445,10 +449,6 @@ button:hover {
     font-weight: 800;
   }
 
-  .onboarding-modal { 
-    width: auto;
-    margin:0 1rem;
-  }
 
   .tableDiv {
     overflow-x:auto;
@@ -457,5 +457,9 @@ button:hover {
   .arrow-down {
     margin-left: 5px;
     margin-right: 0px;
-}
+  }
+
+  .onboarding-modal {
+    width: 300px;
+  }
 }

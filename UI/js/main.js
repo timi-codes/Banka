@@ -9,6 +9,8 @@ const login = document.getElementById('login-button');
 
 const body = document.getElementsByTagName('body')[0];
 
+console.log(login);
+
 for (let button = 0; button < signup.length; button += 1) {
   signup[button].onclick = () => {
     document.body.scrollTop = 0;
@@ -23,13 +25,14 @@ login.onclick = () => {
 };
 
 signupModal.onclick = (e) => {
-  if (e.target !== this) return;
+  if (e.target !== e.currentTarget) return;
   signupModal.style.display = 'none';
   body.classList.remove('stop-scrolling');
 };
 
+
 loginModal.onclick = (e) => {
-  if (e.target !== this) return;
+  if (e.target !== e.currentTarget) return;
   loginModal.style.display = 'none';
   body.classList.remove('stop-scrolling');
 };

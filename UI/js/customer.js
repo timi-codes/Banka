@@ -2,7 +2,7 @@ const accountModal = document.getElementById('accountModal');
 const body = document.getElementsByTagName('body')[0];
 
 accountModal.onclick = (e) => {
-  if (e.target !== this) return;
+  if (e.target !== e.currentTarget) return;
   accountModal.style.display = 'none';
   body.classList.remove('stop-scrolling');
 };
@@ -10,6 +10,6 @@ accountModal.onclick = (e) => {
 const credit = document.getElementById('credit-button');
 
 credit.onclick = () => {
-  accountModal.style.display = 'block';
+  accountModal.style.display = 'flex';
   body.classList.add('stop-scrolling');
 };

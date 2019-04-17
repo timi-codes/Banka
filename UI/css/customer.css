@@ -332,7 +332,7 @@ modals
   display: none;
   position: fixed;
   z-index: 1000000;
-  padding-top: 90px;
+  padding-top: 10px;
   left: 0;
   top: 0;
   width: 100%;
@@ -404,7 +404,7 @@ button:hover {
 .onboarding-modal img {
   height: auto;
   width: 80px;
-  margin-bottom: 1.3rem;
+  margin: 0 auto;
 }
 
 .onboarding-modal p {
@@ -437,7 +437,7 @@ button:hover {
   min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  /* margin-top: 130px; */
+  margin-top: 65px;
 }
 
 .dropdown-content a {
@@ -518,8 +518,7 @@ button:hover {
   }
 
   .onboarding-modal { 
-    width: auto;
-    margin:0 1rem;
+    width: 310px;
   }
 
   .tableDiv {
