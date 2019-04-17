@@ -201,7 +201,11 @@ td button {
   font-weight: 500;
   border: 0;
   cursor: pointer;
-  padding: 0.7rem 1.4rem;
+  padding: 0.3rem 1.4rem;
+}
+
+button img{
+  width: 20px;
 }
 
 td a {
