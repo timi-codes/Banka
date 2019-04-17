@@ -363,6 +363,10 @@ label{
   color: #494949;
 }
 
+button:hover {
+  opacity: 0.8;
+}
+
 .onboarding-modal {
   background-color: white;
   padding: 40px 40px 50px 40px;

@@ -329,6 +329,10 @@ label{
   margin-bottom: 1rem;
 }
 
+button:hover {
+  opacity: 0.8;
+}
+
 .onboarding-modal button {
   padding: 0.9rem 2.5rem;
   border: 0;
