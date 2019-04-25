@@ -151,10 +151,10 @@ class AccountService {
    */
   static async isMyAccount(id, accountNumber) {
     try {
-      const foundAccount = await Account.findByAccountNumber(Number(accountNumber));
+      const foundAccount = await Account.findByAccountNumber(accountNumber);
 
       if (foundAccount) {
-        if (foundAccount.owner !== Number(id)) {
+        if (Number(foundAccount.owner) !== Number(id)) {
           return false;
         }
       }

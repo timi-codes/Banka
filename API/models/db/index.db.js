@@ -42,6 +42,16 @@ class Model {
     }
   }
 
+  async selectWithJoin(columns, selectors, values) {
+    const queryString = `SELECT ${columns} FROM ${this.table} trans INNER JOIN accounts acc ON (trans.accountnumber = acc.accountnumber) WHERE ${selectors} `;
+    try {
+      const response = await this.pool.query(queryString, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async update(columns, selector, values) {
     const queryString = `UPDATE ${this.table} SET ${columns} WHERE ${selector} returning *`;
     try {

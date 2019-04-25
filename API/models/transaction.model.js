@@ -51,4 +51,17 @@ export default class Transaction extends Model {
       throw error;
     }
   }
+
+  async getTransactionById(id) {
+    try {
+      const { rows } = await this.selectWithJoin(
+        'trans.id, trans.createdOn, transactiontype, trans.accountNumber, amount, oldBalance, newBalance, owner',
+        'trans.id=$1',
+        [id],
+      );
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
