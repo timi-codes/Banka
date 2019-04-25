@@ -3,20 +3,15 @@ import AccountService from '../services/account.service';
 
 const response = new ResponseGenerator();
 
-
 const messages = [
   'only a staff has the permission to change account status',
   'only a staff has the permission to delete an account',
-  'only a staff has the permission to get other user\'s account',
+  "only a staff has the permission to get other user's account",
 ];
 
-const paths = [
-  'patch',
-  'delete',
-  'get',
-];
+const paths = ['patch', 'delete', 'get'];
 
-const getNestedObject = (nestedObj, pathArr) => pathArr.reduce((obj, key) => ((obj && obj[key] !== 'undefined') ? obj[key] : undefined), nestedObj);
+const getNestedObject = (nestedObj, pathArr) => pathArr.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), nestedObj);
 
 /**
  * @description - User's Permission Middleware
@@ -27,15 +22,20 @@ const getNestedObject = (nestedObj, pathArr) => pathArr.reduce((obj, key) => ((o
  *
  * @returns {Object} Object
  */
-const permissionMiddleWare = (req, res, next) => {
-  if (!req.token) { return response.sendError(res, 419, 'How did you get pass the authentication middleware 😩😢😫'); }
+const permissionMiddleWare = async (req, res, next) => {
+  if (!req.token) {
+    return response.sendError(
+      res,
+      419,
+      'How did you get pass the authentication middleware 😩😢😫',
+    );
+  }
 
   const { id, type, isAdmin } = req.token;
 
   const route = req.route.path;
   const method = req.method.toLowerCase();
   const { accountNumber } = req.params;
-
 
   const routes = {
     '/accounts': {
@@ -52,19 +52,25 @@ const permissionMiddleWare = (req, res, next) => {
     },
   };
 
-
-  if (route in routes && getNestedObject(routes, [route, 'valid'])) { return response.sendError(res, 403, getNestedObject(routes, [route, 'message'])); }
-
-  const indexOfMethod = paths.indexOf(method);
-  const isValid = (route === '/accounts/:accountNumber' && method === paths[indexOfMethod] && type !== 'staff');
-
-  if (isValid && indexOfMethod < 2) {
-    return response.sendError(res, 403, messages[indexOfMethod]);
-  } if (isValid && !AccountService.isMyAccount(id, accountNumber)) {
-    return response.sendError(res, 403, messages[indexOfMethod]);
+  if (route in routes && getNestedObject(routes, [route, 'valid'])) {
+    return response.sendError(res, 403, getNestedObject(routes, [route, 'message']));
   }
 
-  next();
+  const indexOfMethod = paths.indexOf(method);
+  const isValid = route === '/accounts/:accountNumber' && method === paths[indexOfMethod] && type !== 'staff';
+  try {
+    if (isValid && indexOfMethod < 2) {
+      return response.sendError(res, 403, messages[indexOfMethod]);
+    }
+    const isMyAccount = await AccountService.isMyAccount(id, accountNumber);
+
+    if (isValid && !isMyAccount) {
+      return response.sendError(res, 403, messages[indexOfMethod]);
+    }
+    next();
+  } catch (error) {
+    response.sendError(res, 400, 'Error proccessing endpoint');
+  }
 };
 
 export default permissionMiddleWare;

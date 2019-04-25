@@ -17,7 +17,6 @@ describe('Test user login and signup', () => {
         lastName: 'tejumola',
         password: 'password',
         confirmPassword: 'password',
-        isAdmin: true,
       };
       chai
         .request(app)
@@ -29,7 +28,7 @@ describe('Test user login and signup', () => {
           res.body.data.should.have.property('token');
           res.body.data.should.have.property('firstName');
           res.body.data.should.have.property('lastName');
-          res.body.data.should.have.property('type').eql('staff');
+          res.body.data.should.have.property('type').eql('client');
           done();
         });
     });
@@ -41,7 +40,6 @@ describe('Test user login and signup', () => {
         lastName: 'tejumola',
         password: 'password',
         confirmPassword: 'password',
-        isAdmin: true,
       };
 
       chai
@@ -62,7 +60,6 @@ describe('Test user login and signup', () => {
         email: 'tejumoladavid@gmail.com',
         password: 'password',
         confirmPassword: 'password',
-        isAdmin: true,
       };
 
       chai
@@ -83,7 +80,6 @@ describe('Test user login and signup', () => {
         email: 'tejumoladavid@gmail.com',
         password: 'password',
         confirmPassword: 'password',
-        isAdmin: true,
       };
 
       chai
@@ -104,7 +100,6 @@ describe('Test user login and signup', () => {
         lastName: 'timi',
         password: 'password',
         confirmPassword: 'password',
-        isAdmin: true,
       };
 
       chai
@@ -126,7 +121,6 @@ describe('Test user login and signup', () => {
         email: 'tejumoladavid@gmail.com',
         password: 'passw',
         confirmPassword: 'passw',
-        isAdmin: true,
       };
 
       chai
@@ -149,7 +143,6 @@ describe('Test user login and signup', () => {
         email: 'tejumoladavid@gmail.com',
         password: 'password',
         confirmPassword: 'passw',
-        isAdmin: true,
       };
 
       chai
@@ -160,28 +153,6 @@ describe('Test user login and signup', () => {
           res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('your password and confirm password do not match');
-          done();
-        });
-    });
-
-    it('it should throw an error if type is not specified while isAdmin is false', (done) => {
-      const invalidPayload = {
-        firstName: 'timi',
-        lastName: 'timi',
-        email: 'tejumoladavid@gmail.com',
-        password: 'password',
-        confirmPassword: 'password',
-        isAdmin: false,
-      };
-
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send(invalidPayload)
-        .end((err, res) => {
-          res.should.have.status(422);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('type is required');
           done();
         });
     });

@@ -1,5 +1,8 @@
-import Transaction from '../models/transaction.model';
-import Account from '../models/account.model';
+import TransactionModel from '../models/transaction.model';
+import AccountModel from '../models/account.model';
+
+const Account = new AccountModel('accounts');
+const Transaction = new TransactionModel('transactions');
 
 
 /** service that allows cashier perform transaction of user's account */
@@ -9,17 +12,28 @@ class TransactionService {
    * @param {object} a new transaction object
    */
 
-  static debitAccount(cashierId, accountNumber, amount) {
-    const account = Account.findByAccountNumber(Number(accountNumber));
+  static async debitAccount(cashierId, accountNumber, amount) {
+    try {
+      const account = await Account.findByAccountNumber(Number(accountNumber));
 
-    if (account) {
-      if (account.balance > amount) {
-        const transaction = Transaction.debit(account, amount, cashierId);
-        return transaction;
+      if (account) {
+        if (account.balance >= amount) {
+          const transaction = await Transaction.debit(account, amount, cashierId);
+          return {
+            transactionId: transaction.id,
+            accountNumber: Number(transaction.accountnumber),
+            amount,
+            cashier: transaction.cashier,
+            transactionType: transaction.transactiontype,
+            accountBalance: transaction.newbalance,
+          };
+        }
+        throw new Error('account balance is not sufficient');
       }
-      throw new Error('account balance is not sufficient');
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('account number doesn\'t exist');
   }
 
   /**
@@ -27,14 +41,25 @@ class TransactionService {
    * @param {object} a new transaction object
    */
 
-  static creditAccount(cashierId, accountNumber, amount) {
-    const account = Account.findByAccountNumber(Number(accountNumber));
+  static async creditAccount(cashierId, accountNumber, amount) {
+    try {
+      const account = await Account.findByAccountNumber(Number(accountNumber));
 
-    if (account) {
-      const transaction = Transaction.credit(account, amount, cashierId);
-      return transaction;
+      if (account) {
+        const transaction = await Transaction.credit(account, amount, cashierId);
+        return {
+          transactionId: transaction.id,
+          accountNumber: Number(transaction.accountnumber),
+          amount,
+          cashier: transaction.cashier,
+          transactionType: transaction.transactiontype,
+          accountBalance: transaction.newbalance,
+        };
+      }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('account number doesn\'t exist');
   }
 }
 

@@ -13,12 +13,12 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
-  static createBankAccount(req, res) {
+  static async createBankAccount(req, res) {
     const { id } = req.token;
     const { type, balance } = req.body;
 
     try {
-      const account = AccountService.createAccount(id, type, balance);
+      const account = await AccountService.createAccount(id, type, balance);
       return response.sendSuccess(res, 201, account);
     } catch (error) {
       return response.sendError(res, 400, error.message);
@@ -31,12 +31,16 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
-  static fetchAllAccounts(req, res) {
-    const accounts = AccountService.getAllAccounts();
-    if (accounts.length > 0) {
-      return response.sendSuccess(res, 200, { accounts });
+  static async fetchAllAccounts(req, res) {
+    try {
+      const accounts = await AccountService.getAllAccounts();
+      if (accounts.length > 0) {
+        return response.sendSuccess(res, 200, { accounts });
+      }
+      return response.sendError(res, 204, 'no account has been created');
+    } catch (error) {
+      return response.sendError(res, 400, error.message);
     }
-    return response.sendError(res, 204, 'no account has been created');
   }
 
   /**
@@ -45,11 +49,11 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
-  static changeStatus(req, res) {
+  static async changeStatus(req, res) {
     const { status } = req.body;
     const { accountNumber } = req.params;
     try {
-      const data = AccountService.changeAccountStatus(accountNumber, status);
+      const data = await AccountService.changeAccountStatus(accountNumber, status);
       return response.sendSuccess(res, 200, data);
     } catch (error) {
       return response.sendError(res, 400, error.message);
@@ -62,10 +66,10 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
-  static getAccount(req, res) {
+  static async getAccount(req, res) {
     const { accountNumber } = req.params;
     try {
-      const data = AccountService.getAccount(accountNumber);
+      const data = await AccountService.getAccount(accountNumber);
       return response.sendSuccess(res, 200, data);
     } catch (error) {
       return response.sendError(res, 400, error.message);
@@ -78,10 +82,10 @@ class AccountController {
    * @returns {json} json
    * @memberof AccountController
    */
-  static deleteAccount(req, res) {
+  static async deleteAccount(req, res) {
     const { accountNumber } = req.params;
     try {
-      const message = AccountService.deleteAccount(accountNumber);
+      const message = await AccountService.deleteAccount(accountNumber);
       return response.sendSuccess(res, 200, null, message);
     } catch (error) {
       return response.sendError(res, 400, error.message);

@@ -1,22 +1,42 @@
-import dummyData from './dummyData';
-import Utility from '../utils/common';
+import Model from './db/index.db';
 
-export default class User {
-  static createUser(user) {
-    const newId = Utility.getNextId(dummyData.users);
-    const newUser = user;
-    newUser.id = newId;
-    dummyData.users.push(newUser);
-    return newUser;
+class User extends Model {
+  async createUser(user) {
+    try {
+      const { rows } = await this.insert(
+        'email, firstName, lastName, password',
+        '$1, $2, $3, $4',
+        [
+          user.email,
+          user.firstName,
+          user.lastName,
+          user.password,
+        ],
+      );
+      this.logJSON(rows[0]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
   }
 
-  static findUserByEmail(email) {
-    const foundUser = dummyData.users.find(user => user.email === email);
-    return foundUser;
+  async findUserByEmail(email) {
+    try {
+      const { rows } = await this.selectWhere('id, email, firstName, lastName, password, type, isAdmin', 'email=$1', [email]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
   }
 
-  static findUserById(id) {
-    const foundUser = dummyData.users.find(user => user.id === id);
-    return foundUser;
+  async findUserById(id) {
+    try {
+      const { rows } = await this.selectWhere('id, email, firstName, lastName, password, type, isAdmin', 'id=$1', [id]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
   }
 }
+
+export default User;

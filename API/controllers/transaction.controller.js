@@ -13,13 +13,13 @@ class TransactionController {
    * @returns {json} json
    * @memberof TransactionController
    */
-  static debitUserAccount(req, res) {
+  static async debitUserAccount(req, res) {
     const { amount } = req.body;
     const { id } = req.token;
     const { accountNumber } = req.params;
 
     try {
-      const transaction = TransactionService.debitAccount(id, accountNumber, amount);
+      const transaction = await TransactionService.debitAccount(id, accountNumber, amount);
       return response.sendSuccess(res, 200, transaction);
     } catch (error) {
       return response.sendError(res, 400, error.message);
@@ -32,13 +32,13 @@ class TransactionController {
    * @returns {json} json
    * @memberof TransactionController
    */
-  static creditUserAccount(req, res) {
+  static async creditUserAccount(req, res) {
     const { amount } = req.body;
     const { id } = req.token;
     const { accountNumber } = req.params;
 
     try {
-      const transaction = TransactionService.creditAccount(id, accountNumber, amount);
+      const transaction = await TransactionService.creditAccount(id, accountNumber, amount);
       return response.sendSuccess(res, 200, transaction);
     } catch (error) {
       return response.sendError(res, 400, error.message);

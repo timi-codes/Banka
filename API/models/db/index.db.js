@@ -12,18 +12,55 @@ class Model {
     return this.logger(JSON.stringify(data, null, '\t'));
   }
 
-//   async insert(params, values) {
-//     const queryString = `INSERT INTO users (${params}) values ($1,$2,$3,$4,$5,$6)`;
-//   }
-
-  async select(params) {
-    const res = await this.pool.query(`select ${params} from ${this.table}`);
-    this.logJSON(res);
+  async insert(columns, selector, values) {
+    const queryString = `INSERT INTO ${this.table} (${columns}) VALUES(${selector}) returning *`;
+    try {
+      const response = await this.pool.query(queryString, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 
-  async selectWhere(params) {
-    const res = await this.pool.query(`select ${params} from ${this.table}`);
-    this.logJSON(res);
+  async select(columns) {
+    const queryString = `SELECT ${columns} FROM ${this.table}`;
+    try {
+      const response = await this.pool.query(queryString);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async selectWhere(columns, selector, values) {
+    const queryString = `SELECT ${columns} FROM ${this.table} WHERE ${selector}`;
+    try {
+      const response = await this.pool.query(queryString, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async update(columns, selector, values) {
+    const queryString = `UPDATE ${this.table} SET ${columns} WHERE ${selector} returning *`;
+    try {
+      const response = await this.pool.query(queryString, values);
+      this.logJSON(response);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async delete(selector, value) {
+    const queryQuery = `DELETE FROM ${this.table} WHERE ${selector} returning *`;
+    try {
+      const response = await this.pool.query(queryQuery, value);
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

@@ -9,7 +9,7 @@ debug('pg/connection')(config);
 let pool;
 
 if (env === 'production') {
-  pool = new Pool({ connectionString: config[env] });
+  pool = new Pool({ connectionString: config.use_env_variable });
 } else {
   pool = new Pool({
     user: config.uername,
@@ -23,5 +23,6 @@ if (env === 'production') {
 pool.on('error', (error) => {
   debug('pg/connection')(`Some error occured!${error}`);
 });
+
 
 export default pool;
