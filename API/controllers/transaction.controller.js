@@ -49,12 +49,28 @@ class TransactionController {
    * @param{object}  request express request object
    * @param{object}  response express request object
    * @returns {json} json
-   * @memberof AccountController
+   * @memberof TransactionController
    */
   static async getTransactions(req, res) {
     const { accountNumber } = req.params;
     try {
       const data = await TransactionService.getAllTransactions(accountNumber);
+      return response.sendSuccess(res, 200, data);
+    } catch (error) {
+      return response.sendError(res, 400, error.message);
+    }
+  }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof TransactionController
+   */
+  static async getATransaction(req, res) {
+    const { transactionId } = req.params;
+    try {
+      const data = await TransactionService.getTransaction(transactionId);
       return response.sendSuccess(res, 200, data);
     } catch (error) {
       return response.sendError(res, 400, error.message);

@@ -149,7 +149,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .set('x-access-token', clientToken)
         .end((err, res) => {
           res.should.have.status(403);
-          res.body.should.have.property('error').eql('only a staff has the permission to get all bank accounts');
+          res.body.should.have.property('error').eql('only a staff can perform this operation');
           done();
         });
     });
@@ -204,7 +204,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('only a staff has the permission to get other user\'s account');
+          res.body.should.have.property('error').eql('only a staff has the permission to view other accounts and transactions');
           done();
         });
     });
@@ -275,7 +275,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('only a staff has the permission to change account status');
+          res.body.should.have.property('error').eql('only an admin can perform this operation');
           done();
         });
     });
@@ -361,7 +361,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .set('x-access-token', clientToken)
         .end((err, res) => {
           res.should.have.status(403);
-          res.body.should.have.property('error').eql('only a staff has the permission to delete an account');
+          res.body.should.have.property('error').eql('only a staff can perform this operation');
           done();
         });
     });

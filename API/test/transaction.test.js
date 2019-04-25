@@ -36,7 +36,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
   describe('POST /transactions/:accountNumber/debit', () => {
     before('Sign in as a user', (done) => {
       const userCredential = {
-        email: 'boladeojo@gmail.com',
+        email: 'sholaadeola@gmail.com',
         password: 'password',
       };
 
@@ -63,7 +63,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('only a cashier has the permission to debit an account');
+          res.body.should.have.property('error').eql('only a cashier can perform this operation');
           done();
         });
     });
@@ -170,7 +170,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('only a cashier has the permission to credit an account');
+          res.body.should.have.property('error').eql('only a cashier can perform this operation');
           done();
         });
     });
@@ -251,8 +251,38 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
      * Test the GET accounts/:accountNumber/transactions route
      */
   describe('GET accounts/:accountNumber/transactions', () => {
-    it('it should get an account transactions', (done) => {
+    it('it should throw permission error if a user wants to get all transactions', (done) => {
       const accountNumber = 2220107727;
+
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}/transactions`)
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a staff has the permission to view other accounts and transactions');
+          done();
+        });
+    });
+
+    it('it should throw an error when account number is not found', (done) => {
+      const accountNumber = 2220107727890;
+
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}/transactions`)
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('account number doesn\'t exist');
+          done();
+        });
+    });
+
+    it('it should get an account transactions', (done) => {
+      const accountNumber = 2220220303;
 
       chai
         .request(app)
@@ -262,6 +292,62 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.be.a('array');
+          done();
+        });
+    });
+  });
+
+  /**
+     * Test the GET /transactions/:transactionId route
+     */
+  describe('GET /transactions/:transactionId', () => {
+    it('it should throw an error when transaction id is not found', (done) => {
+      const transactionId = 0;
+
+      chai
+        .request(app)
+        .get(`/api/v1/transactions/${transactionId}`)
+        .set('x-access-token', cashierToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('transaction id doesn\'t exist');
+          done();
+        });
+    });
+
+    it('it should get a specific transaction', (done) => {
+      const transactionId = 1;
+
+      chai
+        .request(app)
+        .get(`/api/v1/transactions/${transactionId}`)
+        .set('x-access-token', cashierToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('transactionId');
+          res.body.data.should.have.property('createdOn');
+          res.body.data.should.have.property('type');
+          res.body.data.should.have.property('accountNumber');
+          res.body.data.should.have.property('amount');
+          res.body.data.should.have.property('oldBalance');
+          res.body.data.should.have.property('newBalance');
+          done();
+        });
+    });
+
+    it('it should throw permission error if user wants to see other users transactions', (done) => {
+      const transactionId = 1;
+
+      chai
+        .request(app)
+        .get(`/api/v1/transactions/${transactionId}`)
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('only a staff has the permission to view other accounts and transactions');
           done();
         });
     });

@@ -104,19 +104,17 @@ class TransactionService {
    * @description this function fetches a single user transaction
    * @param {object} response
    */
-  static async getTransaction(accountNumber) {
+  static async getTransaction(transactionId) {
     try {
-      const foundAccount = await Account.findByAccountNumber(accountNumber);
+      const transaction = await Transaction.getTransactionById(transactionId);
 
-      if (foundAccount) {
-        const transaction = await Transaction.getTransactions(Number(foundAccount.accountnumber));
-
+      if (transaction) {
         const {
           id, transactiontype, accountnumber, createdon, oldbalance, newbalance, ...data
         } = transaction;
 
         return {
-          transactionId: transaction.id,
+          transactionId: id,
           createdOn: createdon,
           type: transactiontype,
           accountNumber: accountnumber,
@@ -125,7 +123,7 @@ class TransactionService {
           newBalance: newbalance,
         };
       }
-      throw new Error('account number doesn\'t exist');
+      throw new Error('transaction id doesn\'t exist');
     } catch (error) {
       throw error;
     }
