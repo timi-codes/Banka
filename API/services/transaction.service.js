@@ -61,7 +61,74 @@ class TransactionService {
       throw error;
     }
   }
+
+  /**
+   * @description this function fetches a user account's account transactions
+   * @param {object} response
+   */
+  static async getAllTransactions(accountNumber) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(accountNumber);
+
+      if (foundAccount) {
+        const transactions = await Transaction.getTransactions(Number(foundAccount.accountnumber));
+        const outputs = [];
+
+        const promises = transactions.map(async (transaction) => {
+          const {
+            id, transactiontype, accountnumber, createdon, oldbalance, newbalance, ...data
+          } = transaction;
+
+          outputs.push({
+            transactionId: transaction.id,
+            createdOn: createdon,
+            type: transactiontype,
+            accountNumber: accountnumber,
+            ...data,
+            oldBalance: oldbalance,
+            newBalance: newbalance,
+          });
+        });
+
+        await Promise.all(promises);
+
+        return outputs;
+      }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @description this function fetches a single user transaction
+   * @param {object} response
+   */
+  static async getTransaction(accountNumber) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(accountNumber);
+
+      if (foundAccount) {
+        const transaction = await Transaction.getTransactions(Number(foundAccount.accountnumber));
+
+        const {
+          id, transactiontype, accountnumber, createdon, oldbalance, newbalance, ...data
+        } = transaction;
+
+        return {
+          transactionId: transaction.id,
+          createdOn: createdon,
+          type: transactiontype,
+          accountNumber: accountnumber,
+          ...data,
+          oldBalance: oldbalance,
+          newBalance: newbalance,
+        };
+      }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
+    }
+  }
 }
-
-
 export default TransactionService;

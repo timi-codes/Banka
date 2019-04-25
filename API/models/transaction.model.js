@@ -38,4 +38,17 @@ export default class Transaction extends Model {
       throw error;
     }
   }
+
+  async getTransactions(accountNumber) {
+    try {
+      const { rows } = await this.selectWhere(
+        'id, createdOn, transactiontype, accountNumber, amount, oldBalance, newBalance',
+        'accountNumber=$1',
+        [accountNumber],
+      );
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

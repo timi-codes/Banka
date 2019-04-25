@@ -44,6 +44,22 @@ class TransactionController {
       return response.sendError(res, 400, error.message);
     }
   }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
+   * @memberof AccountController
+   */
+  static async getTransactions(req, res) {
+    const { accountNumber } = req.params;
+    try {
+      const data = await TransactionService.getAllTransactions(accountNumber);
+      return response.sendSuccess(res, 200, data);
+    } catch (error) {
+      return response.sendError(res, 400, error.message);
+    }
+  }
 }
 
 export default TransactionController;

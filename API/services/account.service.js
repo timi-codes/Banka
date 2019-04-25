@@ -52,6 +52,7 @@ class AccountService {
   static async getAllAccounts() {
     try {
       const accounts = await Account.findAll();
+      const outputs = [];
 
       const promises = accounts.map(async (account) => {
         const {
@@ -59,17 +60,16 @@ class AccountService {
         } = account;
 
         const user = await User.findUserById(owner);
-        return {
+        outputs.push({
           createdOn: createdon,
           accountNumber: accountnumber,
           ownerEmail: user.email,
           ...data,
-        };
+        });
       });
 
-      const results = await Promise.all(promises);
-
-      return results;
+      await Promise.all(promises);
+      return outputs;
     } catch (error) {
       throw error;
     }
