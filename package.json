@@ -45,7 +45,7 @@
     "ui:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
     "ui:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'",
     "start-dev": "DEBUG=pg/model nodemon --exec babel-node API/index.js",
-    "start": "node dist/index.js",
+    "start": "npm run db-exec && node dist/index.js",
     "build-babel": "babel ./API --out-dir dist/ --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc.js,./UI,./README.md",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run build-babel",
@@ -54,10 +54,10 @@
     "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "migration": "DEBUG=pg/connection babel-node ./API/models/db/migrations.db",
-    "seeder": "DEBUG=pg/seeder babel-node ./API/models/db/seeders.db",
+    "migration": "DEBUG=pg/connection node ./dist/models/db/migrations.db",
+    "seeder": "DEBUG=pg/seeder node ./dist/models/db/seeders.db",
     "db-exec": "npm run migration && npm run seeder",
-    "heroku-postbuild": "NODE_ENV=production"
+    "heroku-postbuild": "NODE_ENV=production && npm run build"
   },
   "env": {
     "NODE_ENV": "development"

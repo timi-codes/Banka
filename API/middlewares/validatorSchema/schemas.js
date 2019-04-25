@@ -39,12 +39,11 @@ const transactionSchema = Joi.object({
 });
 
 
-module.exports = {
+export default {
   '/signup': createUserSchema,
   '/signin': loginUserSchema,
   '/accounts': createAccountSchema,
   '/accounts/:accountNumber': updateStatusSchema,
   '/transactions/:accountNumber/debit': transactionSchema,
   '/transactions/:accountNumber/credit': transactionSchema,
-
 };

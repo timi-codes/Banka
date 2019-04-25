@@ -9,7 +9,7 @@ debug('pg/connection')(config);
 let pool;
 
 if (env === 'production') {
-  pool = new Pool({ connectionString: config.use_env_variable });
+  pool = new Pool({ connectionString: process.env[config.use_env_variable] });
 } else {
   pool = new Pool({
     user: config.uername,
