@@ -54,8 +54,8 @@
     "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "migration": "DEBUG=pg/connection node ./API/models/db/migrations.db",
-    "seeder": "DEBUG=pg/seeder node ./API/models/db/seeders.db",
+    "migration": "DEBUG=pg/connection node ./dist/models/db/migrations.db",
+    "seeder": "DEBUG=pg/seeder node ./dist/models/db/seeders.db",
     "db-exec": "npm run migration && npm run seeder",
     "heroku-postbuild": "NODE_ENV=production && npm run build"
   },
