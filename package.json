@@ -57,7 +57,7 @@
     "migration": "DEBUG=pg/connection babel-node ./API/models/db/migrations.db",
     "seeder": "DEBUG=pg/seeder babel-node ./API/models/db/seeders.db",
     "db-exec": "npm run migration && npm run seeder",
-    "heroku-postbuild": "NODE_ENV=production"
+    "heroku-postbuild": "NODE_ENV=production && npm run build"
   },
   "env": {
     "NODE_ENV": "development"
