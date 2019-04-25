@@ -174,15 +174,19 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should get all the bank accounts', (done) => {
-      chai
-        .request(app)
-        .get('/api/v1/accounts')
-        .set('x-access-token', adminToken)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.data.should.have.property('accounts').be.a('array');
-          done();
-        });
+      const resolvingPromise = new Promise((resolve) => {
+        chai
+          .request(app)
+          .get('/api/v1/accounts')
+          .set('x-access-token', adminToken)
+          .end(async (err, res) => {
+            resolve(res);
+          });
+      });
+      resolvingPromise.then((result) => {
+        result.should.have.status(200);
+        result.body.data.should.have.property('accounts').be.a('array');
+      }).finally(done);
     });
   });
 
@@ -192,7 +196,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      */
   describe('GET /accounts/:accountNumber', () => {
     it('it should throw an error if a client wants to get other user\'s account', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       chai
         .request(app)
         .get(`/api/v1/accounts/${accountNumber}`)
@@ -215,17 +219,16 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.have.property('accountNumber').eql(accountNumber);
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
-          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('ownerEmail');
           res.body.data.should.have.property('type');
           res.body.data.should.have.property('balance');
+          res.body.data.should.have.property('createdOn');
           done();
         });
     });
 
     it('it should GET a bank account details as a staff', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       chai
         .request(app)
         .get(`/api/v1/accounts/${accountNumber}`)
@@ -234,11 +237,10 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.have.property('accountNumber').eql(accountNumber);
-          res.body.data.should.have.property('firstName');
-          res.body.data.should.have.property('lastName');
-          res.body.data.should.have.property('email');
+          res.body.data.should.have.property('ownerEmail');
           res.body.data.should.have.property('type');
           res.body.data.should.have.property('balance');
+          res.body.data.should.have.property('createdOn');
           done();
         });
     });
@@ -263,7 +265,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      */
   describe('PATCH /accounts/:accountNumber', () => {
     it('it should throw permission error if user is not an admin', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       const body = { status: 'active' };
       chai
         .request(app)
@@ -280,7 +282,8 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
 
 
     it('it should activate a user bank account', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
+
       const body = { status: 'active' };
       chai
         .request(app)
@@ -297,7 +300,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should set a bank account as dormant', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       const body = { status: 'dormant' };
       chai
         .request(app)
@@ -330,7 +333,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should throw error when request body status is different from dormant or active', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       const body = { status: 'validate' };
       chai
         .request(app)
@@ -351,7 +354,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
      */
   describe('DELETE /accounts/:accountNumber', () => {
     it('it should throw permission error if user is not an admin', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       chai
         .request(app)
         .delete(`/api/v1/accounts/${accountNumber}`)
@@ -364,7 +367,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should DELETE a bank record ', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       chai
         .request(app)
         .delete(`/api/v1/accounts/${accountNumber}`)
@@ -380,7 +383,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
     });
 
     it('it should throw an error when account number is not found', (done) => {
-      const accountNumber = 222010872;
+      const accountNumber = 2220108726;
       chai
         .request(app)
         .delete(`/api/v1/accounts/${accountNumber}`)

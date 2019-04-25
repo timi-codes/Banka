@@ -4,6 +4,8 @@
   "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
   "main": "API/index.js",
   "dependencies": {
+    "@babel/runtime": "^7.4.3",
+    "async": "^2.6.2",
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "debug": "^4.1.1",
@@ -11,7 +13,9 @@
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "make-runnable": "^1.3.6",
     "moment": "^2.24.0",
+    "pg": "^7.9.0",
     "swagger-ui-express": "^4.0.2",
     "uuid": "^3.3.2"
   },
@@ -19,6 +23,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
     "browser-sync": "^2.26.3",
@@ -28,26 +33,34 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsdoc": "^4.8.3",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "run-script-os": "^1.0.5",
-    "should": "^13.2.3",
-    "eslint-plugin-jsdoc": "^4.8.3"
+    "should": "^13.2.3"
   },
   "scripts": {
     "ui": "run-script-os",
     "ui:win32": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
     "ui:darwin:linux": "browser-sync start --server --files 'UI/**/*.css, UI/**/*.html, UI/**/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Firefox Developer Edition'",
-    "start-dev": "DEBUG=development nodemon --exec babel-node API/index.js",
+    "start-dev": "DEBUG=pg/model nodemon --exec babel-node API/index.js",
     "start": "node dist/index.js",
     "build-babel": "babel ./API --out-dir dist/ --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc.js,./UI,./README.md",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run build-babel",
     "test-dev": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --watch --exit",
+    "pretest": "npm run db-exec",
     "test": "nyc --require @babel/register ---reporter=html --reporter=text mocha API/test/**.test.js --timeout 20000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migration": "DEBUG=pg/connection babel-node ./API/models/db/migrations.db",
+    "seeder": "DEBUG=pg/seeder babel-node ./API/models/db/seeders.db",
+    "db-exec": "npm run migration && npm run seeder",
+    "heroku-postbuild": "NODE_ENV=production"
+  },
+  "env": {
+    "NODE_ENV": "development"
   },
   "repository": {
     "type": "git",

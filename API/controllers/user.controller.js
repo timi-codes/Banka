@@ -14,11 +14,14 @@ class UserController {
    * @memberof UserController
    */
 
-  static createUser(req, res) {
+  static async createUser(req, res) {
     const user = req.body;
     try {
-      const createdUser = UserService.createUser(user);
-      return response.sendSuccess(res, 201, createdUser);
+      const createdUser = await UserService.createUser(user);
+      if (createdUser) {
+        return response.sendSuccess(res, 201, createdUser);
+      }
+      return response.sendError(res, 400, 'something went wrong');
     } catch (error) {
       return response.sendError(res, 400, error.message);
     }
@@ -30,11 +33,14 @@ class UserController {
    * @returns {json} json
    * @memberof UserController
    */
-  static loginUser(req, res) {
+  static async loginUser(req, res) {
     const login = req.body;
     try {
-      const user = UserService.signUser(login);
-      return response.sendSuccess(res, 200, user);
+      const user = await UserService.signUser(login);
+      if (user) {
+        return response.sendSuccess(res, 200, user);
+      }
+      return response.sendError(res, 400, 'something went wrong');
     } catch (error) {
       return response.sendError(res, 401, error.message);
     }

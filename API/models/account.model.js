@@ -1,49 +1,72 @@
-import moment from 'moment';
-import dummyData from './dummyData';
-import Utils from '../utils/common';
+import Model from './db/index.db';
 
-export default class Account {
-  static create(account) {
-    const newId = Utils.getNextId(dummyData.accounts);
-
-    const newAccount = account;
-    newAccount.id = newId;
-    newAccount.accountNumber = Utils.generateAccountNumber(dummyData.accounts);
-    newAccount.createdOn = moment();
-    newAccount.status = 'dormant';
-
-    dummyData.accounts.push(newAccount);
-    return newAccount;
-  }
-
-  static findAll() {
-    return dummyData.accounts;
-  }
-
-  static findByAccountNumber(accountNumber) {
-    const source = dummyData.accounts;
-    const foundAccount = source.find(account => account.accountNumber === accountNumber);
-    return foundAccount;
-  }
-
-  static findAccountByOwner(id) {
-    const foundAccount = dummyData.accounts.find(account => account.owner === id);
-    return foundAccount;
-  }
-
-  static update(account, status) {
-    const userAccount = account;
-    userAccount.status = status;
-    return userAccount;
-  }
-
-  static delete(account) {
-    const userAccount = account;
-    const index = dummyData.accounts.indexOf(userAccount);
-    if (index > -1) {
-      dummyData.accounts.splice(index, 1);
-      return true;
+class Account extends Model {
+  async create(account) {
+    try {
+      const { rows } = await this.insert('owner, type, balance', '$1, $2, $3', [
+        account.owner,
+        account.type,
+        account.balance,
+      ]);
+      return rows[0];
+    } catch (error) {
+      throw error;
     }
-    return false;
+  }
+
+  async findAll() {
+    try {
+      const { rows } = await this.select('createdOn, accountNumber, owner, type, status, balance');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findByAccountNumber(accountNumber) {
+    try {
+      const { rows } = await this.selectWhere(
+        'createdOn, accountNumber,owner, type, status, balance',
+        'accountNumber=$1',
+        [accountNumber],
+      );
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findAccountByOwner(id) {
+    try {
+      const { rows } = await this.selectWhere(
+        'accountNumber, owner, type, status, balance',
+        'owner=$1',
+        [id],
+      );
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateStatus(accountNumber, status) {
+    try {
+      const { rows } = await this.update('status=$1', 'accountNumber=$2', [status, accountNumber]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteAccount(accountNumber) {
+    try {
+      const { rows } = await this.delete('accountNumber=$1', [accountNumber]);
+      this.logJSON(rows);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
   }
 }
+
+export default Account;

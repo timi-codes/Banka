@@ -70,7 +70,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
 
 
     it('it should throw an insufficient balance error', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       const body = { amount: 5000000 };
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/debit`)
@@ -135,7 +135,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
     });
 
     it('it should debit a bank account', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       const body = { amount: 500 };
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/debit`)
@@ -193,7 +193,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
     });
 
     it('it should throw an error when "amount" in request body is not provided ', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       const body = {};
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/credit`)
@@ -227,7 +227,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
     });
 
     it('it should credit a bank account', (done) => {
-      const accountNumber = 222010772;
+      const accountNumber = 2220107727;
       const body = { amount: 50000 };
       chai.request(app)
         .post(`/api/v1/transactions/${accountNumber}/credit`)

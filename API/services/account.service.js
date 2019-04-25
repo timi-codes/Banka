@@ -1,5 +1,8 @@
-import Account from '../models/account.model';
-import User from '../models/user.model';
+import AccountModel from '../models/account.model';
+import UserModel from '../models/user.model';
+
+const User = new UserModel('users');
+const Account = new AccountModel('accounts');
 
 
 /** service that allows user create bank account, delete bank account */
@@ -9,123 +12,156 @@ class AccountService {
    * @param {object} a new user object
    */
 
-  static createAccount(userId, type, balance) {
-    const user = User.findUserById(userId); // check if user alredy exist
+  static async createAccount(userId, type, balance) {
+    try {
+      const user = await User.findUserById(userId); // check if user already exist
 
-    if (user) {
+      if (user) {
       // check if user already has a bank account
-      const account = Account.findAccountByOwner(userId);
-      if (account) {
-        throw new Error(`user already have an account - ${account.accountNumber}`);
+        const account = await Account.findAccountByOwner(userId);
+        if (account) {
+          throw new Error(`user already have an account - ${account.accountnumber}`);
+        }
+
+        // create a new bank account
+        const newAccount = await Account.create({
+          owner: userId,
+          type,
+          balance,
+        });
+
+        return {
+          accountNumber: newAccount.accountnumber,
+          firstName: user.firstname,
+          lastName: user.lastname,
+          email: user.email,
+          type,
+          balance: balance.toFixed(2),
+        };
       }
-
-      // create a new bank account
-      const newAccount = Account.create({
-        owner: userId,
-        type,
-        balance,
-      });
-
-      return {
-        accountNumber: newAccount.accountNumber,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        type,
-        balance,
-      };
+      throw new Error('user doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('user doesn\'t exist');
   }
 
   /**
    * @description it fetches all accounts
    * @param {array} of user objects
    */
-  static getAllAccounts() {
-    return Account.findAll().map((account) => {
-      const { owner, ...data } = account;
+  static async getAllAccounts() {
+    try {
+      const accounts = await Account.findAll();
 
-      const user = User.findUserById(owner);
+      const promises = accounts.map(async (account) => {
+        const {
+          owner, accountnumber, createdon, ...data
+        } = account;
 
-      return {
-        ...data,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      };
-    });
+        const user = await User.findUserById(owner);
+        return {
+          createdOn: createdon,
+          accountNumber: accountnumber,
+          ownerEmail: user.email,
+          ...data,
+        };
+      });
+
+      const results = await Promise.all(promises);
+
+      return results;
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
    * @description this function fetches a single user account
    * @param {object} response
    */
-  static getAccount(accountNumber) {
-    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
+  static async getAccount(accountNumber) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(accountNumber);
 
-    if (foundAccount) {
-      const { owner, ...data } = foundAccount;
+      if (foundAccount) {
+        const {
+          owner, accountnumber, createdon, ...data
+        } = foundAccount;
 
-      const user = User.findUserById(owner);
-
-      return {
-        ...data,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      };
+        const user = await User.findUserById(owner);
+        return {
+          createdOn: createdon,
+          accountNumber: Number(accountnumber),
+          ownerEmail: user.email,
+          ...data,
+        };
+      }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('account number doesn\'t exist');
   }
 
   /**
    * @description this function change account status
    * @param {object} response
    */
-  static changeAccountStatus(accountNumber, status) {
-    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
-
-    if (foundAccount) {
-      const account = Account.update(foundAccount, status);
-      return {
-        accountNumber: account.accountNumber,
-        status,
-      };
+  static async changeAccountStatus(accountNumber, status) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(Number(accountNumber));
+      if (foundAccount) {
+        const account = await Account.updateStatus(Number(accountNumber), status);
+        if (account) {
+          return {
+            accountNumber: Number(account.accountnumber),
+            status,
+          };
+        }
+      }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('account number doesn\'t exist');
   }
 
   /**
    * @description fetches all accounts
    * @param {object} response
    */
-  static deleteAccount(accountNumber) {
-    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
+  static async deleteAccount(accountNumber) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(Number(accountNumber));
 
-    if (foundAccount) {
-      const isDeleted = Account.delete(foundAccount);
+      if (foundAccount) {
+        const isDeleted = await Account.deleteAccount(Number(accountNumber));
 
-      if (isDeleted) {
-        return 'Account successfully deleted';
+        if (isDeleted) {
+          return 'Account successfully deleted';
+        }
       }
+      throw new Error('account number doesn\'t exist');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('account number doesn\'t exist');
   }
 
   /**
    * @description this function checks if an account belongs to a user
    * @param {object} response
    */
+  static async isMyAccount(id, accountNumber) {
+    try {
+      const foundAccount = await Account.findByAccountNumber(Number(accountNumber));
 
-  static isMyAccount(id, accountNumber) {
-    const foundAccount = Account.findByAccountNumber(Number(accountNumber));
-    if (foundAccount) {
-      if (foundAccount.owner !== Number(id)) {
-        return false;
+      if (foundAccount) {
+        if (foundAccount.owner !== Number(id)) {
+          return false;
+        }
       }
+      return true;
+    } catch (error) {
+      throw error;
     }
-    return true;
   }
 }
 

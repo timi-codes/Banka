@@ -17,13 +17,6 @@ const createUserSchema = Joi.object({
   password,
   confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
     .error(new Error('your password and confirm password do not match')),
-  type: Joi.when('isAdmin', {
-    is: true,
-    then: Joi.string().lowercase().valid('staff').default('staff')
-      .error(new Error('an admin cannot register as a client')),
-    otherwise: Joi.string().lowercase().valid('client', 'staff').required(),
-  }),
-  isAdmin: Joi.boolean().default(false),
 });
 
 const loginUserSchema = Joi.object({
