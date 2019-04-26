@@ -207,6 +207,38 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         result.body.data.should.have.property('accounts').be.a('array');
       }).finally(done);
     });
+
+    it('it should get all active bank accounts', (done) => {
+      const resolvingPromise = new Promise((resolve) => {
+        chai
+          .request(app)
+          .get('/api/v1/accounts/?status=active')
+          .set('x-access-token', adminToken)
+          .end(async (err, res) => {
+            resolve(res);
+          });
+      });
+      resolvingPromise.then((result) => {
+        result.should.have.status(200);
+        result.body.data.should.have.property('accounts').be.a('array');
+      }).finally(done);
+    });
+
+    it('it should get all dormant bank accounts', (done) => {
+      const resolvingPromise = new Promise((resolve) => {
+        chai
+          .request(app)
+          .get('/api/v1/accounts/?status=dormant')
+          .set('x-access-token', adminToken)
+          .end(async (err, res) => {
+            resolve(res);
+          });
+      });
+      resolvingPromise.then((result) => {
+        result.should.have.status(200);
+        result.body.data.should.have.property('accounts').be.a('array');
+      }).finally(done);
+    });
   });
 
 

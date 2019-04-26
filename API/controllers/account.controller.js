@@ -32,10 +32,15 @@ class AccountController {
    * @memberof AccountController
    */
   static async fetchAllAccounts(req, res) {
+    const { status } = req.query;
     try {
       const accounts = await AccountService.getAllAccounts();
+
       if (accounts.length > 0) {
-        return response.sendSuccess(res, 200, { accounts });
+        const filtered = accounts.find(account => account.status === status);
+
+        if (filtered) { return response.sendSuccess(res, 200, filtered); }
+        return response.sendSuccess(res, 200, accounts);
       }
       return response.sendError(res, 204, 'no account has been created');
     } catch (error) {
