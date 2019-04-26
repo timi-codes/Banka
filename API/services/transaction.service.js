@@ -72,27 +72,22 @@ class TransactionService {
 
       if (foundAccount) {
         const transactions = await Transaction.getTransactions(Number(foundAccount.accountnumber));
-        const outputs = [];
 
-        const promises = transactions.map(async (transaction) => {
+        return transactions.map((transaction) => {
           const {
             id, transactiontype, accountnumber, createdon, oldbalance, newbalance, ...data
           } = transaction;
 
-          outputs.push({
-            transactionId: transaction.id,
+          return {
+            transactionId: id,
             createdOn: createdon,
             type: transactiontype,
             accountNumber: accountnumber,
             ...data,
             oldBalance: oldbalance,
             newBalance: newbalance,
-          });
+          };
         });
-
-        await Promise.all(promises);
-
-        return outputs;
       }
       throw new Error('account number doesn\'t exist');
     } catch (error) {

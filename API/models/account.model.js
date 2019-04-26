@@ -39,11 +39,11 @@ class Account extends Model {
   async findAccountByOwner(id) {
     try {
       const { rows } = await this.selectWhere(
-        'accountNumber, owner, type, status, balance',
+        'createdOn, accountNumber, owner, type, status, balance',
         'owner=$1',
         [id],
       );
-      return rows[0];
+      return rows;
     } catch (error) {
       throw error;
     }

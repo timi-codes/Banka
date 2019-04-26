@@ -17,10 +17,16 @@ class AccountService {
       const user = await User.findUserById(userId); // check if user already exist
 
       if (user) {
-      // check if user already has a bank account
         const account = await Account.findAccountByOwner(userId);
-        if (account) {
-          throw new Error(`user already have an account - ${account.accountnumber}`);
+
+        if (account.length > 0) {
+          if (account.length === 2) {
+            throw new Error(`user already have a savings and current accounts - ${account[0].accountnumber} and ${account[1].accountnumber} `);
+          }
+
+          if (account[0].type === type) {
+            throw new Error(`user already have a ${type} account : ${account[0].accountnumber}`);
+          }
         }
 
         // create a new bank account
@@ -159,6 +165,35 @@ class AccountService {
         }
       }
       return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @description this function get all account owned by specific user
+   * @param {string} email address of a user
+   */
+
+  static async getAUserAccounts(email) {
+    try {
+      const user = await User.findUserByEmail(email);
+      if (user) {
+        const accounts = await Account.findAccountByOwner(user.id);
+
+        return accounts.map((account) => {
+          const {
+            createdon, accountnumber, owner, ...data
+          } = account;
+
+          return {
+            createdOn: createdon,
+            accountNumber: accountnumber,
+            ...data,
+          };
+        });
+      }
+      throw new Error('user with this email address not found');
     } catch (error) {
       throw error;
     }
