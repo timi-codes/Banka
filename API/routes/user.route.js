@@ -5,7 +5,14 @@ import SchemaValidator from '../middlewares/SchemaValidator';
 const router = Router();
 const validateRequest = SchemaValidator();
 
-router.post('/signup', validateRequest, UserController.createUser);
-router.post('/signin', validateRequest, UserController.loginUser);
+router
+  .post('/signup',
+    validateRequest,
+    UserController.createUser);
+
+router
+  .post('/signin',
+    validateRequest,
+    UserController.loginUser);
 
 export default router;

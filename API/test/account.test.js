@@ -75,7 +75,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
 
     it('it should create a bank account', (done) => {
       const details = {
-        type: 'savings',
+        type: 'current',
         balance: 0.00,
       };
 
@@ -96,6 +96,25 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           if (!err) {
             sholaAccountNumber = Number(res.body.data.accountNumber);
           }
+          done();
+        });
+    });
+
+    it('it throw an error if user already have a current account', (done) => {
+      const details = {
+        type: 'current',
+        balance: 0.00,
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/accounts')
+        .set('x-access-token', clientToken)
+        .send(details)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
           done();
         });
     });
@@ -255,6 +274,40 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('account number doesn\'t exist');
+          done();
+        });
+    });
+  });
+
+
+  /**
+     * Test the GET /user/<user-email-address>/accounts
+     */
+  describe('GET /user/<user-email-address>/accounts', () => {
+    it('it should throw an error if email address is not found', (done) => {
+      const email = 'daddyshark.dodo@gmail.com';
+      chai
+        .request(app)
+        .get(`/api/v1/user/${email}/accounts`)
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('user with this email address not found');
+          done();
+        });
+    });
+
+    it('it should ahould get all accounts that belong to a user', (done) => {
+      const email = 'tejumoladavid@gmail.com';
+      chai
+        .request(app)
+        .get(`/api/v1/user/${email}/accounts`)
+        .set('x-access-token', adminToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.be.a('array');
           done();
         });
     });

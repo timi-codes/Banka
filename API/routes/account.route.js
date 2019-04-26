@@ -39,4 +39,10 @@ router
     PermissionMiddleware.staffPermission,
     AccountContoller.deleteAccount);
 
+router
+  .get('/user/:email/accounts',
+    authMiddleware,
+    PermissionMiddleware.strictAccountPermission,
+    AccountContoller.getAUserAccounts);
+
 export default router;

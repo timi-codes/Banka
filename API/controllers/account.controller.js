@@ -80,6 +80,25 @@ class AccountController {
    * @param{object}  request express request object
    * @param{object}  response express request object
    * @returns {json} json
+   * @memberof UserController
+   */
+  static async getAUserAccounts(req, res) {
+    const { email } = req.params;
+    try {
+      const accounts = await AccountService.getAUserAccounts(email);
+      if (accounts) {
+        return response.sendSuccess(res, 200, accounts);
+      }
+      return response.sendError(res, 400, 'something went wrong');
+    } catch (error) {
+      return response.sendError(res, 400, error.message);
+    }
+  }
+
+  /**
+   * @param{object}  request express request object
+   * @param{object}  response express request object
+   * @returns {json} json
    * @memberof AccountController
    */
   static async deleteAccount(req, res) {
