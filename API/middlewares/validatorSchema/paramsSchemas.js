@@ -1,17 +1,13 @@
 import Joi from 'joi';
 
+const accountNumber = Joi.string().regex(/^\d+$/).required();
+
 const accountNumberSchema = Joi.object({
-  accountNumber: Joi.string()
-    .regex(/^\d+$/)
-    .required()
-    .error(new Error('accountNumber must be an integer')),
+  accountNumber: accountNumber.error(new Error('accountNumber must be an integer')),
 });
 
 const transactionIdSchema = Joi.object({
-  transactionId: Joi.string()
-    .regex(/^\d+$/)
-    .required()
-    .error(new Error('trasactionId must be an integer')),
+  transactionId: accountNumber.error(new Error('trasactionId must be an integer')),
 });
 
 const emailSchema = Joi.object({
