@@ -105,7 +105,12 @@
           "201": {
             "description": "Account was successfully created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/auth/signin": {
@@ -681,8 +686,11 @@
     "User": {
       "type": "object",
       "required": [
-        "name",
-        "photoUrls"
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "confirmPassword"
       ],
       "properties": {
         "firstName": {
@@ -709,6 +717,42 @@
       },
       "xml": {
         "name": "User"
+      }
+    },
+    "Staff": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "isAdmin"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Timi"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Tejumola"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "tejumolatimi@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "xml": {
+        "name": "Staff"
       }
     }
   },

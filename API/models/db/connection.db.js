@@ -6,7 +6,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = configJson[env];
 debug('pg/connection')(config);
 
-let pool;
+let pool = null;
 
 if (env === 'production') {
   pool = new Pool({ connectionString: process.env[config.use_env_variable] });
