@@ -51,7 +51,6 @@ class AccountController {
         }
         return response.sendSuccess(res, 200, accounts);
       }
-      return response.sendError(res, 204, 'no account has been created');
     } catch (error) {
       return response.sendError(res, 400, error.message);
     }
