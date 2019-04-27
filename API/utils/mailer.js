@@ -10,7 +10,7 @@ import debug from 'debug';
  */
 const mailer = async (mailData) => {
   const {
-    to, subject, text, password,
+    to, subject, text, html,
   } = mailData;
 
   try {
@@ -29,7 +29,7 @@ const mailer = async (mailData) => {
       to,
       subject,
       text,
-      html: `<b>Email Adress: ${to}<br/><br/>Password: ${password}<br/><br/>Visit <a href='https://banka-timi.herokuapp.com/'>Banka App</a> today</b>`,
+      html,
     });
 
     debug('development')('Message sent: %s', info.messageId);

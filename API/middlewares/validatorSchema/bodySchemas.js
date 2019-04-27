@@ -1,6 +1,7 @@
 import Joi from 'joi';
 
-const name = Joi.string().regex(/^[A-Z]|[a-z]+$/).required();
+const name = Joi.string().regex(/^\D+$/).required();
+
 const email = Joi.string().email().lowercase()
   .required();
 

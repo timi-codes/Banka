@@ -20,6 +20,7 @@ class UserService {
 
       const newUser = user;
       newUser.type = 'client';
+      newUser.isAdmin = false;
       newUser.password = Utils.hashPassword(user.password);
       const createdUser = await User.createUser(newUser);
 
@@ -112,7 +113,9 @@ class UserService {
         subject: 'An account has created for you on Banka💸💵🏦',
         text: 'Kindly use the credentials in this mail to login to your account',
         to: email,
-        password: plainPassword,
+        html: `<b>Email Adress: ${email}<br/><br/>
+          Password: ${plainPassword}<br/><br/>
+          Visit <a href='https://banka-timi.herokuapp.com/'>Banka App</a> today</b>`,
       };
 
       await mailer(mailData);

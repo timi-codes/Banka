@@ -4,13 +4,14 @@ class User extends Model {
   async createUser(user) {
     try {
       const { rows } = await this.insert(
-        'email, firstName, lastName, type, password',
-        '$1, $2, $3, $4, $5',
+        'email, firstName, lastName, type, isAdmin, password',
+        '$1, $2, $3, $4, $5, $6',
         [
           user.email,
           user.firstName,
           user.lastName,
           user.type,
+          user.isAdmin,
           user.password,
         ],
       );

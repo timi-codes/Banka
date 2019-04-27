@@ -19,7 +19,7 @@ class UserController {
     try {
       const createdUser = await UserService.createUser(user);
       if (createdUser) {
-        return response.sendSuccess(res, 201, createdUser);
+        return response.sendSuccess(res, 201, createdUser, 'Registration was successful');
       }
       return response.sendError(res, 400, 'something went wrong');
     } catch (error) {
@@ -38,7 +38,7 @@ class UserController {
     try {
       const user = await UserService.signUser(login);
       if (user) {
-        return response.sendSuccess(res, 200, user);
+        return response.sendSuccess(res, 200, user, 'Login was successful');
       }
       return response.sendError(res, 400, 'something went wrong');
     } catch (error) {
@@ -58,7 +58,7 @@ class UserController {
     try {
       const createdUser = await UserService.createAStaff(user);
       if (createdUser) {
-        return response.sendSuccess(res, 201, createdUser);
+        return response.sendSuccess(res, 201, createdUser, 'Staff created successfully');
       }
       return response.sendError(res, 400, 'something went wrong');
     } catch (error) {

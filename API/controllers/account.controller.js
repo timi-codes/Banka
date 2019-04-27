@@ -45,11 +45,11 @@ class AccountController {
         if (status) {
           const filtered = accounts.find(account => account.status === status);
           if (filtered) {
-            return response.sendSuccess(res, 200, [filtered]);
+            return response.sendSuccess(res, 200, [filtered], 'Account was successfully fetched');
           }
-          return response.sendSuccess(res, 200, []);
+          return response.sendSuccess(res, 200, [], 'No account found');
         }
-        return response.sendSuccess(res, 200, accounts);
+        return response.sendSuccess(res, 200, accounts, 'Account was successfully fetched');
       }
       return response.sendError(res, 204, 'no account has been created');
     } catch (error) {
@@ -68,7 +68,7 @@ class AccountController {
     const { accountNumber } = req.params;
     try {
       const data = await AccountService.changeAccountStatus(accountNumber, status);
-      return response.sendSuccess(res, 200, data);
+      return response.sendSuccess(res, 200, data, 'Account status was successfully changed');
     } catch (error) {
       return response.sendError(res, 400, error.message);
     }
@@ -84,7 +84,7 @@ class AccountController {
     const { accountNumber } = req.params;
     try {
       const data = await AccountService.getAccount(accountNumber);
-      return response.sendSuccess(res, 200, data);
+      return response.sendSuccess(res, 200, data, 'Account was successfully fetched');
     } catch (error) {
       return response.sendError(res, 400, error.message);
     }
@@ -101,7 +101,7 @@ class AccountController {
     try {
       const accounts = await AccountService.getAUserAccounts(email);
       if (accounts) {
-        return response.sendSuccess(res, 200, accounts);
+        return response.sendSuccess(res, 200, accounts, 'Accounts was successfully fetched');
       }
       return response.sendError(res, 400, 'something went wrong');
     } catch (error) {

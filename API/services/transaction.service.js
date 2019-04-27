@@ -1,8 +1,13 @@
 import TransactionModel from '../models/transaction.model';
 import AccountModel from '../models/account.model';
+import UserModel from '../models/user.model';
+
+import mailer from '../utils/mailer';
+
 
 const Account = new AccountModel('accounts');
 const Transaction = new TransactionModel('transactions');
+const User = new UserModel('users');
 
 
 /** service that allows cashier perform transaction of user's account */
@@ -18,7 +23,22 @@ class TransactionService {
 
       if (account) {
         if (account.balance >= amount) {
+          const user = await User.findUserById(Number(account.owner));
+
           const transaction = await Transaction.debit(account, amount, cashierId);
+
+          const mailData = {
+            subject: 'A transaction occured on your Banka💸💵🏦 account',
+            text: 'A debit transaction occured on your bank account',
+            to: user.email,
+            html: `<b>Amount: ₦${amount}<br/><br/>
+              Transaction type: debit<br/><br/>
+              Account Balance: ₦${transaction.newbalance}<br/><br/>
+              Visit <a href='https://banka-timi.herokuapp.com/'>Banka App</a> today</b>`,
+          };
+
+          await mailer(mailData);
+
           return {
             transactionId: transaction.id,
             accountNumber: Number(transaction.accountnumber),
@@ -46,7 +66,22 @@ class TransactionService {
       const account = await Account.findByAccountNumber(accountNumber);
 
       if (account) {
+        const user = await User.findUserById(Number(account.owner));
+
         const transaction = await Transaction.credit(account, amount, cashierId);
+
+        const mailData = {
+          subject: 'A transaction occured on your Banka💸💵🏦 account',
+          text: 'A credit transaction occured on your bank account',
+          to: user.email,
+          html: `<b>Amount: ₦${amount}<br/><br/>
+            Transaction type: credit<br/><br/>
+            Account Balance: ₦${transaction.newbalance}<br/><br/>
+            Visit <a href='https://banka-timi.herokuapp.com/'>Banka App</a> today</b>`,
+        };
+
+        await mailer(mailData);
+
         return {
           transactionId: transaction.id,
           accountNumber: Number(transaction.accountnumber),
