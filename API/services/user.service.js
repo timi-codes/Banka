@@ -1,5 +1,6 @@
 import Utils from '../utils/common';
 import UserModel from '../models/user.model';
+import mailer from '../utils/mailer';
 
 const User = new UserModel('users');
 
@@ -18,6 +19,7 @@ class UserService {
       }
 
       const newUser = user;
+      newUser.type = 'client';
       newUser.password = Utils.hashPassword(user.password);
       const createdUser = await User.createUser(newUser);
 
@@ -79,6 +81,50 @@ class UserService {
         }
       }
       throw new Error('invalid user credentials');
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * @description Create a new staff
+   * @param {object} a new user object
+   */
+  static async createAStaff(user) {
+    try {
+      const isStaff = await User.findUserByEmail(user.email);
+
+      if (isStaff) {
+        throw new Error('a user with this email address already exist');
+      }
+
+      const newStaff = user;
+      newStaff.type = 'staff';
+      const plainPassword = user.password;
+      newStaff.password = Utils.hashPassword(user.password);
+      const createdStaff = await User.createUser(newStaff);
+
+      const {
+        id, type, isadmin, firstname, lastname, email,
+      } = createdStaff;
+
+      const mailData = {
+        subject: 'An account has created for you on Banka💸💵🏦',
+        text: 'Kindly use the credentials in this mail to login to your account',
+        to: email,
+        password: plainPassword,
+      };
+
+      await mailer(mailData);
+
+      return {
+        id,
+        firstName: firstname,
+        lastName: lastname,
+        email,
+        isAdmin: isadmin,
+        type,
+      };
     } catch (err) {
       throw err;
     }

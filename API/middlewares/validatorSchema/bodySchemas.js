@@ -15,6 +15,14 @@ const createUserSchema = Joi.object({
     .error(new Error('your password and confirm password do not match')),
 });
 
+const createStaffSchema = Joi.object({
+  firstName: name,
+  lastName: name,
+  email,
+  password,
+  isAdmin: Joi.boolean().required(),
+});
+
 const loginUserSchema = Joi.object({
   email,
   password,
@@ -42,4 +50,5 @@ export default {
   '/accounts/:accountNumber': updateStatusSchema,
   '/transactions/:accountNumber/debit': transactionSchema,
   '/transactions/:accountNumber/credit': transactionSchema,
+  '/create/staff': createStaffSchema,
 };
