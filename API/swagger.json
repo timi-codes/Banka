@@ -71,6 +71,43 @@
         }
       }
     },
+    "/auth/create/staff": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Registers a new staff",
+        "description": "",
+        "operationId": "registerStaff",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created an admin the app",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Staff"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": " A User with an email address already exist"
+          },
+          "201": {
+            "description": "Account was successfully created"
+          }
+        }
+      }
+    },
     "/auth/signin": {
       "post": {
         "tags": [
