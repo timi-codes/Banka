@@ -1,5 +1,6 @@
 import config from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import { json } from 'body-parser';
 import debug from 'debug';
 import swaggerUI from 'swagger-ui-express';
@@ -16,6 +17,7 @@ const API_VERSION = '/api/v1';
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(json());
+app.use(cors());
 app.use(`${API_VERSION}/auth`, userRoutes);
 app.use(`${API_VERSION}`, accountRoutes);
 app.use(`${API_VERSION}`, transactionRoutes);
@@ -23,6 +25,11 @@ app.use(`${API_VERSION}`, transactionRoutes);
 
 app.get('/', (req, res) => {
   res.send('App server is running');
+});
+
+app.use((err, req, res, next) => {
+  if (!err) return next();
+  return res.status(500).send('Something broke!');
 });
 
 if (!module.parent) {

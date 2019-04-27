@@ -21,7 +21,7 @@ if (env === 'production') {
 }
 
 pool.on('error', (error) => {
-  debug('pg/connection')(`Some error occured!${error}`);
+  debug('pg/connection')(error);
 });
 
 
