@@ -1,39 +1,45 @@
 import { Router } from 'express';
 import TransactionContoller from '../controllers/transaction.controller';
-import SchemaValidator from '../middlewares/SchemaValidator';
+import BodySchemaValidator from '../middlewares/BodySchemaValidator';
+import ParamsSchemaValidator from '../middlewares/ParamsSchemaValidator';
+
 import authMiddleware from '../middlewares/AuthMiddleware';
 import PermissionMiddleware from '../middlewares/PermissionMiddleware';
 
 
 const router = Router();
-const validateRequest = SchemaValidator();
+const validateBody = BodySchemaValidator();
+const validateParams = ParamsSchemaValidator();
+
 
 router
   .post('/transactions/:accountNumber/debit',
     authMiddleware,
     PermissionMiddleware.cashierPermission,
-    validateRequest,
+    validateParams,
+    validateBody,
     TransactionContoller.debitUserAccount);
 
 router
   .post('/transactions/:accountNumber/credit',
     authMiddleware,
     PermissionMiddleware.cashierPermission,
-    validateRequest,
+    validateParams,
+    validateBody,
     TransactionContoller.creditUserAccount);
 
 router
   .get('/accounts/:accountNumber/transactions',
     authMiddleware,
+    validateParams,
     PermissionMiddleware.strictAccountPermission,
-    validateRequest,
     TransactionContoller.getTransactions);
 
 router
   .get('/transactions/:transactionId',
     authMiddleware,
+    validateParams,
     PermissionMiddleware.strictTransactionPermission,
-    validateRequest,
     TransactionContoller.getATransaction);
 
 export default router;

@@ -108,7 +108,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have
             .property('error')
@@ -125,11 +125,26 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have
             .property('error')
             .eql('amount must be a number');
+          done();
+        });
+    });
+
+    it('it throws an error if account number is invalid', (done) => {
+      const accountNumber = '2220107727hsds.fjd';
+      const body = { amount: 500 };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/debit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
           done();
         });
     });
@@ -200,7 +215,7 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have
             .property('error')
@@ -217,11 +232,26 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
         .set('x-access-token', cashierToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have
             .property('error')
             .eql('amount must be a number');
+          done();
+        });
+    });
+
+    it('it should throw an error if account number is invalid', (done) => {
+      const accountNumber = '2220107727hsds.fjd';
+      const body = { amount: 500 };
+      chai.request(app)
+        .post(`/api/v1/transactions/${accountNumber}/credit`)
+        .set('x-access-token', cashierToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
           done();
         });
     });
@@ -262,6 +292,21 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
           res.should.have.status(403);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('only a staff has the permission to view other accounts and transactions');
+          done();
+        });
+    });
+
+    it('it should throw an error when account number is not valid', (done) => {
+      const accountNumber = '2220107727hhd';
+
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}/transactions`)
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
           done();
         });
     });
@@ -312,6 +357,21 @@ describe('Test transaction related endpoints - Debit and Credit an account', () 
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('transaction id doesn\'t exist');
+          done();
+        });
+    });
+
+    it('it should throw an error when transaction id not valid', (done) => {
+      const transactionId = '1f';
+
+      chai
+        .request(app)
+        .get(`/api/v1/transactions/${transactionId}`)
+        .set('x-access-token', cashierToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('trasactionId must be an integer');
           done();
         });
     });

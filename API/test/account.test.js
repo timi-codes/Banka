@@ -130,7 +130,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .send(details)
         .set('x-access-token', clientToken)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('type is required');
           done();
@@ -148,7 +148,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .set('x-access-token', clientToken)
         .send(details)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('type must be one of [savings, current]');
           done();
@@ -204,7 +204,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       });
       resolvingPromise.then((result) => {
         result.should.have.status(200);
-        result.body.data.should.have.property('accounts').be.a('array');
+        result.body.data.should.be.a('array');
       }).finally(done);
     });
 
@@ -220,7 +220,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       });
       resolvingPromise.then((result) => {
         result.should.have.status(200);
-        result.body.data.should.have.property('accounts').be.a('array');
+        result.body.data.should.be.a('array');
       }).finally(done);
     });
 
@@ -236,7 +236,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
       });
       resolvingPromise.then((result) => {
         result.should.have.status(200);
-        result.body.data.should.have.property('accounts').be.a('array');
+        result.body.data.should.be.a('array');
       }).finally(done);
     });
   });
@@ -274,6 +274,20 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.body.data.should.have.property('type');
           res.body.data.should.have.property('balance');
           res.body.data.should.have.property('createdOn');
+          done();
+        });
+    });
+
+    it('it should throw an error if account number is invalid', (done) => {
+      const accountNumber = '2220107727ff';
+      chai
+        .request(app)
+        .get(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', adminToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
           done();
         });
     });
@@ -326,6 +340,20 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('user with this email address not found');
+          done();
+        });
+    });
+
+    it('it should throw an error if email address is not valid', (done) => {
+      const email = 'daddysharkodogmail.com';
+      chai
+        .request(app)
+        .get(`/api/v1/user/${email}/accounts`)
+        .set('x-access-token', clientToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('email must be a valid email');
           done();
         });
     });
@@ -384,6 +412,24 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         });
     });
 
+
+    it('it should throw an error if accountNumber is not valid', (done) => {
+      const accountNumber = '2220108726gggg';
+
+      const body = { status: 'active' };
+      chai
+        .request(app)
+        .patch(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', adminToken)
+        .send(body)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
+          done();
+        });
+    });
+
     it('it should set a bank account as dormant', (done) => {
       const accountNumber = 2220108726;
       const body = { status: 'dormant' };
@@ -426,7 +472,7 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .set('x-access-token', adminToken)
         .send(body)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('status must be one of [dormant, active]');
           done();
@@ -447,6 +493,20 @@ describe('Test account related endpoints - POST, GET, PATH, DELETE', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.have.property('error').eql('only a staff can perform this operation');
+          done();
+        });
+    });
+
+    it('it should throw an error if account number is not valid', (done) => {
+      const accountNumber = '2220108726ggg';
+      chai
+        .request(app)
+        .delete(`/api/v1/accounts/${accountNumber}`)
+        .set('x-access-token', adminToken)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('accountNumber must be an integer');
           done();
         });
     });
