@@ -1,7 +1,3 @@
-/**
- * schema.js
- */
-
 import Joi from 'joi';
 
 const name = Joi.string().regex(/^[A-Z]|[a-z]+$/).required();

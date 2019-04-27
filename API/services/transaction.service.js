@@ -43,7 +43,7 @@ class TransactionService {
 
   static async creditAccount(cashierId, accountNumber, amount) {
     try {
-      const account = await Account.findByAccountNumber(Number(accountNumber));
+      const account = await Account.findByAccountNumber(accountNumber);
 
       if (account) {
         const transaction = await Transaction.credit(account, amount, cashierId);

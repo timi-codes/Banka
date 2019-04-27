@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
-import SchemaValidator from '../middlewares/SchemaValidator';
+import BodySchemaValidator from '../middlewares/BodySchemaValidator';
 
 const router = Router();
-const validateRequest = SchemaValidator();
+const validateRequest = BodySchemaValidator();
 
 router
   .post('/signup',

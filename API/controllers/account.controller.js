@@ -33,13 +33,22 @@ class AccountController {
    */
   static async fetchAllAccounts(req, res) {
     const { status } = req.query;
+
     try {
+      if (status && !(['dormant', 'active'].includes(status))) {
+        throw new Error('invalid status query');
+      }
+
       const accounts = await AccountService.getAllAccounts();
 
       if (accounts.length > 0) {
-        const filtered = accounts.find(account => account.status === status);
-
-        if (filtered) { return response.sendSuccess(res, 200, filtered); }
+        if (status) {
+          const filtered = accounts.find(account => account.status === status);
+          if (filtered) {
+            return response.sendSuccess(res, 200, [filtered]);
+          }
+          return response.sendSuccess(res, 200, []);
+        }
         return response.sendSuccess(res, 200, accounts);
       }
       return response.sendError(res, 204, 'no account has been created');

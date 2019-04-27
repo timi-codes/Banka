@@ -67,7 +67,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signup')
         .send(invalidPayload)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('firstName is required');
           done();
@@ -87,7 +87,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signup')
         .send(invalidPayload)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('lastName is required');
           done();
@@ -107,7 +107,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signup')
         .send(invalidPayload)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('email is required');
           done();
@@ -128,7 +128,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signup')
         .send(invalidPayload)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('password length must be at least 7 characters long');
           done();
@@ -150,7 +150,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signup')
         .send(invalidPayload)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('your password and confirm password do not match');
           done();
@@ -192,7 +192,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signin')
         .send(loginCredential)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('email is required');
           done();
@@ -210,7 +210,7 @@ describe('Test user login and signup', () => {
         .post('/api/v1/auth/signin')
         .send(loginCredential)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error').eql('password is required');
           done();
