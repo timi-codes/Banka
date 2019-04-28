@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost:7888",
+  "host": "banka-timi.herokuapp.com",
   "basePath": "/api/v1",
   "tags": [
     {
