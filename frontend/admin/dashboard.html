@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../img/banka-blue-logo.png"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Banka</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="top">
+          <a href="../index.html"><img src="../img/banka-blue-logo.svg"/></a>
+          <div class="current-user web-user dropdown">
+            <img class="avatar" src="../img/emeka copy@3x.png" />
+            <h4 id=current-user>Tejumola Peter</h4>
+            <span>(admin)</span>
+            <img class="arrow-down" src="../img/arrow-drop-down.svg" />
+            <div class="dropdown-content">
+              <a href="#" id="profile-button">Profile</a>
+              <a href="../index.html">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="banner">
+        <div class="balance">
+          <p>Created Accounts</p>
+          <h3>1,000</h3>
+        </div>
+        <button id="account-button">Create a new Staff</button>
+      </div>
+      <div class="content">
+        <div id="loadingText"><div id="loader"></div>Loading</div>
+        <div id="accountText">No account has been created</div>
+        <div class="tableDiv">
+          <table id="account-table">
+            <tr>
+              <th class="table-title" colspan="5">Bank Accounts</th>
+              <th class="account-filter" colspan="2">
+                <input
+                  type="text"
+                  id="search"
+                  name="search"
+                  placeholder="Search"
+                />
+              </th>
+            </tr>
+            <tr>
+              <th class="table-header">Type</th>
+              <th class="table-header">Account Number</th>
+              <th class="table-header">Owner</th>
+              <th class="table-header">Created On</th>
+              <th class="table-header">Status</th>
+              <th class="table-header">Balance</th>
+              <th class="table-header">Actions</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="accountModal" class="modal">
+        <div class="onboarding-modal">
+          <h3>Create a new staff</h3>
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname" placeholder="First Name" />
+
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname" placeholder="Last Name" />
+
+          <label for="email">Email Address</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+          />
+
+          <div class="ct-select-group ct-js-select-group">
+            <select class="ct-select ct-js-select" id="role-type">
+              <option value="default" disabled selected>Select a Role</option>
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            disabled
+          />
+
+          <button class="signup" id="create-user"><i class="fa fa-circle-o-notch fa-spin"></i>Create</button>
+          <p class="error"></p>
+        </div>
+      </div>
+
+      <div id="profileModal" class="modal">
+          <div class="onboarding-modal">
+            <img class="avatar" src="../img/emeka copy@3x.png" />
+  
+            <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Name" disabled/>
+  
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value="tejumolatimi@gmail.com"
+              placeholder="Email Address"
+              disabled
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Confirm Password"
+            />
+  
+            <button class="update">Update</button>
+          </div>
+        </div>
+        <div class="alert" id="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            successful
+        </div>
+    </div>
+  </body>
+
+  <script src="../js/dashboard.js"></script>
+</html>
