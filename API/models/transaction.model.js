@@ -28,7 +28,7 @@ export default class Transaction extends Model {
       const { rows } = await this.insert('accountNumber, cashier, transactionType, amount, oldbalance, newbalance', '$1, $2, $3, $4, $5, $6', [
         Number(account.accountnumber),
         cashierId,
-        'credit',
+        'debit',
         amount,
         userAccount.balance,
         newBalance,

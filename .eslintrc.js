@@ -7,5 +7,13 @@ module.exports = {
     },
     "plugins": [
         "jsdoc"
-    ]
+    ],
+    globals: {
+        sessionStorage: true,
+        fetch: true,
+        document: true,
+        window: true
+        location: true;
+
+      },
 };
