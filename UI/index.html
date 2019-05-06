@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="shortcut icon" type="image/png" href="img/banka-blue-logo.png" />
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Banka</title>
   </head>
   <body>
@@ -101,18 +102,19 @@
             <img src="./img/banka-blue-logo.svg" alt="banka logo"/>
     
             <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname" placeholder="First Name">
+            <input type="text" id="fnames" name="fname" placeholder="First Name">
 
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lname" placeholder="Last Name">
+            <input type="text" id="lnames" name="lname" placeholder="Last Name">
 
             <label for="email">Email Address</label>
-            <input type="text" id="email" name="email" placeholder="Email Address">
+            <input type="text" id="emails" name="email" placeholder="Email Address">
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password">
+            <input type="password" id="passwords" name="password" placeholder="Password">
     
-            <button class="signup">Signup</button>
+            <button class="signup" id="create-user"><i class="fa fa-circle-o-notch fa-spin"></i>Signup</button>
+            <p class="errors"></p>
           </div>
       </div>
 
@@ -120,22 +122,15 @@
         <div class="onboarding-modal">
             <img src="./img/banka-blue-logo.svg" />
 
-            <div class="ct-select-group ct-js-select-group">
-              <select class="ct-select ct-js-select" id="user-role">
-                <option value="customer">CUSTOMER</option>
-                <option value="staff">STAFF</option>
-                <option value="admin">ADMIN</option>
-                </select>
-          </div>
-            <label for="email">Email Address</label>
-            <input type="text" id="email" name="email" placeholder="Email Address">
+            <label for="email" class="loginEmailLabel">Email Address</label>
+            <input type="text" id="email" class="loginEmail" name="email" placeholder="Email Address" required>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password">
+            <label for="password" class="loginPasswordLabel">Password</label>
+            <input type="password" id="password" class="loginPassword" name="password" placeholder="Password" required>
     
-            <button class="signup" id="user-login-btn">Login</button>
-
-            <p class="account"><a id="signup-button">Forgot password?</a></p>
+            <button class="signup" id="user-login-btn"><i class="fa fa-circle-o-notch fa-spin"></i>Login</button>
+            <p class="error"></p>
+            <!-- <p class="account"><a id="signup-button">Forgot password?</a></p> -->
         </div>
       </div>
     </div>

@@ -42,6 +42,80 @@ body {
   margin: 0;
 }
 
+#accountText{
+  text-align: center;
+}
+
+.error{
+  font-size: 12px;
+  color:red;
+}
+
+.fa{
+  margin-right:4px;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #089432;
+  color: white;
+  position: fixed;
+  bottom: 2rem;
+  right: 30px;
+  width: 300px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+#loadingText{
+  text-align: center;
+  font-weight: 600;
+  color:var(--primary-blue);
+}
+
+#loader {
+  border: 7px solid #f3f3f3;
+  border-top: 7px solid var(--accent-yellow);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  margin:auto;
+  justify-content: center
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.slider {
+	overflow-y: hidden;
+	max-height: 500px; /* approximate max height */
+
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slider.closed {
+	max-height: 0;
+}
+
+
 .top {
   max-width: 100%;
   display: flex;
@@ -135,6 +209,7 @@ header {
   cursor: pointer;
 }
 .content {
+  display:flex;
   justify-content: center;
   grid-area: content;
   flex-flow: column wrap;

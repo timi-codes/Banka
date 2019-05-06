@@ -57,6 +57,20 @@ body {
   flex-flow: column nowrap;
 }
 
+.error{
+  font-size: 12px;
+  color:red;
+}
+
+.errors{
+  font-size: 12px;
+  color:red;
+}
+
+.fa{
+  margin-right:4px;
+}
+
 button {
   padding: 0.9rem 2.5rem;
   border: 0;
