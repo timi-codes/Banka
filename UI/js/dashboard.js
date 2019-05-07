@@ -416,13 +416,13 @@ const paramsEmail = window.location.href.slice(window.location.href.indexOf('?')
 const paramsaccountUrl = `${baseUrl}/user/${paramsEmail}/accounts`;
 
 
-if('/frontend/customer/dashboard.html'===window.location.pathname){
+if('/UI/customer/dashboard.html'===window.location.pathname){
   fetchUserAccount(accountUrl);
-}else if('/frontend/cashier/dashboard.html'===window.location.pathname){
+}else if('/UI/cashier/dashboard.html'===window.location.pathname){
   fetchAllAccounts(`${baseUrl}/accounts`);
-}else if('/frontend/admin/dashboard.html'===window.location.pathname){
+}else if('/UI/admin/dashboard.html'===window.location.pathname){
   fetchAllAccounts(`${baseUrl}/accounts`);
-}else if(`/frontend/admin/customer.html`===window.location.pathname){
+}else if(`/UI/admin/customer.html`===window.location.pathname){
   fetchUserAccount(paramsaccountUrl);
 }
 
