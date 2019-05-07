@@ -38,12 +38,12 @@ if(accountModal){
     body.classList.remove('stop-scrolling');
   };
 
-if(account){
- account.onclick = () => {
-    accountModal.style.display = 'flex';
-    body.classList.add('stop-scrolling');
-  };
-}
+  if(account){
+  account.onclick = () => {
+      accountModal.style.display = 'flex';
+      body.classList.add('stop-scrolling');
+    };
+  }
  
 }
 
