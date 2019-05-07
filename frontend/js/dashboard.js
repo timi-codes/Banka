@@ -194,7 +194,9 @@ const accountUrl = `${baseUrl}/user/${email}/accounts`;
 const transactionLogic = (data) => {
 
   if(data.data.length>0){
+    if( tableDiv[1]){
       tableDiv[1].style.display = 'block';  
+    }
   }
 
   data.data.map((transaction) => {
@@ -210,7 +212,9 @@ const transactionLogic = (data) => {
           <td>₦ ${transaction.newBalance}</td>
         </tr>
     `;
-    transactionTable.innerHTML += tableRow;
+    if(transactionTable){
+      transactionTable.innerHTML += tableRow;
+    }
   });
 };
 
