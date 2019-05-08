@@ -395,6 +395,7 @@ const fetchAllAccounts = (url) => {
       switch (data.status) {
         case 200:
           successAllAccountLogic(data);
+          console.log(data);
           break;
         case 204:
         case 401:
