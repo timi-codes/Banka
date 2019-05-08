@@ -247,12 +247,13 @@ const successLogic = data => {
   accountText.style.display = "block";
   //loader.style.display = "none";
   //s}
+  console.log(data);
   data.data.map(acc => {
     totalBal += parseFloat(acc.balance);
 
     const date = new Date(acc.createdOn);
 
-    getUserTransactions(acc.accountNumber);
+    //getUserTransactions(acc.accountNumber);
 
     const tableRow = `
       <tr>
