@@ -241,12 +241,12 @@ const getUserTransactions = accountNumber => {
 };
 
 const successLogic = data => {
-  if (data.data.length > 0) {
-    tableDiv[0].style.display = "block";
-  } else {
-    accountText.style.display = "block";
-    loader.style.display = "none";
-  }
+  //if (data.data.length > 0) {
+  tableDiv[0].style.display = "block";
+  //} else {
+  accountText.style.display = "block";
+  loader.style.display = "none";
+  //s}
   data.data.map(acc => {
     totalBal += parseFloat(acc.balance);
 
