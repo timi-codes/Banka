@@ -382,12 +382,16 @@ const successAllAccountLogic = (data) => {
 
 const fetchAllAccounts = (url) => {
   fetch(url, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'x-access-token': `Bearer ${token}`,
     },
     mode: 'cors',
-    method: 'GET',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrer: 'no-referrer',
   })
     .then(response => response.json())
     .then((data) => {
