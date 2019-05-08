@@ -291,6 +291,7 @@ const fetchUserAccount = url => {
         case 400:
         case 401:
           // errorTag[0].innerHTML = data.error;
+          console.log(data);
           break;
         default:
           break;
