@@ -413,6 +413,7 @@ const paramsaccountUrl = `${baseUrl}/user/${paramsEmail}/accounts`;
 console.log(accountUrl + " called");
 // if ("/UI/customer/dashboard.html" === window.location.pathname) {
 fetchUserAccount(accountUrl);
+console.log(window.location.pathname);
 // } else if ("/UI/cashier/dashboard.html" === window.location.pathname) {
 //   fetchAllAccounts(`${baseUrl}/accounts`);
 // } else if ("/UI/admin/dashboard.html" === window.location.pathname) {
