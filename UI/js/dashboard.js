@@ -237,7 +237,7 @@ const getUserTransactions = accountNumber => {
     });
 
   content.style.display = "block";
-  loader.style.display = "none";
+  //loader.style.display = "none";
 };
 
 const successLogic = data => {
