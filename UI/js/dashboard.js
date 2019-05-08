@@ -6,11 +6,11 @@ const baseUrl = "https://banka-timi.herokuapp.com/api/v1";
 const content = document.querySelector(".content");
 const tableDiv = document.querySelectorAll(".tableDiv");
 
-//const loader = document.getElementById("loadingText");
+const loader = document.getElementById("loadingText");
 const accountText = document.getElementById("accountText");
 
 content.style.display = "flex";
-//loader.style.display = "block";
+loader.style.display = "block";
 tableDiv[0].style.display = "none";
 if (tableDiv[1]) {
   tableDiv[1].style.display = "none";
@@ -237,23 +237,23 @@ const getUserTransactions = accountNumber => {
     });
 
   content.style.display = "block";
-  //loader.style.display = "none";
+  loader.style.display = "none";
 };
 
 const successLogic = data => {
-  //if (data.data.length > 0) {
-  tableDiv[0].style.display = "block";
-  //} else {
-  accountText.style.display = "block";
-  //loader.style.display = "none";
-  //s}
+  if (data.data.length > 0) {
+    tableDiv[0].style.display = "block";
+  } else {
+    accountText.style.display = "block";
+    loader.style.display = "none";
+  }
   console.log(data);
   data.data.map(acc => {
     totalBal += parseFloat(acc.balance);
 
     const date = new Date(acc.createdOn);
 
-    //getUserTransactions(acc.accountNumber);
+    getUserTransactions(acc.accountNumber);
 
     const tableRow = `
       <tr>
@@ -335,7 +335,7 @@ const deleteAccount = accountNumber => {
 
 const successAllAccountLogic = data => {
   if (data.data.length > 0) {
-    //loader.style.display = "none";
+    loader.style.display = "none";
     tableDiv[0].style.display = "block";
   }
   data.data.map(acc => {
@@ -410,17 +410,15 @@ const paramsEmail = window.location.href.slice(
 
 const paramsaccountUrl = `${baseUrl}/user/${paramsEmail}/accounts`;
 
-console.log(accountUrl + " called");
-// if ("/UI/customer/dashboard.html" === window.location.pathname) {
-fetchUserAccount(accountUrl);
-console.log(window.location.pathname);
-// } else if ("/UI/cashier/dashboard.html" === window.location.pathname) {
-//   fetchAllAccounts(`${baseUrl}/accounts`);
-// } else if ("/UI/admin/dashboard.html" === window.location.pathname) {
-//   fetchAllAccounts(`${baseUrl}/accounts`);
-// } else if (`/UI/admin/customer.html` === window.location.pathname) {
-//   fetchUserAccount(paramsaccountUrl);
-// }
+if ("/Banka/UI/customer/dashboard.html" === window.location.pathname) {
+  fetchUserAccount(accountUrl);
+} else if ("/Banka/UI/cashier/dashboard.html" === window.location.pathname) {
+  fetchAllAccounts(`${baseUrl}/accounts`);
+} else if ("/Banka/UI/admin/dashboard.html" === window.location.pathname) {
+  fetchAllAccounts(`${baseUrl}/accounts`);
+} else if (`/Banka/UI/admin/customer.html` === window.location.pathname) {
+  fetchUserAccount(paramsaccountUrl);
+}
 
 const createUser = document.getElementById("create-user");
 const emailInput = document.getElementById("email");
