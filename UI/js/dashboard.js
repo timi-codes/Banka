@@ -411,15 +411,15 @@ const paramsEmail = window.location.href.slice(
 const paramsaccountUrl = `${baseUrl}/user/${paramsEmail}/accounts`;
 
 console.log(accountUrl);
-if ("/UI/customer/dashboard.html" === window.location.pathname) {
-  fetchUserAccount(accountUrl);
-} else if ("/UI/cashier/dashboard.html" === window.location.pathname) {
-  fetchAllAccounts(`${baseUrl}/accounts`);
-} else if ("/UI/admin/dashboard.html" === window.location.pathname) {
-  fetchAllAccounts(`${baseUrl}/accounts`);
-} else if (`/UI/admin/customer.html` === window.location.pathname) {
-  fetchUserAccount(paramsaccountUrl);
-}
+// if ("/UI/customer/dashboard.html" === window.location.pathname) {
+fetchUserAccount(accountUrl);
+// } else if ("/UI/cashier/dashboard.html" === window.location.pathname) {
+//   fetchAllAccounts(`${baseUrl}/accounts`);
+// } else if ("/UI/admin/dashboard.html" === window.location.pathname) {
+//   fetchAllAccounts(`${baseUrl}/accounts`);
+// } else if (`/UI/admin/customer.html` === window.location.pathname) {
+//   fetchUserAccount(paramsaccountUrl);
+// }
 
 const createUser = document.getElementById("create-user");
 const emailInput = document.getElementById("email");
