@@ -6,11 +6,11 @@ const baseUrl = "https://banka-timi.herokuapp.com/api/v1";
 const content = document.querySelector(".content");
 const tableDiv = document.querySelectorAll(".tableDiv");
 
-const loader = document.getElementById("loadingText");
+//const loader = document.getElementById("loadingText");
 const accountText = document.getElementById("accountText");
 
 content.style.display = "flex";
-loader.style.display = "block";
+//loader.style.display = "block";
 tableDiv[0].style.display = "none";
 if (tableDiv[1]) {
   tableDiv[1].style.display = "none";
@@ -245,7 +245,7 @@ const successLogic = data => {
   tableDiv[0].style.display = "block";
   //} else {
   accountText.style.display = "block";
-  loader.style.display = "none";
+  //loader.style.display = "none";
   //s}
   data.data.map(acc => {
     totalBal += parseFloat(acc.balance);
@@ -333,7 +333,7 @@ const deleteAccount = accountNumber => {
 
 const successAllAccountLogic = data => {
   if (data.data.length > 0) {
-    loader.style.display = "none";
+    //loader.style.display = "none";
     tableDiv[0].style.display = "block";
   }
   data.data.map(acc => {
