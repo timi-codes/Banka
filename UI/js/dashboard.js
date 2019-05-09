@@ -419,13 +419,13 @@ const paramsEmail = window.location.href.slice(window.location.href.indexOf('?')
 
 const paramsaccountUrl = `${baseUrl}/user/${paramsEmail}/accounts`;
 
-if('Banka/UI/customer/dashboard.html'===window.location.pathname){
+if('/Banka/UI/customer/dashboard.html'===window.location.pathname){
   fetchUserAccount(accountUrl);
-}else if('Banka/UI/cashier/dashboard.html'===window.location.pathname){
+}else if('/Banka/UI/cashier/dashboard.html'===window.location.pathname){
   fetchAllAccounts(`${baseUrl}/accounts`);
-}else if('Banka/UI/admin/dashboard.html'===window.location.pathname){
+}else if('/Banka/UI/admin/dashboard.html'===window.location.pathname){
   fetchAllAccounts(`${baseUrl}/accounts`);
-}else if(`Banka/UI/admin/customer.html`===window.location.pathname){
+}else if(`/Banka/UI/admin/customer.html`===window.location.pathname){
   fetchUserAccount(paramsaccountUrl);
 }
 
