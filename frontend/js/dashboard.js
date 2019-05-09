@@ -151,7 +151,9 @@ if (createAccount) {
              console.log(data);
                 showAlert('green', 'Account succesfully created');
                 accountModal.style.display = 'none';
-                window.location.reload(true);
+                setTimeout(() => {
+                  window.location.reload(true);
+                }, 4000);
               break;
             case 400:
             case 401:
@@ -329,7 +331,9 @@ const deleteAccount = (accountNumber) => {
         switch (data.status) {
           case 200:
             showAlert('green', data.message);
-            window.location.reload(true);
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 4000);            
             break;
           case 400:
           case 401:
@@ -494,6 +498,24 @@ if (createUser) {
         });
     }
   };
+}
+
+const search = () => {
+  var input, filter, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  tr = accountTable.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
 }
 
   
