@@ -33,39 +33,41 @@
           <p>Account Balance</p>
           <h3>₦ 1,000,000</h3>
         </div>
-        <button id="account-button">Create a bank account</button>
+        <button id="account-button">Create an account</button>
       </div>
-      <div class="content">
-        <table>
-          <tr>
-            <th class="table-title" colspan="6">My Accounts</th>
-          </tr>
-          <tr>
-            <th class="table-header"></th>
-            <th class="table-header">Type</th>
-            <th class="table-header">Account Number</th>
-            <th class="table-header">Status</th>
-            <th class="table-header">Created On</th>
-            <th class="table-header">Balance</th>
-          </tr>
-          <tr>
-            <td><img src="../img/current-account-logo.svg" /></td>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Active</td>
-            <td>23rd, Feb 2019</td>
-            <td>₦ 1,000,000</td>
-          </tr>
-          <tr>
-            <td><img src="../img/savings-account-logo.svg" /></td>
-            <td>Savings</td>
-            <td>0222010772</td>
-            <td>Active</td>
-            <td>25th, Mar 2019</td>
-            <td>₦ 1,500,000</td>
-          </tr>
-        </table>
-
+      <div class="content" >
+        <div class="tableDiv">
+          <table>
+            <tr>
+              <th class="table-title" colspan="6">My Accounts</th>
+            </tr>
+            <tr>
+              <th class="table-header"></th>
+              <th class="table-header">Type</th>
+              <th class="table-header">Account Number</th>
+              <th class="table-header">Status</th>
+              <th class="table-header">Created On</th>
+              <th class="table-header">Balance</th>
+            </tr>
+            <tr>
+              <td><img src="../img/current-account-logo.svg" /></td>
+              <td>Current</td>
+              <td>0070729295</td>
+              <td>Active</td>
+              <td>23rd, Feb 2019</td>
+              <td>₦ 1,000,000</td>
+            </tr>
+            <tr>
+              <td><img src="../img/savings-account-logo.svg" /></td>
+              <td>Savings</td>
+              <td>0222010772</td>
+              <td>Active</td>
+              <td>25th, Mar 2019</td>
+              <td>₦ 1,500,000</td> 
+            </tr>
+          </table>
+        </div>
+        <div class="tableDiv">
         <table>
           <tr>
             <th class="table-title" colspan="6">Transaction History</th>
@@ -108,17 +110,27 @@
           </tr>
         </table>
       </div>
+      </div> 
       <div id="accountModal" class="modal">
         <div class="onboarding-modal">
           <h3>Create a bank account</h3>
-          <input type="text" id="fname" name="fname" placeholder="First Name" />
-          <input type="text" id="lname" name="lname" placeholder="Last Name" />
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname" placeholder="First Name" value="Timi" disabled/>
+
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname" placeholder="Last Name" value="Tejumola" disabled/>
+
+          <label for="email">Email Address</label>
           <input
             type="text"
             id="email"
             name="email"
             placeholder="Email Address"
+            value="timitejumola@gmail.com"
+            disabled
           />
+
+          <label for="balance">Opening Balance</label>
           <input
             type="text"
             id="balance"
@@ -141,6 +153,8 @@
       <div id="profileModal" class="modal">
         <div class="onboarding-modal">
           <img class="avatar" src="../img/emeka copy@3x.png" />
+
+          <label for="fname">First Name</label>
           <input
             type="text"
             id="fname"
@@ -149,6 +163,7 @@
             placeholder="First Name"
             disabled
           />
+          <label for="lname">Last Name</label>
           <input
             type="text"
             id="lname"
@@ -157,6 +172,8 @@
             placeholder="Last Name"
             disabled
           />
+
+          <label for="email">Email Address</label>
           <input
             type="text"
             id="email"
@@ -165,13 +182,14 @@
             placeholder="Email Address"
             disabled
           />
+          <label for="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
             placeholder="Password"
           />
-
+          <label for="password">Password</label>
           <input
             type="password"
             id="password"

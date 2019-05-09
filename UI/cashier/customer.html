@@ -42,60 +42,62 @@
           <p>CURRENT BALANCE</p>
           <h3>₦ 1,000,000</h3>
         </div>
-        <button class="credit-button" id="credit-button">
-          Credit/Debit Account
-        </button>
       </div>
       <div class="content">
-        <table>
-          <tr>
-            <th class="table-title" colspan="7">Accounts</th>
-          </tr>
-          <tr>
-            <th class="table-header"></th>
-            <th class="table-header">Type</th>
-            <th class="table-header">Account Number</th>
-            <th class="table-header">Status</th>
-            <th class="table-header">Created On</th>
-            <th class="table-header">Balance</th>
-            <th class="action-header">Actions</th>
-          </tr>
-          <tr>
-            <td><img src="../img/current-account-logo.svg" /></td>
-            <td>Current</td>
-            <td>0070729295</td>
-            <td>Active</td>
-            <td>23rd, Feb 2019</td>
-            <td>₦ 1,000,000</td>
-            <td>
-              <div class="ct-select-group ct-js-select-group">
-                <select class="ct-select ct-js-select">
-                  <option>Active</option>
-                  <option>Dormant</option>
-                  <option>Draft</option>
-                </select>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><img src="../img/savings-account-logo.svg" /></td>
-            <td>Savings</td>
-            <td>0222010772</td>
-            <td>Active</td>
-            <td>25th, Mar 2019</td>
-            <td>₦ 1,500,000</td>
-            <td>
-              <div class="ct-select-group ct-js-select-group">
-                <select class="ct-select ct-js-select">
-                  <option>Active</option>
-                  <option>Dormant</option>
-                  <option>Draft</option>
-                </select>
-              </div>
-            </td>
-          </tr>
-        </table>
-
+          <button class="credit-button" id="credit-button">
+          Perform a Transaction
+        </button>
+          <div class="tableDiv">
+          <table>
+            <tr>
+              <th class="table-title" colspan="7">Accounts</th>
+            </tr>
+            <tr>
+              <th class="table-header"></th>
+              <th class="table-header">Type</th>
+              <th class="table-header">Account Number</th>
+              <th class="table-header">Status</th>
+              <th class="table-header">Created On</th>
+              <th class="table-header">Balance</th>
+              <th class="action-header">Actions</th>
+            </tr>
+            <tr>
+              <td><img src="../img/current-account-logo.svg" /></td>
+              <td>Current</td>
+              <td>0070729295</td>
+              <td>Active</td>
+              <td>23rd, Feb 2019</td>
+              <td>₦ 1,000,000</td>
+              <td>
+                <div class="ct-select-group ct-js-select-group">
+                  <select class="ct-select ct-js-select">
+                    <option>Active</option>
+                    <option>Dormant</option>
+                    <option>Draft</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><img src="../img/savings-account-logo.svg" /></td>
+              <td>Savings</td>
+              <td>0222010772</td>
+              <td>Active</td>
+              <td>25th, Mar 2019</td>
+              <td>₦ 1,500,000</td>
+              <td>
+                <div class="ct-select-group ct-js-select-group">
+                  <select class="ct-select ct-js-select">
+                    <option>Active</option>
+                    <option>Dormant</option>
+                    <option>Draft</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="tableDiv">
         <table>
           <tr>
             <th class="table-title" colspan="6">Transaction History</th>
@@ -140,21 +142,27 @@
       </div>
       <div id="accountModal" class="modal">
         <div class="onboarding-modal">
-          <h3>Credit/Debit Account</h3>
+          <h3>Perform a transaction</h3>
+          <label for="fname">First Name</label>
           <input type="text" id="fname" name="fname" placeholder="Full Name" />
           <div class="ct-select-group ct-js-select-group">
             <select class="ct-select ct-js-select">
-              <option selected>Select</option>
-              <option>Current</option>
-              <option>Savings</option>
+              <option selected>Select a transaction type</option>
+              <option>Credit</option>
+              <option>Debit</option>
             </select>
           </div>
+          <label for="amount">Amount</label>
           <input type="text" id="amount" name="amount" placeholder="Amount" />
+
+          <label for="account-bal">Account Balance</label>
           <input
             type="text"
             id="account-bal"
             name="account-bal"
             placeholder="Account Balance"
+            value="100,0000"
+            disabled
           />
 
           <button class="submit">Submit</button>
@@ -162,49 +170,55 @@
       </div>
 
       <div id="profileModal" class="modal">
-        <div class="onboarding-modal">
-          <img class="avatar" src="../img/emeka copy@3x.png" />
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value="Peter"
-            placeholder="First Name"
-            disabled
-          />
-          <input
-            type="text"
-            id="lname"
-            name="lname"
-            value="Tejumola"
-            placeholder="Last Name"
-            disabled
-          />
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value="petertejumola@gmail.com"
-            placeholder="Email Address"
-            disabled
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-          />
-
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Confirm Password"
-          />
-
-          <button class="update">Update</button>
+          <div class="onboarding-modal">
+            <img class="avatar" src="../img/emeka copy@3x.png" />
+  
+            <label for="fname">First Name</label>
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              value="Timi"
+              placeholder="First Name"
+              disabled
+            />
+            <label for="lname">Last Name</label>
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              value="Tejumola"
+              placeholder="Last Name"
+              disabled
+            />
+  
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value="tejumolatimi@gmail.com"
+              placeholder="Email Address"
+              disabled
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Confirm Password"
+            />
+  
+            <button class="update">Update</button>
+          </div>
         </div>
-      </div>
     </div>
   </body>
 
