@@ -49,12 +49,13 @@
         <table id="account-table">
           <tr>
             <th class="table-title" colspan="6">Bank Accounts</th>
-            <th class="account-filter" colspan="1">
+            <th class="account-filter" colspan="2">
               <input
                 type="text"
-                id="search"
+                id="searchInput"
                 name="search"
-                placeholder="Search"
+                placeholder="search by account number"
+                onkeyup="search()"
               />
             </th>
           </tr>

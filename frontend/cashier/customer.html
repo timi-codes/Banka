@@ -71,10 +71,8 @@
             <th class="table-title" colspan="5">Transaction History</th>
             <th class="account-filter" colspan="1">
               <div class="ct-select-group ct-js-select-group">
-                <select class="ct-select ct-js-select">
-                  <option>All</option>
-                  <option>Credit</option>
-                  <option>Savings</option>
+                <select class="ct-select ct-js-select" id="filter-trans" onchange="filter()">
+                  <option value="all" selected>All</option>
                 </select>
               </div>
             </th>
