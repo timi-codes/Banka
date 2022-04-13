@@ -5,7 +5,7 @@
   "main": "API/index.js",
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
