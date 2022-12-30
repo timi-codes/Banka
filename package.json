@@ -36,7 +36,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsdoc": "^4.8.3",
-    "mocha": "^6.0.2",
+    "mocha": "^10.2.0",
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "run-script-os": "^1.0.5",
